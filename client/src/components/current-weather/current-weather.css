@@ -1,5 +1,7 @@
 .container {
     color: white;
+    overflow: hidden;
+    margin-bottom: 100px;
 }
 .top {
     margin-left: 20px;
