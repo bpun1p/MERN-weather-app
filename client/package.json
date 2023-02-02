@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "client",
-=======
-  "name": "my-weather",
->>>>>>> f55b4e38135fddfc78643decb50ea668f188339e
+  "name": "whister-weather-app-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
