@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
+import './current-weather.css';
 
 export default function CurrentWeather() {
     return(
-        <div className='containter'>
+        <div className='container'>
           <div className='top'>
             <div className='location'>
               <h1>Whistler</h1> 
@@ -10,7 +11,7 @@ export default function CurrentWeather() {
             <div className='temp'>
               <p>79°C</p>
             </div>
-            <div className='descripton'>
+            <div className='description'>
               <p>Cloudy</p>
             </div>
           </div>
