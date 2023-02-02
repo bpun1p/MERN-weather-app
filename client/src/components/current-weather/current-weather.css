@@ -1,3 +1,6 @@
+.container {
+    color: white;
+}
 .top {
     margin-left: 20px;
 }
@@ -14,7 +17,7 @@
     float: left;
     display: flex;
     margin-left: 20px;
-    border: solid black 2px;
+    border: solid white 2px;
     border-radius: 10px;
 }
 .feels, .humidity, .winds {
