@@ -1,0 +1,18 @@
+.forecast-container {
+  color: white;
+  height: 100%;
+  margin-top: 200px;
+}
+.forecast {
+  display: flex;
+  float: left;
+  margin-left: 20px;
+  border: solid white 2px;
+  border-radius: 10px;
+}
+.day {
+  margin: auto 50px;
+}
+.temp-var {
+  display: flex;
+}
