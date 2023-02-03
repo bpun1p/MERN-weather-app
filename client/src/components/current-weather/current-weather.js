@@ -7,17 +7,13 @@ export default function CurrentWeather() {
 
   const url = 'https://api.openweathermap.org/data/2.5/weather?q=whistler&units=metric&appid=83797cfb1506fb83d321c15154900352';
   
-  const acquireWeather = () => {
+  useEffect(() => {
     axios.get(url)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
       })
-  };
-
-  useEffect(() => {
-    acquireWeather();
-  }, []);
+    }, []);
 
     return (
       <div className='container'>
