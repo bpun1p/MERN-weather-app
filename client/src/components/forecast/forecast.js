@@ -11,7 +11,6 @@ export default function Forecast() {
   useEffect(() => {
     axios.get(forecastURL)
       .then((res) => {
-        console.log(res.data)
         setData(res.data);
       })
     }, []);
