@@ -20,7 +20,7 @@ export default function Forecast() {
       <div className='forecast-container'>
         <div className='forecast'>
           <div className='day'>
-            <p>Today</p>
+            <p>Tomorrow</p>
             {data.list ? <p>{data.list[0].weather[0].description}</p> : null}
             <div className='temp-var'>
               {data.list ? <p>{data.list[0].main.temp_max.toFixed()}°C</p> : null}
@@ -29,7 +29,7 @@ export default function Forecast() {
             </div>
           </div>
           <div className='day'>
-            <p>Tomorrow</p>
+            <p>Day</p>
             {data.list ? <p>{data.list[1].weather[0].description}</p> : null}
             <div className='temp-var'>
               {data.list ? <p>{data.list[1].main.temp_max.toFixed()}°C</p> : null}
