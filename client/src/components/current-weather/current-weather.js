@@ -5,10 +5,10 @@ import axios from 'axios';
 export default function CurrentWeather() {
   const [data, setData] = useState({});
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=whistler&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
+  const currWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=whistler&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
   
   useEffect(() => {
-    axios.get(url)
+    axios.get(currWeatherUrl)
       .then((res) => {
         setData(res.data);
       })
