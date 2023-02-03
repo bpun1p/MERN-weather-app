@@ -5,14 +5,14 @@ import axios from 'axios';
 export default function Forecast() {
   const [data, setData] = useState({});
   
-  const currWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=whistler&units=metric&appid=83797cfb1506fb83d321c15154900352';
-  const forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=whistler&units=metric&appid=83797cfb1506fb83d321c15154900352&cnt=5';
+  const currWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=whistler&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
+  const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=whistler&units=metric&appid=${process.env.REACT_APP_API_KEY}&cnt=5`;
 
   useEffect(() => {
     axios.get(forecastURL)
-      .then((response) => {
-        console.log(response.data)
-        setData(response.data);
+      .then((res) => {
+        console.log(res.data)
+        setData(res.data);
       })
     }, []);
 
