@@ -1,7 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './current-weather.css';
+import axios from 'axios';
+
 
 export default function CurrentWeather() {
+  const [data, setData] = useState({});
+
+  const url = 'https://api.openweathermap.org/data/2.5/weather?q=whistler&appid=83797cfb1506fb83d321c15154900352';
+  
+  const acquireWeather = () => {
+    axios.get(url)
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+  };
+
+  useEffect(() => {
+    acquireWeather();
+  }, []);
+
     return (
       <div className='container'>
         <div className='top'>
