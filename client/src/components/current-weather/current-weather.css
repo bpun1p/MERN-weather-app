@@ -37,3 +37,6 @@
 .winds p:nth-child(2) {
     font-weight: bold;
 }
+.description p {
+    text-transform: uppercase;
+}
