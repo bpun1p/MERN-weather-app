@@ -10,7 +10,6 @@ export default function CurrentWeather() {
   useEffect(() => {
     axios.get(url)
       .then((response) => {
-        console.log(response.data);
         setData(response.data);
       })
     }, []);
