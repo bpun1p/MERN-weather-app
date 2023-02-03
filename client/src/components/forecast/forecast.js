@@ -6,11 +6,12 @@ export default function Forecast() {
   const [data, setData] = useState({});
   
   const currWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=whistler&units=metric&appid=83797cfb1506fb83d321c15154900352';
-  const forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=whistler&appid=83797cfb1506fb83d321c15154900352&cnt=5';
+  const forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?q=whistler&units=metric&appid=83797cfb1506fb83d321c15154900352&cnt=5';
 
   useEffect(() => {
     axios.get(forecastURL)
       .then((response) => {
+        console.log(response.data)
         setData(response.data);
       })
     }, []);
@@ -20,47 +21,47 @@ export default function Forecast() {
         <div className='forecast'>
           <div className='day'>
             <p>Today</p>
-            <p>Description</p>
+            {data.list ? <p>{data.list[0].weather[0].description}</p> : null}
             <div className='temp-var'>
-              <p>2°C</p>
+              {data.list ? <p>{data.list[0].main.temp_max.toFixed()}°C</p> : null}
               <p>&nbsp;|&nbsp;</p>
-              <p>-1°C</p>
+              {data.list ? <p>{data.list[0].main.temp_min.toFixed()}°C</p> : null}
             </div>
           </div>
           <div className='day'>
             <p>Tomorrow</p>
-            <p>Description</p>
+            {data.list ? <p>{data.list[1].weather[0].description}</p> : null}
             <div className='temp-var'>
-              <p>2°C</p>
+              {data.list ? <p>{data.list[1].main.temp_max.toFixed()}°C</p> : null}
               <p>&nbsp;|&nbsp;</p>
-              <p>-1°C</p>
+              {data.list ? <p>{data.list[1].main.temp_min.toFixed()}°C</p> : null}
             </div>
           </div>
           <div className='day'>
             <p>Day</p>
-            <p>Description</p>
+            {data.list ? <p>{data.list[2].weather[0].description}</p> : null}
             <div className='temp-var'>
-              <p>2°C</p>
+              {data.list ? <p>{data.list[2].main.temp_max.toFixed()}°C</p> : null}
               <p>&nbsp;|&nbsp;</p>
-              <p>-1°C</p>
+              {data.list ? <p>{data.list[2].main.temp_min.toFixed()}°C</p> : null}
             </div>
           </div>
           <div className='day'>
             <p>Day</p>
-            <p>Description</p>
+            {data.list ? <p>{data.list[3].weather[0].description}</p> : null}
             <div className='temp-var'>
-              <p>2°C</p>
+              {data.list ? <p>{data.list[3].main.temp_max.toFixed()}°C</p> : null}
               <p>&nbsp;|&nbsp;</p>
-              <p>-1°C</p>
+              {data.list ? <p>{data.list[3].main.temp_min.toFixed()}°C</p> : null}
             </div>
           </div>
           <div className='day'>
             <p>Day</p>
-            <p>Description</p>
+            {data.list ? <p>{data.list[4].weather[0].description}</p> : null}
             <div className='temp-var'>
-              <p>2°C</p>
+              {data.list ? <p>{data.list[4].main.temp_max.toFixed()}°C</p> : null}
               <p>&nbsp;|&nbsp;</p>
-              <p>-1°C</p>
+              {data.list ? <p>{data.list[4].main.temp_min.toFixed()}°C</p> : null}
             </div>
           </div>
         </div>
