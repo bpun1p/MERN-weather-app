@@ -12,14 +12,12 @@ export default function CurrentWeather() {
   const [data, setData] = useState({});
   const [currentWeather, setCurrentWeather] = useState({});
 
-  const stringToMatch = currentWeather
-
-  const weather = [
-    { "Snow": Snow },
-    { "Clouds": Clouds },
-    { "Rain": Rain },
-    { "Sun": Sun }
-  ];
+  const weather = {
+    "Snow": Snow,
+    "Clouds": Clouds,
+    "Rain": Rain,
+    "Sun": Sun
+  };
   
   useEffect(() => {
     axios.get(currWeatherUrl)
@@ -27,13 +25,6 @@ export default function CurrentWeather() {
         setData(res.data);
         setCurrentWeather(res.data.weather[0].main)
       })
-    }, []);
-
-    const filteredWeather = weather.reduce((previousValue, currentValue) => {
-      if (Object.keys(currentValue).includes(stringToMatch)) {
-        previousValue = Object.values(currentValue);
-      }
-      return previousValue
     }, []);
 
     return (
@@ -44,7 +35,7 @@ export default function CurrentWeather() {
           </div>
           <div className='temp'>
             {data.main ? <p>{data.main.temp.toFixed()}°C</p> : null}
-            <img src={filteredWeather} className='weather-img' alt='weather-img' />
+            <img src={weather[currentWeather]} className='weather-img' alt='weather-img' />
           </div>
           <div className='description'>
             {data.weather ? <p>{data.weather[0].main}</p> : null}
