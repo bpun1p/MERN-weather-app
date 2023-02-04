@@ -1,17 +1,39 @@
 import React, {useEffect, useState} from 'react';
 import './current-weather.css';
 import axios from 'axios';
+import Snow from '../images/snow.png';
+import Clouds from '../images/cloudy.png';
+import Rain from '../images/raining.png';
+import Sun from '../images/sunny.png';
 
 export default function CurrentWeather() {
-  const [data, setData] = useState({});
-
   const currWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=whistler&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
+
+  const [data, setData] = useState({});
+  const [currentWeather, setCurrentWeather] = useState({});
+
+  const stringToMatch = currentWeather
+
+  const weather = [
+    { "Snow": Snow },
+    { "Clouds": Clouds },
+    { "Rain": Rain },
+    { "Sun": Sun }
+  ];
   
   useEffect(() => {
     axios.get(currWeatherUrl)
       .then((res) => {
         setData(res.data);
+        setCurrentWeather(res.data.weather[0].main)
       })
+    }, []);
+
+    const filteredWeather = weather.reduce((previousValue, currentValue) => {
+      if (Object.keys(currentValue).includes(stringToMatch)) {
+        previousValue = Object.values(currentValue);
+      }
+      return previousValue
     }, []);
 
     return (
@@ -21,10 +43,11 @@ export default function CurrentWeather() {
             <h1>{data.name}</h1> 
           </div>
           <div className='temp'>
-          {data.main ? <p>{data.main.temp.toFixed()}°C</p> : null}
+            {data.main ? <p>{data.main.temp.toFixed()}°C</p> : null}
+            <img src={filteredWeather} className='weather-img' alt='weather-img' />
           </div>
           <div className='description'>
-            {data.weather ? <p>{data.weather[0].description}</p> : null}
+            {data.weather ? <p>{data.weather[0].main}</p> : null}
           </div>
         </div>
         <div className='center'>
