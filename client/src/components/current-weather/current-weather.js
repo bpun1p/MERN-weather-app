@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './current-weather.css';
+import Forecast from '../forecast/forecast';
 import axios from 'axios';
 import Snow from '../images/snow.png';
 import Clouds from '../images/cloudy.png';
@@ -52,7 +53,6 @@ export default function CurrentWeather() {
           placeholder='Enter Location'
         />
       </div>
-      {data.name !== undefined && 
       <div>
         <div className='top'>
           <div className='location'>
@@ -80,8 +80,8 @@ export default function CurrentWeather() {
             <p>Winds</p>
           </div>
         </div>
+        <Forecast locale={data.name}/>
       </div> 
-      }
     </div>
   )
 };
