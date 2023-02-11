@@ -6,49 +6,69 @@ import Snow from '../images/snow.png';
 import Clouds from '../images/cloudy.png';
 import Rain from '../images/raining.png';
 import Sun from '../images/sunny.png';
+import Clear from '../images/clear.png'
 
 export default function CurrentWeather() {
   const [data, setData] = useState({});
+  const [forecastData, setForecastData] = useState({});
   const [currentCondition, setCurrentCondition] = useState({});
-  const [locale, setLocale] = useState('');
+  const [location, setLocation] = useState('');
 
   const defaultLocationUrl = `https://api.openweathermap.org/data/2.5/weather?q=vancouver&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
-  const searchedWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locale}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
+  const searchedWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
+  const searchedForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}&cnt=5`;
+
 
   const weather = {
     "Snow": Snow,
     "Clouds": Clouds,
     "Rain": Rain,
-    "Sun": Sun
+    "Sun": Sun,
+    "Clear" : Clear
   };
-  
-  useEffect(() => {
-    axios.get(defaultLocationUrl)
-      .then((res) => {
-        setData(res.data);
-        setCurrentCondition(res.data.weather[0].main)
-      })
-    }, []);
 
-  const findLocale = (event) => {
-    setLocale(event.target.value)
+  useEffect(() => {
+    axios.get(defaultLocationUrl).then((res) => {
+      setData(res.data);
+      setCurrentCondition(res.data.weather[0].main);
+    }).then(() => {
+      getForcastData();
+    })    
+  }, [])
+
+  const searchedLocation = (event) => {
+    setLocation(event.target.value)
     if (event.key === 'Enter') {
       axios.get(searchedWeatherUrl)
       .then((res) => {
         setData(res.data);
         setCurrentCondition(res.data.weather[0].main);
+      }).then(() => {
+        getForcastData();
       })
-      setLocale('');
+      setLocation('');
     }
   };
- 
+
+  const getForcastData = () => {
+    let url = searchedForecastUrl
+    if (location === '') {
+      url = `https://api.openweathermap.org/data/2.5/forecast?q=vancouver&units=metric&appid=${process.env.REACT_APP_API_KEY}&cnt=5`
+    }
+    axios.get(url)
+      .then((res) => {
+        setForecastData(res.data);
+        console.log(res.data)
+      },[])
+  }
+
   return (
     <div className='container'>
       <div className='search'>
         <input 
-          value={locale} 
-          onChange={findLocale}
-          onKeyDown={findLocale} 
+          value={location} 
+          onChange={searchedLocation}
+          onKeyDown={searchedLocation} 
           type='text' 
           placeholder='Enter Location'
         />
@@ -80,7 +100,7 @@ export default function CurrentWeather() {
             <p>Winds</p>
           </div>
         </div>
-        <Forecast locale={data.name}/>
+        <Forecast forecastData={forecastData} />
       </div> 
     </div>
   )
