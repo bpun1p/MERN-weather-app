@@ -2,27 +2,33 @@ import React, { useState }  from 'react';
 import { Link } from 'react-router-dom';
 
 export default function SideNav() {
-  const [toggle, setToggle] = useState(false);
-  const [text, setText] = useState('Hide');
-  const [navStyle, setNavStyle] = useState({display : 'Block'});
+  const [toggleOn, setToggleOn] = useState(false);
+  const [navProps, setNavProps] = useState({
+    text : 'Hide',
+    display : 'Block'
+  });
 
   const toggleNav = () => {
-    setToggle(toggle => !toggle);
-    if (!toggle) {
-      setText(text => 'Show');
-      setNavStyle({...navStyle, display:'None'})
+    setToggleOn(toggle => !toggle);
+    if (!toggleOn) {
+      setNavProps({...navProps,
+        text : 'Show',
+        display : 'None'
+      });
     } else {
-      setText(text => 'Hide');
-      setNavStyle({...navStyle, display:'Block'});
-    }
+        setNavProps({...navProps,
+          text : 'Hide',
+          display : 'Block'
+        });
+      }
   };
 
   return (
     <nav className='side-nav'>
       <div className='nav-toggler'>
-        <button className='toggle-tbn' onClick={toggleNav} id='toggler'>{text}</button>
+        <button className='toggle-tbn' onClick={toggleNav} id='toggler'>{navProps.text}</button>
       </div>
-      <div className='nav-content'style={navStyle}>
+      <div className='nav-content'style={{display: navProps.display}}>
         <div className='dashboard'>
           <Link to='/dashboard'>
             <button type='button' className='dashboard-btn'>Dashboard</button>
