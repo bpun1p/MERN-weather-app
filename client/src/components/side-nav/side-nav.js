@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './side-nav.css';
 
 export default function SideNav() {
@@ -31,29 +31,24 @@ export default function SideNav() {
       </div>
       <div className='side-nav'>
         <div className='dashboard'>
-          <Link to='/dashboard'>
+          <NavLink to='/dashboard'>
             <button type='button' className='dashboard btn'>Dashboard</button>
-          </Link>
+          </NavLink>
         </div>
         <div className='search'>
-          <Link to='/search'>
+          <NavLink to='/search'>
             <button type='button' className='search btn'>Search</button>
-          </Link>
+          </NavLink>
         </div>
         <div className='library'>
-          <Link to='library'>
+          <NavLink to='library'>
             <button type='button' className='library btn'>Library</button>
-          </Link>
+          </NavLink>
         </div>
         <div className='profile'>
-          <Link to='profile'>
+          <NavLink to='profile'>
             <button type='button'className='profile btn'>Profile</button>
-          </Link>
-        </div>
-        <div className="learn-more">
-          <Link to='Learn'>
-            <button type='button' className='learn btn'>Learn</button>
-          </Link>
+          </NavLink>
         </div>
       </div>
     </nav>
