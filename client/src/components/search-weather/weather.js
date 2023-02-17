@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import './current-weather.css';
-import Forecast from '../forecast/forecast';
+import './weather.css';
+import Forecast from './forecast';
 import axios from 'axios';
 import Snow from '../images/snow.png';
 import Clouds from '../images/cloudy.png';
@@ -19,7 +19,7 @@ export default function CurrentWeather() {
   const searchedForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}&cnt=5`;
 
 
-  const weather = {
+  const weatherConditions = {
     "Snow": Snow,
     "Clouds": Clouds,
     "Rain": Rain,
@@ -80,7 +80,7 @@ export default function CurrentWeather() {
           </div>
           <div className='temp'>
             {data.main ? <p>{data.main.temp.toFixed()}°C</p> : null}
-            <img src={weather[currentCondition]} className='weather-img' alt='weather-img' />
+            <img src={weatherConditions[currentCondition]} className='weather-img' alt='weather-img' />
           </div>
           <div className='description'>
             {data.weather ? <p>{data.weather[0].main}</p> : null}
