@@ -9,10 +9,20 @@
   margin-left: 20px;
   border: solid white 2px;
   border-radius: 10px;
+  background-color: rgb(128, 128, 128, 0.6);
 }
 .day {
   margin: auto 50px;
 }
 .temp-var {
   display: flex;
+}
+.forecast-img {
+  height: 50px;
+  width: auto;
+  margin-left: 18%;
+}
+.day p {
+  text-align: center;
+
 }
