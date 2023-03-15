@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import './weather.css';
 import Forecast from './forecast';
 import axios from 'axios';
-import Snow from '../images/snow.png';
-import Clouds from '../images/cloudy.png';
-import Rain from '../images/raining.png';
-import Sun from '../images/sunny.png';
-import Clear from '../images/clear.png'
+import Snow from '../assets/images/snow.png';
+import Clouds from '../assets/images/cloudy.png';
+import Rain from '../assets/images/raining.png';
+import Sun from '../assets/images/sunny.png';
+import Clear from '../assets/images/clear.png'
 
 export default function CurrentWeather() {
   const [data, setData] = useState({});

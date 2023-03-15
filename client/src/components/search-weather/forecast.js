@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import './forecast.css';
 import axios from 'axios';
-import Snow from '../images/snow.png';
-import Clouds from '../images/cloudy.png';
-import Rain from '../images/raining.png';
-import Sun from '../images/sunny.png';
-import Clear from '../images/clear.png'
+import Snow from '../assets/images/snow.png';
+import Clouds from '../assets/images/cloudy.png';
+import Rain from '../assets/images/raining.png';
+import Sun from '../assets/images/sunny.png';
+import Clear from '../assets/images/clear.png'
 
 
 export default function Forecast({forecastData}) {

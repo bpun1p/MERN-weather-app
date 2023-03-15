@@ -30,24 +30,24 @@ export default function SideNav() {
         <button className='toggle-btn' onClick={toggleNav} id='toggler'>{navProps.text}</button>
       </div>
       <div className='side-nav'>
-        <div className='dashboard'>
+        <div className='nav-dashboard'>
           <NavLink to='/dashboard'>
-            <button type='button' className='dashboard btn'>Dashboard</button>
+            <button type='button' className='dashboard-btn btn'>Dashboard</button>
           </NavLink>
         </div>
-        <div className='search'>
+        <div className='nav-search'>
           <NavLink to='/search'>
-            <button type='button' className='search btn'>Search</button>
+            <button type='button' className='search-btn btn'>Search</button>
           </NavLink>
         </div>
-        <div className='library'>
-          <NavLink to='library'>
-            <button type='button' className='library btn'>Library</button>
+        <div className='nav-library'>
+          <NavLink to='/library'>
+            <button type='button' className='library-btn btn'>Library</button>
           </NavLink>
         </div>
-        <div className='profile'>
-          <NavLink to='profile'>
-            <button type='button'className='profile btn'>Profile</button>
+        <div className='nav-profile'>
+          <NavLink to='/profile'>
+            <button type='button'className='profile-btn btn'>Profile</button>
           </NavLink>
         </div>
       </div>
