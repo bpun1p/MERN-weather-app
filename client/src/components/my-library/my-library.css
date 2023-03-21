@@ -20,11 +20,11 @@
   margin-left: 0;
 }
 
-.library-table td {
+.library-table th {
   padding: 8px 0;
 }
 
-.library-table th {
+.library-table tr {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

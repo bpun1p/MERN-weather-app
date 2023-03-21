@@ -58,7 +58,6 @@ export default function CurrentWeather() {
     axios.get(url)
       .then((res) => {
         setForecastData(res.data);
-        console.log(res.data)
       },[])
   }
 
