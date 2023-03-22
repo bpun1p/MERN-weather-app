@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import './weather.css';
 import Forecast from './forecast';
 import axios from 'axios';
-import Snow from '../images/snow.png';
-import Clouds from '../images/cloudy.png';
-import Rain from '../images/raining.png';
-import Sun from '../images/sunny.png';
-import Clear from '../images/clear.png'
+import Snow from '../assets/images/snow.png';
+import Clouds from '../assets/images/cloudy.png';
+import Rain from '../assets/images/raining.png';
+import Sun from '../assets/images/sunny.png';
+import Clear from '../assets/images/clear.png'
 
 export default function CurrentWeather() {
   const [data, setData] = useState({});
@@ -17,7 +17,6 @@ export default function CurrentWeather() {
   const defaultLocationUrl = `https://api.openweathermap.org/data/2.5/weather?q=vancouver&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
   const searchedWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
   const searchedForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}&cnt=5`;
-
 
   const weatherConditions = {
     "Snow": Snow,
@@ -58,7 +57,6 @@ export default function CurrentWeather() {
     axios.get(url)
       .then((res) => {
         setForecastData(res.data);
-        console.log(res.data)
       },[])
   }
 

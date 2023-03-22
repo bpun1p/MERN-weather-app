@@ -1,0 +1,35 @@
+.library {
+  margin-left: 15%;
+  padding-top: 10%;
+  max-width: 70%;
+}
+
+.library-header {
+  width: auto;
+  border-bottom: 1px solid black;
+}
+
+.library-header h1 {
+  margin-bottom: 0;
+  margin-right: 200px;
+}
+
+.library-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-left: 0;
+}
+
+.library-table th {
+  padding: 8px 0;
+}
+
+.library-table tr {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+}
+
+.library-table tr:nth-child(even){background-color: #f2f2f2;}
+
+.library-table tr:hover {background-color: #ddd;}
