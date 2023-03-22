@@ -8,15 +8,25 @@ export default function MyLibrary() {
       city: 'Vancouver',
       weather: '-1 C',
       forecast:'forecast' 
+    },
+    {
+      city: 'Whister',
+      weather: '-1 C',
+      forecast:'forecast' 
+    },
+    {
+      city: 'Calgary',
+      weather: '-1 C',
+      forecast:'forecast' 
     }
   ]);
 
-  useEffect(() => {
-    //axios.get from api
-  })
+  // useEffect(() => {
+  //   //call api for saved data 
+  // })
   
   const loadData = () => {
-    const results = []
+    const results = [];
     if (isData) {
       for (let i=0; i < isData.length; i++) {
         results.push(
@@ -38,12 +48,14 @@ export default function MyLibrary() {
         <h1>Library</h1>
       </div>
       <table className='library-table'>
-        <tr className='table-header'>
-          <th className='city-header'>City</th>
-          <th className='weather-header'>Weather</th>
-          <th className='forecast-header'>Forecast</th>
-        </tr>
-        {isData ? loadData() : null}
+        <tbody>
+          <tr className='table-header'>
+            <th className='city-header'>City</th>
+            <th className='weather-header'>Weather</th>
+            <th className='forecast-header'>Forecast</th>
+          </tr>
+          {isData ? loadData() : null}
+        </tbody>
       </table>
     </div>
   )

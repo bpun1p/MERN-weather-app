@@ -18,7 +18,6 @@ export default function CurrentWeather() {
   const searchedWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
   const searchedForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}&cnt=5`;
 
-
   const weatherConditions = {
     "Snow": Snow,
     "Clouds": Clouds,
