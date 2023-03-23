@@ -13,10 +13,15 @@ export default function CurrentWeather() {
   const [forecastData, setForecastData] = useState({});
   const [currentCondition, setCurrentCondition] = useState({});
   const [location, setLocation] = useState('');
+  const [coordinates, setCoordinates] = useState({
+    latitude : '',
+    longitude : ''
+  });
 
   const defaultLocationUrl = `https://api.openweathermap.org/data/2.5/weather?q=vancouver&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
   const searchedWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
   const searchedForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=${process.env.REACT_APP_API_KEY}&cnt=5`;
+  const searchFromGeolocation = `http://api.openweathermap.org/geo/1.0/reverse?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${process.env.REACT_APP_API_KEY}`;
 
   const weatherConditions = {
     "Snow": Snow,
@@ -26,15 +31,44 @@ export default function CurrentWeather() {
     "Clear" : Clear
   };
 
-  useEffect(() => {
-    axios.get(defaultLocationUrl).then((res) => {
-      setData(res.data);
-      setCurrentCondition(res.data.weather[0].main);
-    }).then(() => {
-      getForcastData();
-    })    
-  }, [])
+  // useEffect(() => {
+  //   axios.get(defaultLocationUrl).then((res) => {
+  //     navigator.geolocation.getCurrentPosition(showPosition);
+  //     if (coordinates.latitude !== '') {
+  //       //fetch method to get from api
+  //     }
+  //     setData(res.data);
+  //     setCurrentCondition(res.data.weather[0].main);
+  //   }).then(() => {
+  //     getForcastData();
+  //   })    
+  // }, [])
 
+
+  useEffect(() => {
+    if (coordinates.latitude && coordinates.longitude !== '') {
+      getLocalWeather();
+    } else {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  },[coordinates])
+
+  const getLocalWeather = () => {
+    axios.get(searchFromGeolocation)
+    .then((res) => {
+      setLocation(res.data[0].name)
+    })
+      .then(() => {
+        axios.get(searchedWeatherUrl).then((res) => {
+          setData(res.data);
+          setCurrentCondition(res.data.weather[0].main);
+        })
+        .then(() => {
+          getForcastData();
+        });
+    })
+  }
+  
   const searchedLocation = (event) => {
     setLocation(event.target.value)
     if (event.key === 'Enter') {
@@ -49,6 +83,15 @@ export default function CurrentWeather() {
     }
   };
 
+  const showPosition = (position) => {
+    if (position.coords.latitude && position.coords.longitude) {
+      setCoordinates({...coordinates,
+        latitude : position.coords.latitude,
+        longitude : position.coords.longitude
+      })
+    }
+  }
+
   const getForcastData = () => {
     let url = searchedForecastUrl
     if (location === '') {
@@ -57,7 +100,7 @@ export default function CurrentWeather() {
     axios.get(url)
       .then((res) => {
         setForecastData(res.data);
-      },[])
+      })
   }
 
   return (
