@@ -10,8 +10,8 @@ import Clear from '../assets/images/clear.png'
 
 export default function CurrentWeather() {
   const [forecastData, setForecastData] = useState({});
-  const appid = process.env.REACT_APP_API_KEY
-  const [location, setLocation] = useState('')
+  const appid = process.env.REACT_APP_API_KEY;
+  const [location, setLocation] = useState('');
   const [data, setData] = useState({
     location: '',
     temp: '',
@@ -20,9 +20,9 @@ export default function CurrentWeather() {
     humidity: '',
     wind_speed: ''
   });
-  const geocodingUrl = new URL(`https://api.openweathermap.org/geo/1.0/reverse?`)
-  const weatherUrl = new URL(`https://api.openweathermap.org/data/2.5/weather?`)
-  const forecastUrl = new URL(`https://api.openweathermap.org/data/2.5/forecast?`)
+  const geocodingUrl = new URL(`https://api.openweathermap.org/geo/1.0/reverse?`);
+  const weatherUrl = new URL(`https://api.openweathermap.org/data/2.5/weather?`);
+  const forecastUrl = new URL(`https://api.openweathermap.org/data/2.5/forecast?`);
 
   const weatherConditions = {
     "Snow": Snow,
@@ -36,7 +36,10 @@ export default function CurrentWeather() {
     if (data.location !== '') {
       getWeatherData();
     } else {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.getCurrentPosition(successCallback, 
+        errorCallback, {
+          timeout: 10_000
+      });
     }
   },[data.location]);
 
@@ -55,21 +58,15 @@ export default function CurrentWeather() {
             feels_like: res.data.main.feels_like.toFixed(),
             humidity: res.data.main.humidity,
             wind_speed: res.data.wind.speed
-          })
+          });
         })
         .then(() => {
           getForcastData();
-        }) 
-    }
-  }
-  
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setData({...data, location : location})
-    event.target.reset();
+        })
+    };
   };
 
-  const showPosition = (position) => {
+  const successCallback = (position) => {
     if (position) {
       geocodingUrl.search = new URLSearchParams({
         lat : position.coords.latitude,
@@ -79,7 +76,14 @@ export default function CurrentWeather() {
       axios.get(geocodingUrl)
         .then((res) => {
           setData({...data, location: res.data[0].name})
-        })
+        });
+    };
+  };
+
+  function errorCallback(error) {
+    console.log(error)
+    if (error.code === error.PERMISSION_DENIED) {
+      setData({...data, location: 'Vancouver'})
     }
   }
 
@@ -97,6 +101,12 @@ export default function CurrentWeather() {
       })
     }
   }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setData({...data, location : location})
+    event.target.reset();
+  };
 
   return (
     <div className='container'>
