@@ -23,7 +23,6 @@ export default function CurrentWeather() {
   const geocodingUrl = new URL(`https://api.openweathermap.org/geo/1.0/reverse?`);
   const weatherUrl = new URL(`https://api.openweathermap.org/data/2.5/weather?`);
   const forecastUrl = new URL(`https://api.openweathermap.org/data/2.5/forecast?`);
-
   const weatherConditions = {
     "Snow": Snow,
     "Clouds": Clouds,
