@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './forecast.css';
-import axios from 'axios';
 import Snow from '../assets/images/snow.png';
 import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
@@ -9,8 +8,8 @@ import Clear from '../assets/images/clear.png'
 
 
 export default function Forecast({forecastData}) {
-  const [data, setData] = useState({});
-
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const date = new Date();
   const weather = {
     "Snow": Snow,
     "Clouds": Clouds,
@@ -19,55 +18,32 @@ export default function Forecast({forecastData}) {
     "Clear" : Clear
   };
 
+  const loadData = () => {
+    let results = [];
+    let day = date.getDay() + 1;
+    if (forecastData) {
+      for (let i=0; i < forecastData.list.length; i++) {
+        results.push(
+          <div className='day'>
+            <p>{days[(day + i) % days.length]}</p>
+            <img src={weather[forecastData.list[i].weather[0].main]} className='forecast-img' alt='forecast-img'/>
+            <div className='temp-var'>
+              <p>{forecastData.list[i].main.temp_max.toFixed()}°C</p>
+              <p>&nbsp;|&nbsp;</p>
+              <p>{forecastData.list[i].main.temp_min.toFixed()}°C</p>
+            </div>
+          </div>
+        )
+      }
+    }
+    return(results);
+  }
+
   return (
     <div className='forecast-container'>
       <div className='forecast'>
-        <div className='day'>
-          <p>Tomorrow</p>
-          {forecastData.list ? <img src={weather[forecastData.list[0].weather[0].main]} className='forecast-img' alt='forecast-img' /> : null};
-          <div className='temp-var'>
-            {forecastData.list ? <p>{forecastData.list[0].main.temp_max.toFixed()}°C</p> : null}
-            <p>&nbsp;|&nbsp;</p>
-            {forecastData.list ? <p>{forecastData.list[0].main.temp_min.toFixed()}°C</p> : null}
-          </div>
-        </div>
-        <div className='day'>
-          <p>Day</p>
-          {forecastData.list ? <img src={weather[forecastData.list[1].weather[0].main]} className='forecast-img' alt='forecast-img' /> : null};
-          <div className='temp-var'>
-            {forecastData.list ? <p>{forecastData.list[1].main.temp_max.toFixed()}°C</p> : null}
-            <p>&nbsp;|&nbsp;</p>
-            {forecastData.list ? <p>{forecastData.list[1].main.temp_min.toFixed()}°C</p> : null}
-          </div>
-        </div>
-        <div className='day'>
-          <p>Day</p>
-          {forecastData.list ? <img src={weather[forecastData.list[2].weather[0].main]} className='forecast-img' alt='forecast-img' /> : null};
-          <div className='temp-var'>
-            {forecastData.list ? <p>{forecastData.list[2].main.temp_max.toFixed()}°C</p> : null}
-            <p>&nbsp;|&nbsp;</p>
-            {forecastData.list ? <p>{forecastData.list[2].main.temp_min.toFixed()}°C</p> : null}
-          </div>
-        </div>
-        <div className='day'>
-          <p>Day</p>
-          {forecastData.list ? <img src={weather[forecastData.list[3].weather[0].main]} className='forecast-img' alt='forecast-img' /> : null};
-          <div className='temp-var'>
-            {forecastData.list ? <p>{forecastData.list[3].main.temp_max.toFixed()}°C</p> : null}
-            <p>&nbsp;|&nbsp;</p>
-            {forecastData.list ? <p>{forecastData.list[3].main.temp_min.toFixed()}°C</p> : null}
-          </div>
-        </div>
-        <div className='day'>
-          <p>Day</p>
-          {forecastData.list ? <img src={weather[forecastData.list[4].weather[0].main]} className='forecast-img' alt='forecast-img' /> : null};
-          <div className='temp-var'>
-            {forecastData.list ? <p>{forecastData.list[4].main.temp_max.toFixed()}°C</p> : null}
-            <p>&nbsp;|&nbsp;</p>
-            {forecastData.list ? <p>{forecastData.list[4].main.temp_min.toFixed()}°C</p> : null}
-          </div>
-        </div>
+        {forecastData ? loadData() : null}
       </div>
     </div>
   )
-}
+};

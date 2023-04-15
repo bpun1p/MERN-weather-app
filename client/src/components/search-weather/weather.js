@@ -9,7 +9,7 @@ import Sun from '../assets/images/sunny.png';
 import Clear from '../assets/images/clear.png'
 
 export default function CurrentWeather() {
-  const [forecastData, setForecastData] = useState({});
+  const [forecastData, setForecastData] = useState();
   const appid = process.env.REACT_APP_API_KEY;
   const [location, setLocation] = useState('');
   const [data, setData] = useState({
@@ -148,7 +148,7 @@ export default function CurrentWeather() {
             <p>Winds</p>
           </div>
         </div>
-        <Forecast forecastData={forecastData} />
+        {forecastData && <Forecast forecastData={forecastData}/>}
       </div> 
     </div>
   )
