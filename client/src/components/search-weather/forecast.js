@@ -6,7 +6,6 @@ import Rain from '../assets/images/raining.png';
 import Sun from '../assets/images/sunny.png';
 import Clear from '../assets/images/clear.png'
 
-
 export default function Forecast({forecastData}) {
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const date = new Date();
@@ -20,12 +19,12 @@ export default function Forecast({forecastData}) {
 
   const loadData = () => {
     let results = [];
-    let day = date.getDay() + 1;
+    let nextDay = date.getDay() + 1;
     if (forecastData) {
       for (let i=0; i < forecastData.list.length; i++) {
         results.push(
           <div className='day'>
-            <p>{days[(day + i) % days.length]}</p>
+            <p>{days[(nextDay + i) % days.length]}</p>
             <img src={weather[forecastData.list[i].weather[0].main]} className='forecast-img' alt='forecast-img'/>
             <div className='temp-var'>
               <p>{forecastData.list[i].main.temp_max.toFixed()}°C</p>
