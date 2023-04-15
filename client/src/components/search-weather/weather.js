@@ -6,7 +6,7 @@ import Snow from '../assets/images/snow.png';
 import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
 import Sun from '../assets/images/sunny.png';
-import Clear from '../assets/images/clear.png'
+import Clear from '../assets/images/clear.png';
 
 export default function CurrentWeather() {
   const [forecastData, setForecastData] = useState();
@@ -83,8 +83,8 @@ export default function CurrentWeather() {
     console.log(error)
     if (error.code === error.PERMISSION_DENIED) {
       setData({...data, location: 'Vancouver'})
-    }
-  }
+    };
+  };
 
   const getForcastData = () => {
     if (data.location !== '') {
