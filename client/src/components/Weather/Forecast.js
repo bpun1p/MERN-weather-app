@@ -1,10 +1,10 @@
 import React from 'react';
-import './forecast.css';
-import Snow from '../assets/images/snow.png';
-import Clouds from '../assets/images/cloudy.png';
-import Rain from '../assets/images/raining.png';
-import Sun from '../assets/images/sunny.png';
-import Clear from '../assets/images/clear.png'
+import './Forecast.css';
+import Snow from '../Assets/Images/snow.png';
+import Clouds from '../Assets/Images/cloudy.png';
+import Rain from '../Assets/Images/raining.png';
+import Sun from '../Assets/Images/sunny.png';
+import Clear from '../Assets/Images/clear.png'
 
 export default function Forecast({forecastData}) {
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
