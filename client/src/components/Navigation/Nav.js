@@ -1,8 +1,8 @@
-import React, { useState }  from 'react';
-import { NavLink } from 'react-router-dom';
-import './side-nav.css';
+import React, {useState}  from 'react';
+import {NavLink} from 'react-router-dom';
+import './Nav.css';
 
-export default function SideNav() {
+export default function Nav() {
   const [toggleOn, setToggleOn] = useState(false);
   const [navProps, setNavProps] = useState({
     text : 'Hide',
