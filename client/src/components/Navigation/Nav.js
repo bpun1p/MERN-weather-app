@@ -1,6 +1,6 @@
 import React, {useState}  from 'react';
 import {NavLink} from 'react-router-dom';
-import './Nav.css';
+import './nav.css';
 
 export default function Nav() {
   const [toggleOn, setToggleOn] = useState(false);
