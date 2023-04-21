@@ -1,7 +1,6 @@
 const express = require('express');
 const PORT = 3000;
 const mongoose = require('mongoose');
-const Location = require('./models/location');
 const locationRoutes = require('./routes/locationRoutes');
 
 //express app
