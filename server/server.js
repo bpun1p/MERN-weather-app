@@ -1,9 +1,15 @@
-const http = require('http');
+const express = require('express');
+const mongoose = require('mongoose');
 
-const server = http.createServer((req, res) => {
-  console.log('request made')
-});
+//express app
+const app = express();
 
-server.listen(3000, 'localhost', () => {
-  console.log('listening for requests on port 3000')
-})
+//connect to mongodb
+const dbURI = 'mongodb+srv://bpun1p:Test-1234@weatherdb.upjrnjk.mongodb.net/weatherDB?retryWrites=true&w=majority'
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
+  .then((result) => app.listen(3000))
+  .catch((err) => console.log(err));
+
+
+
+
