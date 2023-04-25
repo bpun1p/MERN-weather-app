@@ -1,16 +1,19 @@
+import React from 'react';
 import './App.css';
+import Search from './components/weather/weather';
+import Nav from './components/navigation/nav';
+import Library from './components/myLibrary/myLibrary';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-<<<<<<< HEAD
-=======
-        <p>
-        </p>
->>>>>>> f55b4e38135fddfc78643decb50ea668f188339e
-      </header>
-    </div>
+    <BrowserRouter>
+      <Nav/>
+    <Routes>
+      <Route path='/search' element={<Search/>} />
+      <Route path='/library' element={<Library/>} />
+    </Routes>
+    </BrowserRouter>
   );
 }
 
