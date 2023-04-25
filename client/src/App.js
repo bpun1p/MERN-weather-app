@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Search from './components/weather/weather';
-import Nav from './components/navigation/nav';
-import Library from './components/myLibrary/myLibrary';
+import Search from './components/Weather/Weather';
+import Nav from './components/Navigation/Nav';
+import Library from './components/MyLibrary/MyLibrary';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {

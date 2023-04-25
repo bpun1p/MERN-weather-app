@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './myLibrary.css';
+import './MyLibrary.css';
 
 export default function MyLibrary() {
   const [isData, setData] = useState([  //replace /w dummy data

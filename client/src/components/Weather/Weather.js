@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './Weather.css';
-import Forecast from './forecast';
+import Forecast from './Forecast';
 import axios from 'axios';
 import Snow from '../assets/images/snow.png';
 import Clouds from '../assets/images/cloudy.png';
