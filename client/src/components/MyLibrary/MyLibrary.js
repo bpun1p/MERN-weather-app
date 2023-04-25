@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './myLibrary.css';
-import AddBtn from '../utils/addBtn/addBtn';
 
 export default function MyLibrary() {
   const [isData, setData] = useState([  //replace /w dummy data
@@ -47,7 +46,6 @@ export default function MyLibrary() {
       <div className='library-header'>
         <h1>Library</h1>
       </div>
-      <AddBtn/>
       <table className='library-table'>
         <tbody>
           <tr className='table-header'>

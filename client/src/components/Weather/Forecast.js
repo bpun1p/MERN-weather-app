@@ -1,5 +1,5 @@
 import React from 'react';
-import './forecast.css';
+import './Forecast.css';
 import Snow from '../assets/images/snow.png';
 import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
