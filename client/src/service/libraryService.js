@@ -14,7 +14,7 @@ export const deleteLocation = (id) => {
     })
     .catch((err) => {
       return { message : { msgBody : err }, msgError : true };
-    })
+    });
 };
 
 export const saveLocation = (location) => {
