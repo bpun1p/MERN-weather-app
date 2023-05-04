@@ -1,45 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import './MyLibrary.css';
+import {getLocations, deleteLocation} from '../../service/libraryService';
 
 export default function MyLibrary() {
-  const [isData, setData] = useState([  //replace /w dummy data
-    {
-      city: 'Vancouver',
-      weather: '-1 C',
-      forecast:'forecast' 
-    },
-    {
-      city: 'Whister',
-      weather: '-1 C',
-      forecast:'forecast' 
-    },
-    {
-      city: 'Calgary',
-      weather: '-1 C',
-      forecast:'forecast' 
-    }
-  ]);
+  const [locations, setLocations] = useState([]);
+  const [msgErr, setMsgErr] = useState(false);
 
-  // useEffect(() => {
-  //   //call api for saved data 
-  // })
-  
-  const loadData = () => {
-    const results = [];
-    if (isData) {
-      for (let i=0; i < isData.length; i++) {
-        results.push(
-          <tr className='table-data'>
-            <td className='city-data data'>{isData[i].city}</td>
-            <td className='weather-data data'>{isData[i].weather}</td>
-            <td className='forecast-data data'>{isData[i].forecast}</td>
-            <td className='delete-data data'>Delete</td>
-          </tr>
-        )
-      }
+  useEffect(() => {
+    fetchData()
+      .catch(console.error);
+  }, [])
+
+  const fetchData = async () => {
+    try {
+      const locations = await getLocations()
+      setLocations(locations)
+      console.log(locations)
+    } catch(err) {
+        console.log(err.message.msgBody)
+        setMsgErr(true)
     }
-    return(results);
   }
+  
+  // const loadData = () => {
+  //   const results = [];
+  //   if (isData) {
+  //     for (let i=0; i < isData.length; i++) {
+  //       results.push(
+  //         <tr className='table-data'>
+  //           <td className='city-data data'>{isData[i].city}</td>
+  //           <td className='weather-data data'>{isData[i].weather}</td>
+  //           <td className='forecast-data data'>{isData[i].forecast}</td>
+  //           <td className='delete-data data'>Delete</td>
+  //         </tr>
+  //       )
+  //     }
+  //   }
+  //   return(results);
+  // }
 
   return (
     <div className='library'>
@@ -53,7 +51,7 @@ export default function MyLibrary() {
             <th className='weather-header'>Weather</th>
             <th className='forecast-header'>Forecast</th>
           </tr>
-          {isData ? loadData() : null}
+          {/* {isData ? loadData() : null} */}
         </tbody>
       </table>
     </div>

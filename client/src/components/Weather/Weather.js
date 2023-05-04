@@ -7,6 +7,8 @@ import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
 import Sun from '../assets/images/sunny.png';
 import Clear from '../assets/images/clear.png';
+import AddBtn from '../utils/buttons/AddBtn';
+import {saveLocation} from '../../service/libraryService';
 
 export default function Weather() {
   const [forecastData, setForecastData] = useState();
@@ -52,6 +54,7 @@ export default function Weather() {
       axios.get(weatherUrl)
         .then((res) => {
           setData({...data,
+            location: res.data.name,
             temp: res.data.main.temp.toFixed(),
             description: res.data.weather[0].main,
             feels_like: res.data.main.feels_like.toFixed(),
@@ -107,6 +110,10 @@ export default function Weather() {
     event.target.reset();
   };
 
+  const handleClick = () => {
+    saveLocation(data.location)
+  }
+
   return (
     <div className='container'>
       <div className='search'>
@@ -150,6 +157,7 @@ export default function Weather() {
         </div>
         {forecastData && <Forecast forecastData={forecastData}/>}
       </div> 
+      <button onClick={handleClick}>+</button>
     </div>
   )
 };
