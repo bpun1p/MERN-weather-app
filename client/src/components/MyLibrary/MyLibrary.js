@@ -1,27 +1,43 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './MyLibrary.css';
-import {getLocations, deleteLocation} from '../../service/libraryService';
+import { getLocations, deleteLocation } from '../../service/libraryService';
+import { getCurrentWeather, getForcast } from '../../service/weatherService';
 
 export default function MyLibrary() {
-  const [locations, setLocations] = useState([]);
+  const [locations, setLocations] = useState();
   const [msgErr, setMsgErr] = useState(false);
+  const data = [];
 
   useEffect(() => {
-    fetchData()
-      .catch(console.error);
-  }, [])
+    fetchLocations()
+      .then(() => {
+        //how should i iterate through locations array and get weather for each item in the array
+      })
+  }, []) 
 
-  const fetchData = async () => {
+  const getWeather = async (location) => {
+    const currentWeatherData = getCurrentWeather(location);
+    const forecastData = getForcast(location);
+
+    const [currentWeather, forecast] = await Promise.all([currentWeatherData, forecastData]);
+    
+    const weatherData = {
+      currentWeather : currentWeather,
+      forecast : forecast
+    }
+    return weatherData;
+  }
+
+  const fetchLocations = async () => {
     try {
-      const locations = await getLocations()
-      setLocations(locations)
-      console.log(locations)
+      const data = await getLocations()
+      setLocations(data.map(data => data.location))
     } catch(err) {
         console.log(err.message.msgBody)
-        setMsgErr(true)
-    }
-  }
-  
+        setMsgErr(true);
+    } 
+  };
+
   // const loadData = () => {
   //   const results = [];
   //   if (isData) {
