@@ -21,11 +21,12 @@ export const deleteLocation = (id) => {
 };
 
 export const saveLocation = (location) => {
+  console.log(location)
   axios.post(`${currentUrl}/search`, location)
-    .then(() => {
-      return { message : { msgBody : 'Location saved' }, msgError : false};
+    .then((res) => {
+      console.log(res)
     })
     .catch((err) => { 
-      return { message : { msgBody : err }, msgError : true };
+      console.error(err)
   });
 };

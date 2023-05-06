@@ -1,24 +1,17 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MyLibrary.css';
-import { getLocations, deleteLocation } from '../../service/libraryService';
+import { getLocations } from '../../service/libraryService';
 import { getCurrentWeather, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
-  const [locations, setLocations] = useState(null);
-  const [msgErr, setMsgErr] = useState(false);
   const [weatherData, setweatherData] = useState(false);
 
   useEffect(() => {
-    if (!locations) {
       fetchLocations()
         .then((locationsArr) => loadData(locationsArr))
         .then((data) => setweatherData(data))
-        .catch((err) => {
-          setMsgErr(true);
-          console.error(err);
-        })
-    }
-  }, [locations]);
+        .catch((err) => console.error(err));
+        }, []);
 
   const getWeather = async (location) => {
     const currentWeatherData = getCurrentWeather(location);
@@ -31,17 +24,17 @@ export default function MyLibrary() {
       forecast : forecast.value
     };
     return weatherData;
-  }
+  };
 
   const fetchLocations = async () => {
     const data = await getLocations();
-    return data.map(data => data.location)
+    return data.map(data => data.location);
   };
 
   const loadData = async (localeArr) => {
     let weatherDataArr = [];
     for (let i = 0; i < localeArr.length; i++) {
-      weatherDataArr.push( await getWeather(localeArr[i]))
+      weatherDataArr.push( await getWeather(localeArr[i]));
     }
     return weatherDataArr;
   };
@@ -63,12 +56,11 @@ export default function MyLibrary() {
             </td>
             <button className='delete-data data'>Delete</button>
           </tr>
-        )
+        );
       }
-      return results;
-    }
-    return(results);
-  }
+    } return(results);
+  };
+
   return (
     <div className='library'>
       <div className='library-header'>
