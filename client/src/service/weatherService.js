@@ -24,7 +24,7 @@ export const getForecast = async (location) => {
     appid : appid
   })
   try {
-    const forecastData = await axios.get(currentWeatherUrl)
+    const forecastData = await axios.get(forecastUrl)
     return forecastData;
   } catch (err) { console.error(err) }
 };
@@ -36,7 +36,7 @@ export const geocodingService = async (position) => {
     appid : appid
   })
   try {
-    const geoResponse = await axios.get(currentWeatherUrl)
+    const geoResponse = await axios.get(geocodingUrl)
     return geoResponse;
     } catch (err) { console.error(err) }
 };
