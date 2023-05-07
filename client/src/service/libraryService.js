@@ -1,10 +1,13 @@
 import axios from 'axios'
-const currentUrl = window.location.href;
+const currentUrl = 'http://localhost:3000';
 
-export const getLocations = () => {
-  axios.get(`${currentUrl}/library`)
-    .then((res) => {res.json().then((data) => data)})
-    .catch(err => console.error(err));
+export const getLocations = async () => {
+    try {
+      const res = await axios.get(`${currentUrl}/library`)
+      return res.data
+    } catch (err) {
+      return { message : { msgBody : err }, msgError : true };
+    }
 };
 
 export const deleteLocation = (id) => {
@@ -15,14 +18,14 @@ export const deleteLocation = (id) => {
     .catch((err) => {
       return { message : { msgBody : err }, msgError : true };
     });
-};
+}; 
 
 export const saveLocation = (location) => {
-  axios.post(`${currentUrl}/search`, location)
-    .then(() => {
-      return { message : { msgBody : 'Location saved' }, msgError : false};
+  axios.post(`${currentUrl}/search`, {location: location})
+    .then((res) => {
+      console.log(res)
     })
     .catch((err) => { 
-      return { message : { msgBody : err }, msgError : true };
+      console.error(err)
   });
 };

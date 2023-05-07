@@ -7,6 +7,7 @@ import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
 import Sun from '../assets/images/sunny.png';
 import Clear from '../assets/images/clear.png';
+import {saveLocation} from '../../service/libraryService';
 
 export default function Weather() {
   const [forecastData, setForecastData] = useState();
@@ -30,7 +31,6 @@ export default function Weather() {
     "Sun": Sun,
     "Clear": Clear
   };
-
   useEffect(() => {
     if (data.location !== '') {
       getWeatherData();
@@ -41,7 +41,6 @@ export default function Weather() {
       });
     }
   },[data.location]);
-
   const getWeatherData = () => {
     if (data.location !== '') {
       weatherUrl.search = new URLSearchParams({
@@ -52,6 +51,7 @@ export default function Weather() {
       axios.get(weatherUrl)
         .then((res) => {
           setData({...data,
+            location: res.data.name,
             temp: res.data.main.temp.toFixed(),
             description: res.data.weather[0].main,
             feels_like: res.data.main.feels_like.toFixed(),
@@ -64,7 +64,6 @@ export default function Weather() {
         })
     };
   };
-
   const successCallback = (position) => {
     if (position) {
       geocodingUrl.search = new URLSearchParams({
@@ -78,14 +77,12 @@ export default function Weather() {
         });
     };
   };
-
   function errorCallback(error) {
     console.log(error)
     if (error.code === error.PERMISSION_DENIED) {
       setData({...data, location: 'Vancouver'})
     };
   };
-
   const getForcastData = () => {
     if (data.location !== '') {
       forecastUrl.search = new URLSearchParams({
@@ -100,12 +97,15 @@ export default function Weather() {
       })
     }
   }
-
   const onSubmit = (event) => {
     event.preventDefault();
     setData({...data, location : location})
     event.target.reset();
   };
+
+  const handleClick = () => {
+    saveLocation(data.location)
+  }
 
   return (
     <div className='container'>
@@ -150,6 +150,7 @@ export default function Weather() {
         </div>
         {forecastData && <Forecast forecastData={forecastData}/>}
       </div> 
+      <button onClick={handleClick}>+</button>
     </div>
   )
 };
