@@ -7,7 +7,6 @@ import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
 import Sun from '../assets/images/sunny.png';
 import Clear from '../assets/images/clear.png';
-import AddBtn from '../utils/buttons/AddBtn';
 import {saveLocation} from '../../service/libraryService';
 
 export default function Weather() {
@@ -32,7 +31,6 @@ export default function Weather() {
     "Sun": Sun,
     "Clear": Clear
   };
-
   useEffect(() => {
     if (data.location !== '') {
       getWeatherData();
@@ -43,7 +41,6 @@ export default function Weather() {
       });
     }
   },[data.location]);
-
   const getWeatherData = () => {
     if (data.location !== '') {
       weatherUrl.search = new URLSearchParams({
@@ -67,7 +64,6 @@ export default function Weather() {
         })
     };
   };
-
   const successCallback = (position) => {
     if (position) {
       geocodingUrl.search = new URLSearchParams({
@@ -81,14 +77,12 @@ export default function Weather() {
         });
     };
   };
-
   function errorCallback(error) {
     console.log(error)
     if (error.code === error.PERMISSION_DENIED) {
       setData({...data, location: 'Vancouver'})
     };
   };
-
   const getForcastData = () => {
     if (data.location !== '') {
       forecastUrl.search = new URLSearchParams({
@@ -103,7 +97,6 @@ export default function Weather() {
       })
     }
   }
-
   const onSubmit = (event) => {
     event.preventDefault();
     setData({...data, location : location})

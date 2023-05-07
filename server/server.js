@@ -7,8 +7,8 @@ const locationRoutes = require('./routes/locationRoutes');
 const app = express();
 
 //middleweare to read body, parse it and place results in req.bdoy
+app.use(express.urlencoded({extended: true}));       // for application/x-www-form-urlencoded
 app.use(express.json());             // for application/json
-app.use(express.urlencoded());       // for application/x-www-form-urlencoded
 
 //middleware to enable requests between multiple browsers 
 const cors = require('cors')
@@ -21,4 +21,4 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log(err));
 
 //Api routes  
-app.use('/', locationRoutes);
+app.use('/', locationRoutes); 

@@ -1,7 +1,6 @@
 const Location = require('../models/location');
 
 const saveLocation = (req, res) => {
-  console.log(req.body)
   const location = new Location(req.body);
   location.save()
     .then((result) => res.send(result))

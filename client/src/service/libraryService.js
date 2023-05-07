@@ -18,11 +18,10 @@ export const deleteLocation = (id) => {
     .catch((err) => {
       return { message : { msgBody : err }, msgError : true };
     });
-};
+}; 
 
 export const saveLocation = (location) => {
-  console.log(location)
-  axios.post(`${currentUrl}/search`, location)
+  axios.post(`${currentUrl}/search`, {location: location})
     .then((res) => {
       console.log(res)
     })
