@@ -23,7 +23,7 @@ export default function MyLibrary() {
     const [currentWeather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
 
     const weatherData = {
-      id : Math.floor(Math.random() * 10000),
+      id : '',
       currentWeather : currentWeather.value,
       forecast : forecast.value
     };

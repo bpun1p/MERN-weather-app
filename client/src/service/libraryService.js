@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid';
 const currentUrl = 'http://localhost:3000';
 
 export const getLocations = async () => {
@@ -22,10 +21,7 @@ export const deleteLocation = (id) => {
 }; 
 
 export const saveLocation = (location) => {
-  axios.post(`${currentUrl}/search`, {
-    id: uuidv4(),
-    location: location
-  })
+  axios.post(`${currentUrl}/search`, {location: location})
     .then((res) => {
       console.log(res)
     })
