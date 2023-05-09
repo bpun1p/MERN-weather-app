@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './MyLibrary.css';
-import { getLocations } from '../../service/libraryService';
-import { getCurrentWeather, getForecast, deleteLocation } from '../../service/weatherService';
+import { getLocations, deleteLocation } from '../../service/libraryService';
+import { getCurrentWeather, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
   const [locations, setLocations] = useState(null)
@@ -16,14 +16,14 @@ export default function MyLibrary() {
     }
   }, []);
 
-  const getWeather = async (location) => {
-    const currentWeatherData = getCurrentWeather(location);
-    const forecastData = getForecast(location);
+  const getWeather = async (localeArr) => {
+    const currentWeatherData = getCurrentWeather(localeArr.location);
+    const forecastData = getForecast(localeArr.location);
 
     const [currentWeather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
 
     const weatherData = {
-      id : '',
+      id : localeArr._id,
       currentWeather : currentWeather.value,
       forecast : forecast.value
     };
@@ -33,7 +33,7 @@ export default function MyLibrary() {
   const fetchLocations = async () => {
     const data = await getLocations();
     setLocations(data)
-    return data.map(data => data.location);
+    return data;
   };
 
   const loadData = async (localeArr) => {
@@ -45,7 +45,7 @@ export default function MyLibrary() {
   };
 
   const handleDelete = async (index) => {
-    // let deleteLocation = deleteLocation(weatherData[index]);
+    await deleteLocation(weatherData[index].id);
     const newData = weatherData.filter((e) => e.id !== weatherData[index].id)
     setWeatherData(newData);
  };
