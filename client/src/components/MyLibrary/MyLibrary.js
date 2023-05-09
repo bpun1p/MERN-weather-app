@@ -4,19 +4,25 @@ import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrentWeather, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
-  const [locations, setLocations] = useState(null)
+  const [locations, setLocations] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
     if(!locations) {
-      fetchLocations()
-        .then((locationsArr) => loadData(locationsArr))
-        .then((data) => setWeatherData(data))
-        .catch((err) => console.error(err));
+      const displayWeather = async () => {
+        try {
+          let locations = await fetchLocations();
+          let data = await pushWeatherData(locations);
+          setWeatherData(data);
+        } catch (err) {
+          console.error(err);
+        };
+      };
+    displayWeather();
     }
   }, []);
 
-  const getWeather = async (localeArr) => {
+  const fetchWeatherData = async (localeArr) => {
     const currentWeatherData = getCurrentWeather(localeArr.location);
     const forecastData = getForecast(localeArr.location);
 
@@ -31,23 +37,22 @@ export default function MyLibrary() {
   };
 
   const fetchLocations = async () => {
-    const data = await getLocations();
-    setLocations(data)
-    return data;
+    let locations = await getLocations();
+    setLocations(locations);
+    return locations;
   };
 
-  const loadData = async (localeArr) => {
-    let weatherDataArr = [];
-    for (let i = 0; i < localeArr.length; i++) {
-      weatherDataArr.push( await getWeather(localeArr[i]));
-    }
-    return weatherDataArr;
+  const pushWeatherData = async (locations) => {
+    let dataArr = [];
+    for (let i = 0; i < locations.length; i++) {
+      dataArr.push( await fetchWeatherData(locations[i]));
+    };
+    return dataArr;
   };
 
   const handleDelete = async (index) => {
     await deleteLocation(weatherData[index].id);
-    const newData = weatherData.filter((e) => e.id !== weatherData[index].id)
-    setWeatherData(newData);
+    setWeatherData(() => weatherData.filter((e) => e.id !== weatherData[index].id));
  };
 
   const uploadData = () => {
@@ -68,9 +73,11 @@ export default function MyLibrary() {
             <button className='delete-data data' onClick={() => handleDelete(i)}>Delete</button>
           </tr>
         );
-      }
-    } return(results);
+      };
+    }; 
+    return(results);
   };
+
   return (
     <div className='library'>
       <div className='library-header'>
@@ -87,5 +94,5 @@ export default function MyLibrary() {
         </tbody>
       </table>
     </div>
-  )
+  );
 };
