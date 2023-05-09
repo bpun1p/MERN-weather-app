@@ -11,19 +11,19 @@ export const getLocations = async () => {
 };
 
 export const deleteLocation = (id) => {
-  axios.delete(`${currentUrl}/library`, { id: id })
-    .then(() => {
-      return { message : { msgBody : 'Location deleted' }, msgError : false};
+  axios.delete(`${currentUrl}/library`, { data : { data : id }})
+    .then((res) => {
+      console.log(res.status + ' Location Deleted')    
     })
     .catch((err) => {
-      return { message : { msgBody : err }, msgError : true };
+      console.error(err)
     });
 }; 
 
 export const saveLocation = (location) => {
   axios.post(`${currentUrl}/search`, {location: location})
     .then((res) => {
-      console.log(res)
+      console.log(res.status + ' Location Saved')
     })
     .catch((err) => { 
       console.error(err)

@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import './MyLibrary.css';
-import { getLocations } from '../../service/libraryService';
+import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrentWeather, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
-  const [weatherData, setweatherData] = useState(false);
+  const [locations, setLocations] = useState(null)
+  const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
+    if(!locations) {
       fetchLocations()
         .then((locationsArr) => loadData(locationsArr))
-        .then((data) => setweatherData(data))
+        .then((data) => setWeatherData(data))
         .catch((err) => console.error(err));
-        }, []);
+    }
+  }, []);
 
-  const getWeather = async (location) => {
-    const currentWeatherData = getCurrentWeather(location);
-    const forecastData = getForecast(location);
+  const getWeather = async (localeArr) => {
+    const currentWeatherData = getCurrentWeather(localeArr.location);
+    const forecastData = getForecast(localeArr.location);
 
     const [currentWeather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
 
     const weatherData = {
+      id : localeArr._id,
       currentWeather : currentWeather.value,
       forecast : forecast.value
     };
@@ -28,7 +32,8 @@ export default function MyLibrary() {
 
   const fetchLocations = async () => {
     const data = await getLocations();
-    return data.map(data => data.location);
+    setLocations(data)
+    return data;
   };
 
   const loadData = async (localeArr) => {
@@ -38,6 +43,12 @@ export default function MyLibrary() {
     }
     return weatherDataArr;
   };
+
+  const handleDelete = async (index) => {
+    await deleteLocation(weatherData[index].id);
+    const newData = weatherData.filter((e) => e.id !== weatherData[index].id)
+    setWeatherData(newData);
+ };
 
   const uploadData = () => {
     const results = [];
@@ -54,13 +65,12 @@ export default function MyLibrary() {
              {weatherData[i].forecast.data.list[3].main.temp} |&nbsp;
              {weatherData[i].forecast.data.list[4].main.temp} 
             </td>
-            <button className='delete-data data'>Delete</button>
+            <button className='delete-data data' onClick={() => handleDelete(i)}>Delete</button>
           </tr>
         );
       }
     } return(results);
   };
-
   return (
     <div className='library'>
       <div className='library-header'>
