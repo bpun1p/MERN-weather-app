@@ -16,8 +16,9 @@ export default function Forecast({forecastData}) {
     "Sun": Sun,
     "Clear" : Clear
   };
+  
   const loadData = () => {
-    let forecast = forecastData.value.data.list
+    let forecast = forecastData.value.data.list;
     let results = [];
     let nextDay = date.getDay() + 1;
     if (forecastData) {
@@ -32,11 +33,11 @@ export default function Forecast({forecastData}) {
               <p>{forecast[i].main.temp_min.toFixed()}°C</p>
             </div>
           </div>
-        )
-      }
-    }
+        );
+      };
+    };
     return(results);
-  }
+  };
 
   return (
     <div className='forecast-container'>
@@ -44,5 +45,5 @@ export default function Forecast({forecastData}) {
         {forecastData ? loadData() : null}
       </div>
     </div>
-  )
+  );
 };

@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import './Weather.css';
-import Forecast from './Forecast';
+import Forecast from '../forecast/Forecast';
 import Snow from '../assets/images/snow.png';
 import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
@@ -34,11 +34,11 @@ export default function Weather() {
     if (!location) {
       getLocation();
     } else {
-      getWeatherData(location);
+      fetchWeatherData(location);
     }
   }, [location, getLocation]);
 
-  const getWeatherData = async (location) => {
+  const fetchWeatherData = async (location) => {
     const currentWeatherData = getCurrentWeather(location);
     const forecastData = getForecast(location);
 
@@ -117,5 +117,5 @@ export default function Weather() {
       </div> : null}
       {weatherData ? <button onClick={handleSave}>+</button> : null}
     </div>
-  )
+  );
 };
