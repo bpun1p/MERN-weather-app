@@ -1,29 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './MyLibrary.css';
 import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrentWeather, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
-  const [locations, setLocations] = useState(null)
+  const [locations, setLocations] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
 
+  const pushWeatherData = useCallback(async (locations) => {
+    let dataArr = [];
+    for (let i = 0; i < locations.length; i++) {
+      dataArr.push( await fetchWeatherData(locations[i]));
+    };
+    return dataArr;
+  }, []);
+  
   useEffect(() => {
     if(!locations) {
-      fetchLocations()
-        .then((locationsArr) => loadData(locationsArr))
-        .then((data) => setWeatherData(data))
-        .catch((err) => console.error(err));
+      const displayWeather = async () => {
+        try {
+          let locations = await fetchLocations();
+          let data = await pushWeatherData(locations);
+          setWeatherData(data);
+        } catch (err) {
+          console.error(err);
+        };
+      };
+    displayWeather();
     }
-  }, []);
+  }, [locations, pushWeatherData]);
 
-  const getWeather = async (localeArr) => {
-    const currentWeatherData = getCurrentWeather(localeArr.location);
-    const forecastData = getForecast(localeArr.location);
+  const fetchWeatherData = async (locations) => {
+    const currentWeatherData = getCurrentWeather(locations.location);
+    const forecastData = getForecast(locations.location);
 
     const [currentWeather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
 
     const weatherData = {
-      id : localeArr._id,
+      id : locations._id,
       currentWeather : currentWeather.value,
       forecast : forecast.value
     };
@@ -31,23 +45,14 @@ export default function MyLibrary() {
   };
 
   const fetchLocations = async () => {
-    const data = await getLocations();
-    setLocations(data)
-    return data;
-  };
-
-  const loadData = async (localeArr) => {
-    let weatherDataArr = [];
-    for (let i = 0; i < localeArr.length; i++) {
-      weatherDataArr.push( await getWeather(localeArr[i]));
-    }
-    return weatherDataArr;
+    let locations = await getLocations();
+    setLocations(locations);
+    return locations;
   };
 
   const handleDelete = async (index) => {
     await deleteLocation(weatherData[index].id);
-    const newData = weatherData.filter((e) => e.id !== weatherData[index].id)
-    setWeatherData(newData);
+    setWeatherData(() => weatherData.filter((e) => e.id !== weatherData[index].id));
  };
 
   const uploadData = () => {
@@ -55,7 +60,7 @@ export default function MyLibrary() {
     if (weatherData) {
       for (let i=0; i < weatherData.length; i++) {
         results.push(
-          <tr className='table-data'>
+          <tr className='table-data' key={i}>
             <td className='city-data data'>{weatherData[i].currentWeather.data.name}</td>
             <td className='weather-data data'>{weatherData[i].currentWeather.data.main.temp}</td>
             <td className='forecast-data data'>
@@ -68,9 +73,11 @@ export default function MyLibrary() {
             <button className='delete-data data' onClick={() => handleDelete(i)}>Delete</button>
           </tr>
         );
-      }
-    } return(results);
+      };
+    }; 
+    return(results);
   };
+
   return (
     <div className='library'>
       <div className='library-header'>
@@ -87,5 +94,5 @@ export default function MyLibrary() {
         </tbody>
       </table>
     </div>
-  )
+  );
 };

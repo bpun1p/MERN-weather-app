@@ -16,27 +16,28 @@ export default function Forecast({forecastData}) {
     "Sun": Sun,
     "Clear" : Clear
   };
-
+  
   const loadData = () => {
+    let forecast = forecastData.value.data.list;
     let results = [];
     let nextDay = date.getDay() + 1;
     if (forecastData) {
-      for (let i=0; i < forecastData.list.length; i++) {
+      for (let i=0; i < forecast.length; i++) {
         results.push(
-          <div className='day'>
+          <div className='day' key={i}>
             <p>{days[(nextDay + i) % days.length]}</p>
-            <img src={weather[forecastData.list[i].weather[0].main]} className='forecast-img' alt='forecast-img'/>
+            <img src={weather[forecast[i].weather[0].main]} className='forecast-img' alt='forecast-img'/>
             <div className='temp-var'>
-              <p>{forecastData.list[i].main.temp_max.toFixed()}°C</p>
+              <p>{forecast[i].main.temp_max.toFixed()}°C</p>
               <p>&nbsp;|&nbsp;</p>
-              <p>{forecastData.list[i].main.temp_min.toFixed()}°C</p>
+              <p>{forecast[i].main.temp_min.toFixed()}°C</p>
             </div>
           </div>
-        )
-      }
-    }
+        );
+      };
+    };
     return(results);
-  }
+  };
 
   return (
     <div className='forecast-container'>
@@ -44,5 +45,5 @@ export default function Forecast({forecastData}) {
         {forecastData ? loadData() : null}
       </div>
     </div>
-  )
+  );
 };

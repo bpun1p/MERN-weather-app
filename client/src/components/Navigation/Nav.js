@@ -21,7 +21,7 @@ export default function Nav() {
           text : 'Hide',
           class : 'displayed'
         });
-      }
+      };
   };
 
   return (

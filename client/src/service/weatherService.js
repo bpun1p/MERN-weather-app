@@ -9,11 +9,13 @@ export const getCurrentWeather = async (location) => {
     q : location,
     units : 'metric',
     appid : appid
-  })
+  });
   try {
-    const weatherData = await axios.get(currentWeatherUrl)
-    return weatherData;
-  } catch (err) { console.error(err) }
+    const res = await axios.get(currentWeatherUrl);
+    return res;
+  } catch (err) { 
+      console.error(err);
+    };
 };
 
 export const getForecast = async (location) => {
@@ -22,11 +24,13 @@ export const getForecast = async (location) => {
     cnt : '5',
     units : 'metric',
     appid : appid
-  })
+  });
   try {
-    const forecastData = await axios.get(forecastUrl)
-    return forecastData;
-  } catch (err) { console.error(err) }
+    const res = await axios.get(forecastUrl);
+    return res;
+  } catch (err) {
+      console.error(err);
+  };
 };
 
 export const geocodingService = async (position) => {
@@ -34,9 +38,11 @@ export const geocodingService = async (position) => {
     lat : position.coords.latitude,
     lon : position.coords.longitude,
     appid : appid
-  })
+  });
   try {
-    const geoResponse = await axios.get(geocodingUrl)
-    return geoResponse;
-    } catch (err) { console.error(err) }
+    const res = await axios.get(geocodingUrl)
+    return res;
+    } catch (err) { 
+        console.error(err); 
+    };
 };
