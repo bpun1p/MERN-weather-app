@@ -1,4 +1,7 @@
 .dashboard-heading {
+  width: fit-content;
+  margin-left: 0;
+  left: 45%;
   position: relative;
   text-align: center;
   top: 400px;
