@@ -73,49 +73,53 @@ export default function Weather() {
   };
 
   return (
-    <div className='container'>
-      <div className='search'>
-        <form onSubmit={onSubmit}>
-          <input
-              type="text"
-              placeholder="Enter location"
-              onChange={(e) =>{
-                setSearched(e.target.value);
-              }}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      {weatherData ? <div>
-        <div className='top'>
-          <div className='location'>
-            <h1>{weatherData.name}</h1>
+    <>
+      {weatherData ? <div className='container'>
+        <div className='weather-header_elements'>
+          <div className='search'>
+            <form onSubmit={onSubmit}>
+              <input
+                  type="text"
+                  placeholder="Enter location"
+                  onChange={(e) =>{
+                    setSearched(e.target.value);
+                  }}
+              />
+              <button type="submit">Submit</button>
+            </form>
           </div>
-          <div className='temp'>
-            <p>{weatherData.main.temp.toFixed()}°C</p>
-            <img src={weatherConditions[weatherData.weather[0].main]} className='weather-img' alt='weather-img' />
-          </div>
-          <div className='description'>
-            <p>{weatherData.weather.main}</p>
-          </div>
+          <button className='add-loc_btn' onClick={handleSave}>+</button>
         </div>
-        <div className='center'>
-          <div className='feels'>
-            <p>{weatherData.main.feels_like.toFixed()}°C</p>
-            <p>Feels like</p>
+        <div>
+          <div className='top'>
+            <div className='location'>
+              <h1>{weatherData.name}</h1>
+            </div>
+            <div className='temp'>
+              <p>{weatherData.main.temp.toFixed()}°C</p>
+              <img src={weatherConditions[weatherData.weather[0].main]} className='weather-img' alt='weather-img' />
+            </div>
+            <div className='description'>
+              <p>{weatherData.weather.main}</p>
+            </div>
           </div>
-          <div className='humidity'>
-            <p>{weatherData.main.humidity}%</p>
-            <p>Humidity</p>
+          <div className='center'>
+            <div className='feels'>
+              <p>{weatherData.main.feels_like.toFixed()}°C</p>
+              <p>Feels like</p>
+            </div>
+            <div className='humidity'>
+              <p>{weatherData.main.humidity}%</p>
+              <p>Humidity</p>
+            </div>
+            <div className='winds'>
+              <p>{weatherData.wind.speed} MPH</p>
+              <p>Winds</p>
+            </div>
           </div>
-          <div className='winds'>
-            <p>{weatherData.wind.speed} MPH</p>
-            <p>Winds</p>
-          </div>
-        </div>
-        {forecastData && <Forecast forecastData={forecastData}/>}
+          {forecastData && <Forecast forecastData={forecastData}/>}
+        </div> 
       </div> : null}
-      {weatherData ? <button onClick={handleSave}>+</button> : null}
-    </div>
+    </>
   );
 };
