@@ -49,14 +49,14 @@ export default function Weather() {
   };
 
   const successCallback = async (position) => {
-    let foundLocData = await geocodingService(position);
-    let foundLoc = foundLocData.data[0].name;
+    const foundLocData = await geocodingService(position);
+    const foundLoc = foundLocData.data[0].name;
     setLocation(foundLoc)
     return foundLoc;
   };
 
   const errorCallback = (error) => {
-    let fallbackLoc = 'Vancouver';
+    const fallbackLoc = 'Vancouver';
     if (error.code === error.PERMISSION_DENIED) {
       setLocation(fallbackLoc);
     };
