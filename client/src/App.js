@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Search from './components/weather/Weather';
-import Nav from './components/navigation/Nav';
+import Search from './components/Weather/Weather';
+import Nav from './components/Navigation/Nav';
 import Dashboard from './components/dashboard/Dashboard';
 import Profile from './components/profile/Profile';
-import Library from './components/myLibrary/MyLibrary';
+import Library from './components/MyLibrary/MyLibrary';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
