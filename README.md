@@ -46,6 +46,7 @@ To run this project, install it locally using:
 ```
 npm install
 ```
+To run/start project, do the following:
 ```
 Server: 
   cd server
