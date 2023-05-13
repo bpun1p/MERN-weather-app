@@ -51,7 +51,7 @@ export default function Weather() {
   const successCallback = async (position) => {
     const foundLocData = await geocodingService(position);
     const foundLoc = foundLocData.data[0].name;
-    setLocation(foundLoc)
+    setLocation(foundLoc);
     return foundLoc;
   };
 
@@ -64,7 +64,9 @@ export default function Weather() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    setLocation(searched);
+    if (searched) {
+      setLocation(searched);
+    };
     event.target.reset();
   };
 
