@@ -1,28 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import './Weather.css';
-import Forecast from './forecast';
-import axios from 'axios';
+import Forecast from '../forecast/Forecast';
 import Snow from '../assets/images/snow.png';
 import Clouds from '../assets/images/cloudy.png';
 import Rain from '../assets/images/raining.png';
 import Sun from '../assets/images/sunny.png';
 import Clear from '../assets/images/clear.png';
+import { saveLocation } from '../../service/libraryService';
+import { getCurrentWeather, getForecast, geocodingService } from '../../service/weatherService';
 
 export default function Weather() {
-  const [forecastData, setForecastData] = useState();
-  const appid = process.env.REACT_APP_API_KEY;
+  const [forecastData, setForecastData] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState('');
-  const [data, setData] = useState({
-    location: '',
-    temp: '',
-    description: '',
-    feels_like: '',
-    humidity: '',
-    wind_speed: ''
-  });
-  const geocodingUrl = new URL(`https://api.openweathermap.org/geo/1.0/reverse?`);
-  const weatherUrl = new URL(`https://api.openweathermap.org/data/2.5/weather?`);
-  const forecastUrl = new URL(`https://api.openweathermap.org/data/2.5/forecast?`);
+  const [searched, setSearched] = useState('');
+
   const weatherConditions = {
     "Snow": Snow,
     "Clouds": Clouds,
@@ -31,125 +23,104 @@ export default function Weather() {
     "Clear": Clear
   };
 
+  const getLocation = useCallback(async () => {
+    await navigator.geolocation.getCurrentPosition(successCallback, 
+     errorCallback, {
+       timeout: 10_000
+   });
+  }, []);
+
   useEffect(() => {
-    if (data.location !== '') {
-      getWeatherData();
+    if (!location) {
+      getLocation();
     } else {
-      navigator.geolocation.getCurrentPosition(successCallback, 
-        errorCallback, {
-          timeout: 10_000
-      });
+      fetchWeatherData(location);
     }
-  },[data.location]);
+  }, [location, getLocation]);
 
-  const getWeatherData = () => {
-    if (data.location !== '') {
-      weatherUrl.search = new URLSearchParams({
-        q : data.location,
-        units : 'metric',
-        appid : appid
-      })
-      axios.get(weatherUrl)
-        .then((res) => {
-          setData({...data,
-            temp: res.data.main.temp.toFixed(),
-            description: res.data.weather[0].main,
-            feels_like: res.data.main.feels_like.toFixed(),
-            humidity: res.data.main.humidity,
-            wind_speed: res.data.wind.speed
-          });
-        })
-        .then(() => {
-          getForcastData();
-        })
-    };
+  const fetchWeatherData = async (location) => {
+    const currentWeatherData = getCurrentWeather(location);
+    const forecastData = getForecast(location);
+
+    const [weather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
+
+    setForecastData(forecast.value.data.list);
+    setWeatherData(weather.value.data);
   };
 
-  const successCallback = (position) => {
-    if (position) {
-      geocodingUrl.search = new URLSearchParams({
-        lat : position.coords.latitude,
-        lon : position.coords.longitude,
-        appid : appid
-      })
-      axios.get(geocodingUrl)
-        .then((res) => {
-          setData({...data, location: res.data[0].name})
-        });
-    };
+  const successCallback = async (position) => {
+    const foundLocData = await geocodingService(position);
+    const foundLoc = foundLocData.data[0].name;
+    setLocation(foundLoc);
   };
 
-  function errorCallback(error) {
-    console.log(error)
+  const errorCallback = (error) => {
+    const fallbackLoc = 'Vancouver';
     if (error.code === error.PERMISSION_DENIED) {
-      setData({...data, location: 'Vancouver'})
+      setLocation(fallbackLoc);
     };
   };
-
-  const getForcastData = () => {
-    if (data.location !== '') {
-      forecastUrl.search = new URLSearchParams({
-        q : data.location,
-        cnt : '5',
-        units : 'metric',
-        appid : appid
-      })
-      axios.get(forecastUrl)
-      .then((res) => {
-        setForecastData(res.data);
-      })
-    }
-  }
 
   const onSubmit = (event) => {
     event.preventDefault();
-    setData({...data, location : location})
+    if (searched) {
+      setLocation(searched);
+    };
     event.target.reset();
   };
 
+  const handleSave = () => {
+    saveLocation(location);
+  };
+
   return (
-    <div className='container'>
-      <div className='search'>
-        <form onSubmit={onSubmit}>
-          <input
-              type="text"
-              placeholder="Enter location"
-              onChange={ e =>{
-                setLocation(e.target.value);
-              }}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      <div>
-        <div className='top'>
-          <div className='location'>
-            {data.location !== '' ? <h1>{data.location}</h1> : null}
+    <>
+      {weatherData ? <div className='container'>
+        <div className='weather-header_elements'>
+          <div className='search'>
+            <form onSubmit={onSubmit}>
+              <input
+                  type="text"
+                  placeholder="Enter location"
+                  onChange={(e) =>{
+                    setSearched(e.target.value);
+                  }}
+              />
+              <button type="submit">Submit</button>
+            </form>
           </div>
-          <div className='temp'>
-            {data.temp !== '' ? <p>{data.temp}°C</p> : null}
-            <img src={weatherConditions[data.description]} className='weather-img' alt='weather-img' />
-          </div>
-          <div className='description'>
-            {data.description !== '' ? <p>{data.description}</p> : null}
-          </div>
+          <button className='add-loc_btn' onClick={handleSave}>+</button>
         </div>
-        <div className='center'>
-          <div className='feels'>
-            {data.feels_like !== '' ? <p>{data.feels_like}°C</p> : null}
-            <p>Feels like</p>
+        <div>
+          <div className='top'>
+            <div className='location'>
+              <h1>{weatherData.name}</h1>
+            </div>
+            <div className='temp'>
+              <p>{weatherData.main.temp.toFixed()}°C</p>
+              <img src={weatherConditions[weatherData.weather[0].main]} className='weather-img' alt='weather-img' />
+            </div>
+            <div className='description'>
+              <p>{weatherData.weather.main}</p>
+            </div>
           </div>
-          <div className='humidity'>
-            {data.humidity !== '' ? <p>{data.humidity}%</p> : null}
-            <p>Humidity</p>
+          <div className='center'>
+            <div className='feels'>
+              <p>{weatherData.main.feels_like.toFixed()}°C</p>
+              <p>Feels like</p>
+            </div>
+            <div className='humidity'>
+              <p>{weatherData.main.humidity}%</p>
+              <p>Humidity</p>
+            </div>
+            <div className='winds'>
+              <p>{weatherData.wind.speed} MPH</p>
+              <p>Winds</p>
+            </div>
           </div>
-          <div className='winds'>
-            {data.wind_speed !== '' ? <p>{data.wind_speed} MPH</p> : null}
-            <p>Winds</p>
-          </div>
-        </div>
-        {forecastData && <Forecast forecastData={forecastData}/>}
-      </div> 
-    </div>
-  )
+          {forecastData && <Forecast forecastData={forecastData}/>}
+        </div> 
+      </div> : null}
+    </>
+  );
 };

@@ -4,7 +4,7 @@
   position: absolute;
   left: 20;
   transition: 0.5s;
-  margin-top: 25%;
+  top: 350px;
 }
 
 .side-nav {

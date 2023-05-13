@@ -14,8 +14,8 @@ const getLocations = (req, res) => {
 };
 
 const rmLocation = (req, res) => {
-  const id = req.params.id
-  Blog.findByIdAndDelete(id)
+  const id = req.body.data
+  Location.findByIdAndDelete(id)
     .then((result) => res.json(result))
     .catch((err) => res.send(err));
 };

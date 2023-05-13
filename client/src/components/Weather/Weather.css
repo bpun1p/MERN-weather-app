@@ -1,7 +1,12 @@
 .container {
-    color: white;
     overflow: hidden;
-    margin-bottom: 100px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #bcbcbc;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .top {
     margin-left: 20px;
@@ -24,8 +29,9 @@
 }
 .center {
     float: left;
+    color: white;
     display: flex;
-    margin-left: 20px;
+    margin-top: 50px;
     border: solid white 2px;
     border-radius: 10px;
     background-color: rgb(128, 128, 128, 0.6);
@@ -49,5 +55,13 @@
     text-transform: uppercase;
 }
 .location h1, .temp p {
-    color: grey;
+    color: white;
 }
+tr th {
+    pointer-events: none;
+}
+.search {
+    display: inline-block;
+    margin-right: 70%;
+}
+

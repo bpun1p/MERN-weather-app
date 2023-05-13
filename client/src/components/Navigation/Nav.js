@@ -1,6 +1,6 @@
 import React, {useState}  from 'react';
 import {NavLink} from 'react-router-dom';
-import './nav.css';
+import './Nav.css';
 
 export default function Nav() {
   const [toggleOn, setToggleOn] = useState(false);
@@ -21,7 +21,7 @@ export default function Nav() {
           text : 'Hide',
           class : 'displayed'
         });
-      }
+      };
   };
 
   return (
@@ -52,6 +52,5 @@ export default function Nav() {
         </div>
       </div>
     </nav>
-
   );
 }
