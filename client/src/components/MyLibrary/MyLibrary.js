@@ -8,7 +8,7 @@ export default function MyLibrary() {
   const [weatherData, setWeatherData] = useState(null);
 
   const pushWeatherData = useCallback(async (locations) => {
-    let dataArr = [];
+    const dataArr = [];
     for (let i = 0; i < locations.length; i++) {
       dataArr.push( await fetchWeatherData(locations[i]));
     };
@@ -19,15 +19,15 @@ export default function MyLibrary() {
     if(!locations) {
       const displayWeather = async () => {
         try {
-          let locations = await fetchLocations();
-          let data = await pushWeatherData(locations);
+          const locations = await fetchLocations();
+          const data = await pushWeatherData(locations);
           setWeatherData(data);
         } catch (err) {
-          console.error(err);
+            console.error(err);
         };
       };
     displayWeather();
-    }
+    };
   }, [locations, pushWeatherData]);
 
   const fetchWeatherData = async (locations) => {
@@ -45,7 +45,7 @@ export default function MyLibrary() {
   };
 
   const fetchLocations = async () => {
-    let locations = await getLocations();
+    const locations = await getLocations();
     setLocations(locations);
     return locations;
   };

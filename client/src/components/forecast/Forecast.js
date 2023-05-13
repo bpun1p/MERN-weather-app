@@ -18,9 +18,9 @@ export default function Forecast({forecastData}) {
   };
   
   const loadData = () => {
-    let forecast = forecastData.value.data.list;
-    let results = [];
-    let nextDay = date.getDay() + 1;
+    const forecast = forecastData.value.data.list;
+    const results = [];
+    const nextDay = date.getDay() + 1;
     if (forecastData) {
       for (let i=0; i < forecast.length; i++) {
         results.push(
