@@ -44,7 +44,7 @@ export default function Weather() {
 
     const [weather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
 
-    setForecastData(forecast);
+    setForecastData(forecast.value.data.list);
     setWeatherData(weather.value.data);
   };
 
@@ -52,7 +52,6 @@ export default function Weather() {
     const foundLocData = await geocodingService(position);
     const foundLoc = foundLocData.data[0].name;
     setLocation(foundLoc);
-    return foundLoc;
   };
 
   const errorCallback = (error) => {
