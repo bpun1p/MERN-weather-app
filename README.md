@@ -42,18 +42,19 @@ List the ready features here:
 
 
 ## Setup
-To run this project, install it locally using npm:
-
+To run this project, install it locally using:
+```
+npm install
+```
+```
 Server: 
-  - cd server
-  - node server 
-  or 
-  - nodemon server
+  cd server
+  node server or nodemon server
 
  Client: 
-  - cd client
-  - npm start
-
+  cd client
+  npm start
+```
 
 ## Project Status
 Project is: _in progress_ 
