@@ -26,6 +26,7 @@
 - React
 - Node
 - Axios - Post, Get, Delete
+- Third Party API: Openweathermap
 
 
 ## Features
