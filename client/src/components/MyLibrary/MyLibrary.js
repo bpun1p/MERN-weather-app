@@ -62,13 +62,13 @@ export default function MyLibrary() {
         results.push(
           <tr className='table-data' key={i}>
             <td className='city-data data'>{weatherData[i].currentWeather.data.name}</td>
-            <td className='weather-data data'>{weatherData[i].currentWeather.data.main.temp}</td>
+            <td className='weather-data data'>{weatherData[i].currentWeather.data.main.temp.toFixed()}°C</td>
             <td className='forecast-data data'>
-             {weatherData[i].forecast.data.list[0].main.temp} |&nbsp;
-             {weatherData[i].forecast.data.list[1].main.temp} |&nbsp;
-             {weatherData[i].forecast.data.list[2].main.temp} |&nbsp;
-             {weatherData[i].forecast.data.list[3].main.temp} |&nbsp;
-             {weatherData[i].forecast.data.list[4].main.temp} 
+             {weatherData[i].forecast.data.list[0].main.temp.toFixed()}°C |&nbsp;
+             {weatherData[i].forecast.data.list[1].main.temp.toFixed()}°C |&nbsp;
+             {weatherData[i].forecast.data.list[2].main.temp.toFixed()}°C |&nbsp;
+             {weatherData[i].forecast.data.list[3].main.temp.toFixed()}°C |&nbsp;
+             {weatherData[i].forecast.data.list[4].main.temp.toFixed()}°C 
             </td>
             <button className='delete-data data' onClick={() => handleDelete(i)}>Delete</button>
           </tr>
