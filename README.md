@@ -63,6 +63,9 @@ Project is: _in progress_
 
 ## Room for Improvement
 
+Room for improvement:
+- CSS: UI improvements
+
 To do:
 - Authentication
 - Redux
