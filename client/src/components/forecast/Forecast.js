@@ -10,27 +10,26 @@ export default function Forecast({forecastData}) {
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const date = new Date();
   const weather = {
-    "Snow": Snow,
-    "Clouds": Clouds,
-    "Rain": Rain,
-    "Sun": Sun,
-    "Clear" : Clear
+    'Snow': Snow,
+    'Clouds': Clouds,
+    'Rain': Rain,
+    'Sun': Sun,
+    'Clear': Clear
   };
   
   const loadData = () => {
-    const forecast = forecastData.value.data.list;
     const results = [];
     const nextDay = date.getDay() + 1;
     if (forecastData) {
-      for (let i=0; i < forecast.length; i++) {
+      for (let i=0; i < forecastData.length; i++) {
         results.push(
           <div className='day' key={i}>
             <p>{days[(nextDay + i) % days.length]}</p>
-            <img src={weather[forecast[i].weather[0].main]} className='forecast-img' alt='forecast-img'/>
+            <img src={weather[forecastData[i].weather[0].main]} className='forecast-img' alt='forecast-img'/>
             <div className='temp-var'>
-              <p>{forecast[i].main.temp_max.toFixed()}°C</p>
+              <p>{forecastData[i].main.temp_max.toFixed()}°C</p>
               <p>&nbsp;|&nbsp;</p>
-              <p>{forecast[i].main.temp_min.toFixed()}°C</p>
+              <p>{forecastData[i].main.temp_min.toFixed()}°C</p>
             </div>
           </div>
         );
