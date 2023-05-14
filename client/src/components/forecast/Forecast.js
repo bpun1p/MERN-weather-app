@@ -23,10 +23,10 @@ export default function Forecast({forecastData}) {
     if (forecastData) {
       for (let i=0; i < forecastData.length; i++) {
         results.push(
-          <div className='day' key={i}>
+          <div className='day_forecast' key={i}>
             <p>{days[(nextDay + i) % days.length]}</p>
             <img src={weather[forecastData[i].weather[0].main]} className='forecast-img' alt='forecast-img'/>
-            <div className='temp-var'>
+            <div className='temp_forecast'>
               <p>{forecastData[i].main.temp_max.toFixed()}°C</p>
               <p>&nbsp;|&nbsp;</p>
               <p>{forecastData[i].main.temp_min.toFixed()}°C</p>
