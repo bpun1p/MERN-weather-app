@@ -17,7 +17,7 @@ export default function Forecast({forecastData}) {
     'Clear': Clear
   };
   
-  const loadData = () => {
+  const showForecast = () => {
     const results = [];
     const nextDay = date.getDay() + 1;
     if (forecastData) {
@@ -41,7 +41,7 @@ export default function Forecast({forecastData}) {
   return (
     <div className='forecast-container'>
       <div className='forecast'>
-        {forecastData ? loadData() : null}
+        {forecastData ? showForecast() : null}
       </div>
     </div>
   );
