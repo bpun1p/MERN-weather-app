@@ -39,13 +39,10 @@ export default function Weather() {
   }, [location, getLocation]);
 
   const fetchWeatherData = async (location) => {
-    const currentWeatherData = getCurrentWeather(location);
-    const forecastData = getForecast(location);
+    const [current, forecast] = await Promise.all([getCurrentWeather(location), getForecast(location)]);
 
-    const [weather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
-
-    setForecastData(forecast.value.data.list);
-    setWeatherData(weather.value.data);
+    setForecastData(forecast.data.list);
+    setWeatherData(current.data);
   };
 
   const successCallback = async (position) => {

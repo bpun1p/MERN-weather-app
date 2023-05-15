@@ -31,15 +31,12 @@ export default function MyLibrary() {
   }, [locations, pushWeatherData]);
 
   const fetchWeatherData = async (locations) => {
-    const currentWeatherData = getCurrentWeather(locations.location);
-    const forecastData = getForecast(locations.location);
-
-    const [currentWeather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
+    const [current, forecast] = await Promise.all([getCurrentWeather(locations.location), getForecast(locations.location)]);
 
     const weatherData = {
       id : locations._id,
-      currentWeather : currentWeather.value,
-      forecast : forecast.value
+      current : current,
+      forecast : forecast
     };
     return weatherData;
   };
@@ -61,8 +58,8 @@ export default function MyLibrary() {
       for (let i=0; i < weatherData.length; i++) {
         results.push(
           <tr className='table-data' key={i}>
-            <td className='city-data data'>{weatherData[i].currentWeather.data.name}</td>
-            <td className='weather-data data'>{weatherData[i].currentWeather.data.main.temp.toFixed()}°C</td>
+            <td className='city-data data'>{weatherData[i].current.data.name}</td>
+            <td className='weather-data data'>{weatherData[i].current.data.main.temp.toFixed()}°C</td>
             <td className='forecast-data data'>
              {weatherData[i].forecast.data.list[0].main.temp.toFixed()}°C |&nbsp;
              {weatherData[i].forecast.data.list[1].main.temp.toFixed()}°C |&nbsp;
