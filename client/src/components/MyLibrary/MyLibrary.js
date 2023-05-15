@@ -6,10 +6,10 @@ import { getCurrent, getForecast } from '../../service/weatherService';
 export default function MyLibrary() {
   const [weatherData, setWeatherData] = useState(null);
 
-  const pushWeatherData = useCallback(async (locations) => {
+  const accumulateWeatherData = useCallback(async (locations) => {
     const dataArr = [];
     for (let i = 0; i < locations.length; i++) {
-      dataArr.push( await fetchWeatherData(locations[i]));
+      dataArr.push(await fetchWeatherData(locations[i]));
     };
     return dataArr;
   }, []);
@@ -17,15 +17,15 @@ export default function MyLibrary() {
   useEffect(() => {
       const getData = async () => {
         try {
-          const savedLocations = await fetchSavedLocations();
-          const data = await pushWeatherData(savedLocations);
+          const savedLocs = await fetchSavedLocs();
+          const data = await accumulateWeatherData(savedLocs);
           setWeatherData(data);
         } catch (err) {
             console.error(err);
         };
       };
       getData();
-  }, [pushWeatherData]);
+  }, [accumulateWeatherData]);
 
   const fetchWeatherData = async (location) => {
     const [current, forecast] = await Promise.all([getCurrent(location.location), getForecast(location.location)]);
@@ -38,9 +38,9 @@ export default function MyLibrary() {
     return weatherData;
   };
 
-  const fetchSavedLocations = async () => {
-    const locations = await getLocations();
-    return locations;
+  const fetchSavedLocs = async () => {
+    const savedLocs = await getLocations();
+    return savedLocs;
   };
 
   const handleDelete = async (index) => {
@@ -48,7 +48,7 @@ export default function MyLibrary() {
     setWeatherData(() => weatherData.filter((e) => e.id !== weatherData[index].id));
  };
 
-  const showData = () => {
+  const displayData = () => {
     const results = [];
     if (weatherData) {
       for (let i=0; i < weatherData.length; i++) {
@@ -83,7 +83,7 @@ export default function MyLibrary() {
             <th className='weather-header'>Weather</th>
             <th className='forecast-header'>Forecast</th>
           </tr>
-          {weatherData ? showData() : null}
+          {weatherData ? displayData() : null}
         </tbody>
       </table>
     </div>

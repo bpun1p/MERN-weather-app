@@ -35,7 +35,7 @@ export default function Weather() {
       getLocation();
     } else {
       fetchWeatherData(location);
-    }
+    };
   }, [location, getLocation]);
 
   const fetchWeatherData = async (location) => {
