@@ -7,7 +7,7 @@ import Rain from '../assets/images/raining.png';
 import Sun from '../assets/images/sunny.png';
 import Clear from '../assets/images/clear.png';
 import { saveLocation } from '../../service/libraryService';
-import { getCurrentWeather, getForecast, geocodingService } from '../../service/weatherService';
+import { getCurrent, getForecast, geocodingService } from '../../service/weatherService';
 
 export default function Weather() {
   const [forecastData, setForecastData] = useState(null);
@@ -35,17 +35,14 @@ export default function Weather() {
       getLocation();
     } else {
       fetchWeatherData(location);
-    }
+    };
   }, [location, getLocation]);
 
   const fetchWeatherData = async (location) => {
-    const currentWeatherData = getCurrentWeather(location);
-    const forecastData = getForecast(location);
+    const [current, forecast] = await Promise.all([getCurrent(location), getForecast(location)]);
 
-    const [weather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
-
-    setForecastData(forecast.value.data.list);
-    setWeatherData(weather.value.data);
+    setForecastData(forecast.data.list);
+    setWeatherData(current.data);
   };
 
   const successCallback = async (position) => {

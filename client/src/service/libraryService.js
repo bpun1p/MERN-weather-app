@@ -6,7 +6,7 @@ export const getLocations = async () => {
       const res = await axios.get(`${currentUrl}/library`);
       return res.data;
     } catch (err) {
-        return { message : { msgBody : err }, msgError : true };
+      console.error(err);
     };
 };
 

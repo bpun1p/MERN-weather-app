@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import './MyLibrary.css';
 import { getLocations, deleteLocation } from '../../service/libraryService';
-import { getCurrentWeather, getForecast } from '../../service/weatherService';
+import { getCurrent, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
-  const [locations, setLocations] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
 
-  const pushWeatherData = useCallback(async (locations) => {
+  const accumulateWeatherData = useCallback(async (locations) => {
     const dataArr = [];
     for (let i = 0; i < locations.length; i++) {
       dataArr.push( await fetchWeatherData(locations[i]));
@@ -16,37 +15,31 @@ export default function MyLibrary() {
   }, []);
   
   useEffect(() => {
-    if(!locations) {
-      const displayWeather = async () => {
-        try {
-          const locations = await fetchLocations();
-          const data = await pushWeatherData(locations);
-          setWeatherData(data);
-        } catch (err) {
-            console.error(err);
-        };
+    const getData = async () => {
+      try {
+        const savedLocations = await fetchSavedLocations();
+        const data = await accumulateWeatherData(savedLocations);
+        setWeatherData(data);
+      } catch (err) {
+          console.error(err);
       };
-    displayWeather();
     };
-  }, [locations, pushWeatherData]);
+    getData();
+  }, [accumulateWeatherData]);
 
-  const fetchWeatherData = async (locations) => {
-    const currentWeatherData = getCurrentWeather(locations.location);
-    const forecastData = getForecast(locations.location);
-
-    const [currentWeather, forecast] = await Promise.allSettled([currentWeatherData, forecastData]);
+  const fetchWeatherData = async (location) => {
+    const [current, forecast] = await Promise.all([getCurrent(location.location), getForecast(location.location)]);
 
     const weatherData = {
-      id : locations._id,
-      currentWeather : currentWeather.value,
-      forecast : forecast.value
+      id : location._id,
+      current : current,
+      forecast : forecast
     };
     return weatherData;
   };
 
-  const fetchLocations = async () => {
+  const fetchSavedLocations = async () => {
     const locations = await getLocations();
-    setLocations(locations);
     return locations;
   };
 
@@ -55,14 +48,14 @@ export default function MyLibrary() {
     setWeatherData(() => weatherData.filter((e) => e.id !== weatherData[index].id));
  };
 
-  const uploadData = () => {
+  const showData = () => {
     const results = [];
     if (weatherData) {
       for (let i=0; i < weatherData.length; i++) {
         results.push(
           <tr className='table-data' key={i}>
-            <td className='city-data data'>{weatherData[i].currentWeather.data.name}</td>
-            <td className='weather-data data'>{weatherData[i].currentWeather.data.main.temp.toFixed()}°C</td>
+            <td className='city-data data'>{weatherData[i].current.data.name}</td>
+            <td className='weather-data data'>{weatherData[i].current.data.main.temp.toFixed()}°C</td>
             <td className='forecast-data data'>
              {weatherData[i].forecast.data.list[0].main.temp.toFixed()}°C |&nbsp;
              {weatherData[i].forecast.data.list[1].main.temp.toFixed()}°C |&nbsp;
@@ -90,7 +83,7 @@ export default function MyLibrary() {
             <th className='weather-header'>Weather</th>
             <th className='forecast-header'>Forecast</th>
           </tr>
-          {weatherData ? uploadData() : null}
+          {weatherData ? showData() : null}
         </tbody>
       </table>
     </div>

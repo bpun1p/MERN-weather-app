@@ -3,15 +3,15 @@ import {NavLink} from 'react-router-dom';
 import './Nav.css';
 
 export default function Nav() {
-  const [toggleOn, setToggleOn] = useState(false);
+  const [displayNav, setDisplayNav] = useState(false);
   const [navProps, setNavProps] = useState({
     text : 'Hide',
     class : 'displayed'
   });
 
   const toggleNav = () => {
-    setToggleOn(toggle => !toggle);
-    if (!toggleOn) {
+    setDisplayNav(toggle => !toggle);
+    if (!displayNav) {
       setNavProps({...navProps,
         text : 'Show',
         class : 'dismissed'
@@ -47,7 +47,7 @@ export default function Nav() {
         </div>
         <div className='nav-profile'>
           <NavLink to='/profile'>
-            <button type='button'className='profile-btn btn'>Profile</button>
+            <button type='button' className='profile-btn btn'>Profile</button>
           </NavLink>
         </div>
       </div>

@@ -13,7 +13,7 @@ const getLocations = (req, res) => {
     .catch((err) => res.send(err));
 };
 
-const rmLocation = (req, res) => {
+const deleteLocation = (req, res) => {
   const id = req.body.data
   Location.findByIdAndDelete(id)
     .then((result) => res.json(result))
@@ -23,5 +23,5 @@ const rmLocation = (req, res) => {
 module.exports = {
   saveLocation,
   getLocations,
-  rmLocation
+  deleteLocation
 };

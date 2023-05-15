@@ -13,13 +13,6 @@
 * [Contact](#contact)
 
 
-## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-
-
 ## Technologies Used
 - MongoDB
 - Express
@@ -68,6 +61,7 @@ Room for improvement:
 - CSS: UI improvements
 
 To do:
+- Loading indiciator
 - Authentication
 - Redux
 - Filter library

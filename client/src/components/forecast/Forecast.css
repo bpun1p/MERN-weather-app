@@ -11,10 +11,10 @@
   border-radius: 10px;
   background-color: rgb(128, 128, 128, 0.6);
 }
-.day {
+.day_forecast {
   margin: auto 50px;
 }
-.temp-var {
+.forecast-temp {
   display: flex;
 }
 .forecast-img {
@@ -22,7 +22,7 @@
   width: auto;
   margin-left: 18%;
 }
-.day p {
+.day_forecast p {
   text-align: center;
 
 }
