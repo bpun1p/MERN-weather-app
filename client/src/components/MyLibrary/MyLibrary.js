@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import './MyLibrary.css';
 import { getLocations, deleteLocation } from '../../service/libraryService';
-import { getCurrentWeather, getForecast } from '../../service/weatherService';
+import { getCurrent, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
   const [locations, setLocations] = useState(null);
@@ -17,31 +17,31 @@ export default function MyLibrary() {
   
   useEffect(() => {
     if(!locations) {
-      const displayWeather = async () => {
+      const getData = async () => {
         try {
-          const locations = await fetchLocations();
+          const locations = await fetchSavedLocations();
           const data = await pushWeatherData(locations);
           setWeatherData(data);
         } catch (err) {
             console.error(err);
         };
       };
-    displayWeather();
+      getData();
     };
   }, [locations, pushWeatherData]);
 
-  const fetchWeatherData = async (locations) => {
-    const [current, forecast] = await Promise.all([getCurrentWeather(locations.location), getForecast(locations.location)]);
+  const fetchWeatherData = async (location) => {
+    const [current, forecast] = await Promise.all([getCurrent(location.location), getForecast(location.location)]);
 
     const weatherData = {
-      id : locations._id,
+      id : location._id,
       current : current,
       forecast : forecast
     };
     return weatherData;
   };
 
-  const fetchLocations = async () => {
+  const fetchSavedLocations = async () => {
     const locations = await getLocations();
     setLocations(locations);
     return locations;
@@ -52,7 +52,7 @@ export default function MyLibrary() {
     setWeatherData(() => weatherData.filter((e) => e.id !== weatherData[index].id));
  };
 
-  const uploadData = () => {
+  const showData = () => {
     const results = [];
     if (weatherData) {
       for (let i=0; i < weatherData.length; i++) {
@@ -87,7 +87,7 @@ export default function MyLibrary() {
             <th className='weather-header'>Weather</th>
             <th className='forecast-header'>Forecast</th>
           </tr>
-          {weatherData ? uploadData() : null}
+          {weatherData ? showData() : null}
         </tbody>
       </table>
     </div>
