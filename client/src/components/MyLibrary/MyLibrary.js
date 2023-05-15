@@ -4,7 +4,6 @@ import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrent, getForecast } from '../../service/weatherService';
 
 export default function MyLibrary() {
-  const [locations, setLocations] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
 
   const pushWeatherData = useCallback(async (locations) => {
@@ -16,19 +15,17 @@ export default function MyLibrary() {
   }, []);
   
   useEffect(() => {
-    if(!locations) {
       const getData = async () => {
         try {
-          const locations = await fetchSavedLocations();
-          const data = await pushWeatherData(locations);
+          const savedLocations = await fetchSavedLocations();
+          const data = await pushWeatherData(savedLocations);
           setWeatherData(data);
         } catch (err) {
             console.error(err);
         };
       };
       getData();
-    };
-  }, [locations, pushWeatherData]);
+  }, [pushWeatherData]);
 
   const fetchWeatherData = async (location) => {
     const [current, forecast] = await Promise.all([getCurrent(location.location), getForecast(location.location)]);
@@ -43,7 +40,6 @@ export default function MyLibrary() {
 
   const fetchSavedLocations = async () => {
     const locations = await getLocations();
-    setLocations(locations);
     return locations;
   };
 
