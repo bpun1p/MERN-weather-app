@@ -9,22 +9,22 @@ export default function MyLibrary() {
   const accumulateWeatherData = useCallback(async (locations) => {
     const dataArr = [];
     for (let i = 0; i < locations.length; i++) {
-      dataArr.push(await fetchWeatherData(locations[i]));
+      dataArr.push( await fetchWeatherData(locations[i]));
     };
     return dataArr;
   }, []);
   
   useEffect(() => {
-      const getData = async () => {
-        try {
-          const savedLocs = await fetchSavedLocs();
-          const data = await accumulateWeatherData(savedLocs);
-          setWeatherData(data);
-        } catch (err) {
-            console.error(err);
-        };
+    const getData = async () => {
+      try {
+        const savedLocations = await fetchSavedLocations();
+        const data = await accumulateWeatherData(savedLocations);
+        setWeatherData(data);
+      } catch (err) {
+          console.error(err);
       };
-      getData();
+    };
+    getData();
   }, [accumulateWeatherData]);
 
   const fetchWeatherData = async (location) => {
@@ -38,9 +38,9 @@ export default function MyLibrary() {
     return weatherData;
   };
 
-  const fetchSavedLocs = async () => {
-    const savedLocs = await getLocations();
-    return savedLocs;
+  const fetchSavedLocations = async () => {
+    const locations = await getLocations();
+    return locations;
   };
 
   const handleDelete = async (index) => {
@@ -48,7 +48,7 @@ export default function MyLibrary() {
     setWeatherData(() => weatherData.filter((e) => e.id !== weatherData[index].id));
  };
 
-  const displayData = () => {
+  const showData = () => {
     const results = [];
     if (weatherData) {
       for (let i=0; i < weatherData.length; i++) {
@@ -83,7 +83,7 @@ export default function MyLibrary() {
             <th className='weather-header'>Weather</th>
             <th className='forecast-header'>Forecast</th>
           </tr>
-          {weatherData ? displayData() : null}
+          {weatherData ? showData() : null}
         </tbody>
       </table>
     </div>

@@ -61,6 +61,7 @@ Room for improvement:
 - CSS: UI improvements
 
 To do:
+- Loading indiciator
 - Authentication
 - Redux
 - Filter library
