@@ -19,7 +19,7 @@
 - React
 - Node
 - Axios - Post, Get, Delete
-- Third Party API: Openweathermap
+- Third Party API: Openweathermap - current weather API, forecast API, geocoding API
 
 
 ## Features
