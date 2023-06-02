@@ -6,10 +6,10 @@ import { getCurrent, getForecast } from '../../service/weatherService';
 export default function MyLibrary() {
   const [weatherData, setWeatherData] = useState(null);
 
-  const accumulateWeatherData = useCallback(async (locations) => {
+  const accumulateWeatherData = useCallback(async (locData) => {
     const dataArr = [];
-    for (let i = 0; i < locations.length; i++) {
-      dataArr.push( await fetchWeatherData(locations[i]));
+    for (let i = 0; i < locData.length; i++) {
+      dataArr.push( await fetchWeatherData(locData[i]));
     };
     return dataArr;
   }, []);
@@ -17,8 +17,8 @@ export default function MyLibrary() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const savedLocations = await fetchSavedLocations();
-        const data = await accumulateWeatherData(savedLocations);
+        const savedLocData = await fetchSavedLocations();
+        const data = await accumulateWeatherData(savedLocData);
         setWeatherData(data);
       } catch (err) {
           console.error(err);
@@ -27,11 +27,12 @@ export default function MyLibrary() {
     getData();
   }, [accumulateWeatherData]);
 
-  const fetchWeatherData = async (location) => {
-    const [current, forecast] = await Promise.all([getCurrent(location.location), getForecast(location.location)]);
+  const fetchWeatherData = async (locData) => {
+    const location = locData.location;
+    const [current, forecast] = await Promise.all([getCurrent(location), getForecast(location)]);
 
     const weatherData = {
-      id : location._id,
+      id : locData._id,
       current : current,
       forecast : forecast
     };
@@ -43,30 +44,31 @@ export default function MyLibrary() {
     return locations;
   };
 
-  const handleDelete = async (index) => {
-    await deleteLocation(weatherData[index].id);
-    setWeatherData(() => weatherData.filter((e) => e.id !== weatherData[index].id));
- };
+  const handleDelete = async (id) => {
+    await deleteLocation(id);
+    setWeatherData(() => weatherData.filter(e => e.id !== id));
+  };
 
-  const showData = () => {
+  const accumulateForecastData = (forecastData) => {
+    const forecastResults = [];
+    forecastData.forEach(forecast => forecastResults.push(forecast.main.temp.toFixed() + " °C | "))
+    return forecastResults;
+  };
+
+  const showData = () => {  
     const results = [];
     if (weatherData) {
-      for (let i=0; i < weatherData.length; i++) {
+      weatherData.forEach(e => 
         results.push(
-          <tr className='table-data' key={i}>
-            <td className='city-data data'>{weatherData[i].current.data.name}</td>
-            <td className='weather-data data'>{weatherData[i].current.data.main.temp.toFixed()}°C</td>
+          <tr className='table-data' key={e.id}>
+            <td className='city-data data'>{e.current.data.name}</td>
+            <td className='weather-data data'>{e.current.data.main.temp.toFixed()}°C</td>
             <td className='forecast-data data'>
-             {weatherData[i].forecast.data.list[0].main.temp.toFixed()}°C |&nbsp;
-             {weatherData[i].forecast.data.list[1].main.temp.toFixed()}°C |&nbsp;
-             {weatherData[i].forecast.data.list[2].main.temp.toFixed()}°C |&nbsp;
-             {weatherData[i].forecast.data.list[3].main.temp.toFixed()}°C |&nbsp;
-             {weatherData[i].forecast.data.list[4].main.temp.toFixed()}°C 
+            {accumulateForecastData(e.forecast.data.list)}
             </td>
-            <button className='delete-data data' onClick={() => handleDelete(i)}>Delete</button>
+            <button className='delete-data data' onClick={() => handleDelete(e.id)}>Delete</button>
           </tr>
-        );
-      };
+        ));
     }; 
     return(results);
   };
