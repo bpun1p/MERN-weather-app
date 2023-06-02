@@ -12,7 +12,8 @@
   background-color: rgb(128, 128, 128, 0.6);
 }
 .day_forecast {
-  margin: auto 50px;
+  width: 90px;
+  margin: auto 25px;
 }
 .forecast-temp {
   display: flex;

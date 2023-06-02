@@ -45,11 +45,9 @@ export default function MyLibrary() {
   };
 
   const handleDelete = async (id) => {
-    const index = weatherData.findIndex(e => e.id === id);
-
-    await deleteLocation(weatherData[index].id);
+    await deleteLocation(id);
     setWeatherData(() => weatherData.filter(e => e.id !== id));
- };
+  };
 
   const accumulateForecastData = (forecastData) => {
     const forecastResults = [];
@@ -57,7 +55,7 @@ export default function MyLibrary() {
     return forecastResults;
   };
 
-  const showData = () => {                //replaced for index loop with forEach. Instead of drycoding forecast data, loop through the nested forecast array
+  const showData = () => {  
     const results = [];
     if (weatherData) {
       weatherData.forEach(e => 
@@ -70,7 +68,7 @@ export default function MyLibrary() {
             </td>
             <button className='delete-data data' onClick={() => handleDelete(e.id)}>Delete</button>
           </tr>
-        ))
+        ));
     }; 
     return(results);
   };
