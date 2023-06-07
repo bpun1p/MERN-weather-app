@@ -1,10 +1,14 @@
 import React from 'react';
 import './Dashboard.css'
+import Access from '../access/AccessFrame';
 
 export default function Dashboard() {
   return (
-    <div className='dashboard'>
-      <h1 className='dashboard-heading'>Coming Soon</h1>
+    <div>
+      <Access/>
     </div>
+    // <div className='dashboard'>
+    //   <h1 className='dashboard-heading'>Coming Soon</h1>
+    // </div>
   );
 };
