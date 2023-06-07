@@ -1,4 +1,4 @@
-const Location = require('../models/location');
+const Location = require('../models/locationModel');
 
 const saveLocation = (req, res) => {
   const location = new Location(req.body);
