@@ -2,6 +2,7 @@ const express = require('express');
 const PORT = 3000;
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/locationRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 //express app
 const app = express();
@@ -21,4 +22,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log(err));
 
 //Api routes  
-app.use('/', locationRoutes); 
+app.use('/', locationRoutes);
+app.use('/user', userRoutes);
