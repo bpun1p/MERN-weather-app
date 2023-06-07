@@ -1,12 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import './Weather.css';
 import Forecast from '../forecast/Forecast';
-import Snow from '../assets/images/snow.png';
-import Clouds from '../assets/images/cloudy.png';
-import Rain from '../assets/images/raining.png';
-import Sun from '../assets/images/sunny.png';
-import Clear from '../assets/images/clear.png';
-import Haze from '../assets/images/haze.png';
+import { weatherConditions } from '../utils/WeatherConditions/WeatherConditions';
 import { saveLocation } from '../../service/libraryService';
 import { getCurrent, getForecast, geocodingService } from '../../service/weatherService';
 
@@ -15,15 +10,6 @@ export default function Weather() {
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState('');
   const [searched, setSearched] = useState('');
-
-  const weatherConditions = {
-    "Snow": Snow,
-    "Clouds": Clouds,
-    "Rain": Rain,
-    "Sun": Sun,
-    "Clear": Clear,
-    "Haze": Haze
-  };
 
   const getLocation = useCallback(async () => {
     await navigator.geolocation.getCurrentPosition(successCallback, 
