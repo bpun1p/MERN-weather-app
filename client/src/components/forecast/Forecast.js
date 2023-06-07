@@ -22,15 +22,26 @@ export default function Forecast({forecastData}) {
     let i = 0;
     const nextDay = date.getDay() + 1;
     if (forecastData) {
-      forecastData.forEach(e => results.push(
-        <div className='day_forecast' key={e.dt.toString()}>
-          <p>{days[(nextDay + i++) % days.length]}</p>
-          <img src={weather[e.weather[0].main]} className='forecast-img' alt='forecast-img'/>
-          <div className='temp_forecast'>
-            <p>{e.main.temp_max.toFixed()}°C &nbsp;|&nbsp; {e.main.temp_min.toFixed()}°C</p>
+      // forecastData.forEach(e => results.push(
+      //   <div className='day_forecast' key={e.dt.toString()}>
+      //     <p>{days[(nextDay + i++) % days.length]}</p>
+      //     <img src={weather[e.weather[0].main]} className='forecast-img' alt='forecast-img'/>
+      //     <div className='temp_forecast'>
+      //       <p>{e.main.temp_max.toFixed()}°C &nbsp;|&nbsp; {e.main.temp_min.toFixed()}°C</p>
+      //     </div>
+      //   </div>
+      // ));
+      for (let forecast of forecastData) {
+        results.push(
+          <div className='day_forecast' key={forecast.dt.toString()}>
+            <p>{days[(nextDay + i++) % days.length]}</p>
+            <img src={weather[forecast.weather[0].main]} className='forecast-img' alt='forecast-img'/>
+            <div className='temp_forecast'>
+              <p>{forecast.main.temp_max.toFixed()}°C &nbsp;|&nbsp; {forecast.main.temp_min.toFixed()}°C</p>
+            </div>
           </div>
-        </div>
-      ));
+        )
+      };
     };
     return(results);
   };
