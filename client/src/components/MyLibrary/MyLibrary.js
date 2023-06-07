@@ -51,24 +51,26 @@ export default function MyLibrary() {
 
   const accumulateForecastData = (forecastData) => {
     const forecastResults = [];
-    forecastData.forEach(forecast => forecastResults.push(forecast.main.temp.toFixed() + " °C | "))
+    for (let forecast of forecastData) {
+      forecastResults.push((forecast.main.temp.toFixed() + " °C | "))
+    };
     return forecastResults;
   };
 
   const showData = () => {  
     const results = [];
     if (weatherData) {
-      weatherData.forEach(e => 
+      for (let weather of weatherData) {
         results.push(
-          <tr className='table-data' key={e.id}>
-            <td className='city-data data'>{e.current.data.name}</td>
-            <td className='weather-data data'>{e.current.data.main.temp.toFixed()}°C</td>
+          <tr className='table-data' key={weather.id}>
+            <td className='city-data data'>{weather.current.data.name}</td>
+            <td className='weather-data data'>{weather.current.data.main.temp.toFixed()}°C</td>
             <td className='forecast-data data'>
-            {accumulateForecastData(e.forecast.data.list)}
+            {accumulateForecastData(weather.forecast.data.list)}
             </td>
-            <button className='delete-data data' onClick={() => handleDelete(e.id)}>Delete</button>
+            <button className='delete-data data' onClick={() => handleDelete(weather.id)}>Delete</button>
           </tr>
-        ));
+        )};
     }; 
     return(results);
   };
