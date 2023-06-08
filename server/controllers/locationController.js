@@ -1,23 +1,35 @@
 const Location = require('../models/locationModel');
 
-const saveLocation = (req, res) => {
+const saveLocation = async (req, res) => {
   const location = new Location(req.body);
-  location.save()
-    .then((result) => res.send(result))
-    .catch((err) => res.send(err));
+  try {
+    const saved = await location.save();
+    res.status(200).json({ msg : `saved location ${saved.location}`});
+  }
+  catch(err) {
+    res.status(400).json({ msg: err });
+  };
 };
 
-const getLocations = (req, res) => {
-  Location.find().sort({ createdAt: -1 })
-    .then((results) => res.send(results))
-    .catch((err) => res.send(err));
+const getLocations = async (req, res) => {
+  try {
+    locations = await Location.find().sort({ createdAt: -1 });
+    res.send(locations);
+  } 
+  catch(err) {
+    res.status(400).json({ msg: err });
+  };
 };
 
-const deleteLocation = (req, res) => {
+const deleteLocation = async (req, res) => {
   const id = req.body.data
-  Location.findByIdAndDelete(id)
-    .then((result) => res.json(result))
-    .catch((err) => res.send(err));
+  try {
+    const deleted = await Location.findByIdAndDelete(id);
+    res.status(200).json(deleted);
+  }
+  catch(err) {
+    res.status(400).json({ msg: err });
+  };
 };
 
 module.exports = {
