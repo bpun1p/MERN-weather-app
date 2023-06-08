@@ -7,4 +7,4 @@ router.post('/login', userController.loginUser);
 router.post('/register', userController.registerUser);
 
 
-modile.exports = router;
+module.exports = router;
