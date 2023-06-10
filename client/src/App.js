@@ -13,12 +13,12 @@ function App() {
     <BrowserRouter>
       <Access/>
       <Nav/>
-    <Routes>
-      <Route path='/search' element={<Search/>} />
-      <Route path='/library' element={<Library/>} />
-      <Route path='/profile' element={<Profile/>} />
-      <Route path='/dashboard' element={<Dashboard/>} />
-    </Routes>
+      <Routes>
+        <Route path='/search' element={<Search/>} />
+        <Route path='/library' element={<Library/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/dashboard' element={<Dashboard/>} />
+      </Routes>
     </BrowserRouter>
   );
 };

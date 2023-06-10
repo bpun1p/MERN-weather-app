@@ -10,9 +10,9 @@ export default function Access() {
   }
 
   return(
-    <div className='access'>
-        <button onClick={toggleAccessModal}>Login / Sign Up</button>
-        {toggleModal ? <AccessModal/> : null}
-    </div>
+      <div className='access'>
+          <button onClick={toggleAccessModal}>Login / Sign Up</button>
+          {toggleModal ? <AccessModal/> : null}
+      </div>
   )
 };
