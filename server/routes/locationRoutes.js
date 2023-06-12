@@ -1,10 +1,10 @@
 const express = require('express');
-const locationController = require('../controllers/locationController');
+const { saveLocation, getLocations, deleteLocation } = require('../controllers/locationController');
 
 const router = express.Router();
 
-router.post('/search', locationController.saveLocation);
-router.get('/library', locationController.getLocations);
-router.delete('/library', locationController.deleteLocation);
+router.post('/search', saveLocation);
+router.get('/library', getLocations);
+router.delete('/library', deleteLocation);
 
 module.exports = router;
