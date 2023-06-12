@@ -13,3 +13,16 @@ export const userSignup = async (email, password) => {
     return err;
   };
 };
+
+export const userLogin = async (email, password) => {
+  try {
+    const res = await axios.post(`${currentUrl}/user/login`, {
+      email: email,
+      password: password
+    });
+    return res;
+  }
+  catch(err) {
+    return err;
+  };
+};

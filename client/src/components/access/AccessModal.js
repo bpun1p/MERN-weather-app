@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
 import './AccessModal.css';
-import { useSignup } from '../utils/hooks/useSignup';
+import { Signup } from '../utils/access/signup';
+import { Login } from '../utils/access/login';
 
 export default function AccessModal() {
   const [credentials, setCredentials] = useState({
     email: null,
     password: null
-  })
-  const {signup, error, loading} = useSignup()
+  });
+  const {signup, signUpError, loadingSignup} = Signup();
+  const {login, loginError, loadingLogin} = Login();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
     await signup(credentials.email, credentials.password);
-    if (!error) {
-      setCredentials({...credentials, 
-        email: null,
-        password: null
-      })
-    }
-  }
+  };
   
-  const handleLogin = (e) => {
-    e.preventDefault()
-  }
+  const handleLogin = async(e) => {
+    e.preventDefault();
+
+    await login(credentials.email, credentials.password);
+  };
   
   
   return(
@@ -39,9 +38,10 @@ export default function AccessModal() {
         placeholder='Password' 
         onChange={(e) => setCredentials({...credentials, password: e.target.value})}
       /><br/>
-      <button disabled={loading} id='login' onClick={handleLogin} type='submit' className='login-btn'>Login</button>
-      <button  disabled={loading} id='register' onClick={handleSignup} type='submit' className='signup-btn'>Sign Up</button>
-      {error && <div className='error'>{error}</div>}
+      <button disabled={loadingLogin || loadingSignup} id='login' onClick={handleLogin} type='submit' className='login-btn'>Login</button>
+      <button  disabled={loadingSignup || loadingLogin} id='register' onClick={handleSignup} type='submit' className='signup-btn'>Sign Up</button>
+      {loginError && <div className='error'>{loginError}</div>}
+      {signUpError && <div className='error'>{signUpError}</div>}
     </form>
   )
 }
