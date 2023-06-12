@@ -22,7 +22,7 @@ export const Login  = () => {
     localStorage.setItem('user', JSON.stringify(data));
     dispatch({ type: 'LOGIN', payload: data });
     setLoadingLogin(false);
-  }
+  };
 
   return { login, loadingLogin, loginError };
 };

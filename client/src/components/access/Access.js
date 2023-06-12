@@ -6,17 +6,17 @@ import { useAuthContext } from '../utils/access/useAuthContext';
 
 export default function Access() {
   const [toggleModal, setToggleModal] = useState(false);
-  const { user } = useAuthContext()
-  const { logout } = Logout()
+  const { user } = useAuthContext();
+  const { logout } = Logout();
 
 
   const toggleAccessModal = () => {
     setToggleModal(!toggleModal);
-  }
+  };
 
   const handleLogout = () => {
     logout();
-    setToggleModal(!toggleAccessModal)
+    setToggleModal(!toggleAccessModal);
   };
 
   return (
@@ -30,5 +30,5 @@ export default function Access() {
         </>
       }
     </div> 
-)
+  );
 };

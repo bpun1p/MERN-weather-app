@@ -22,7 +22,7 @@ export const Signup = () => {
     localStorage.setItem('user', JSON.stringify(data));
     dispatch({ type: 'LOGIN', payload: data });
     setLoadingSignup(false);
-  }
+  };
 
   return { signup, loadingSignup, signupError };
 };

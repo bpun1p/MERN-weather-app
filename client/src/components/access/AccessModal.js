@@ -43,5 +43,5 @@ export default function AccessModal() {
       {loginError && <div className='error'>{loginError}</div>}
       {signUpError && <div className='error'>{signUpError}</div>}
     </form>
-  )
-}
+  );
+};

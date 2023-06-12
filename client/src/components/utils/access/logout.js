@@ -7,7 +7,7 @@ export const Logout = () => {
     localStorage.removeItem('user');
 
     dispatch({ type: 'LOGOUT' });
-  }
+  };
 
   return { logout };
-}
+};
