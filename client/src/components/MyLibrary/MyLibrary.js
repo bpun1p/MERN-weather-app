@@ -2,9 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react';
 import './MyLibrary.css';
 import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrent, getForecast } from '../../service/weatherService';
+import { useAuthContext } from '../utils/access/useAuthContext';
 
 export default function MyLibrary() {
   const [weatherData, setWeatherData] = useState(null);
+  const { user } = useAuthContext();
 
   const accumulateWeatherData = useCallback(async (locData) => {
     const dataArr = [];
@@ -24,8 +26,12 @@ export default function MyLibrary() {
           console.error(err);
       };
     };
-    getData();
-  }, [accumulateWeatherData]);
+    
+    if (user) {
+      getData();
+    };
+
+  }, [accumulateWeatherData, user]);
 
   const fetchWeatherData = async (locData) => {
     const location = locData.location;
@@ -40,12 +46,16 @@ export default function MyLibrary() {
   };
 
   const fetchSavedLocations = async () => {
-    const locations = await getLocations();
+    const locations = await getLocations(user);
     return locations;
   };
 
   const handleDelete = async (id) => {
-    await deleteLocation(id);
+    if (!user) {
+      console.log('Login Required');
+      return;
+    }
+    await deleteLocation(id, user);
     setWeatherData(() => weatherData.filter(e => e.id !== id));
   };
 
