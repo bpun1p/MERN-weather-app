@@ -1,23 +1,9 @@
-import './loader.css';
+import './Loader.css';
 
-export default function Loader(props) {
+export default function LoadingSpinner(props) {
   return (
-    <div>
-      <div className='lds-container'>
-        <div className='lds-spinner'>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+    <div className="spinner-container">
+      <div className="loading-spinner">
       </div>
     </div>
   );
