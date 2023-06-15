@@ -89,17 +89,19 @@ export default function MyLibrary() {
     <div className='library'>
       <div className='library-header'>
         <h1>Library</h1>
-      </div>
-      <table className='library-table'>
-        <tbody>
-          <tr className='table-header'>
-            <th className='city-header'>City</th>
-            <th className='weather-header'>Weather</th>
-            <th className='forecast-header'>Forecast</th>
-          </tr>
-          {weatherData ? showData() : null}
-        </tbody>
-      </table>
+    </div>
+      {user ? 
+        <table className='library-table'>
+          <tbody>
+            <tr className='table-header'>
+              <th className='city-header'>City</th>
+              <th className='weather-header'>Weather</th>
+              <th className='forecast-header'>Forecast</th>
+            </tr>
+            {weatherData ? showData() : null}
+          </tbody>
+        </table> 
+      : null}
     </div>
   );
 };
