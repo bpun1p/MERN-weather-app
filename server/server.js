@@ -21,6 +21,6 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology
   .then(() => app.listen(PORT, () => console.log(`Listening at: http://localhost:${PORT}`)))
   .catch((err) => console.log(err));
 
-//Api routes  
+//Api routes 
+app.use('/user', userRoutes); 
 app.use('/', locationRoutes);
-app.use('/user', userRoutes);

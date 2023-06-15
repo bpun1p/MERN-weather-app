@@ -1,8 +1,14 @@
 const Location = require('../models/locationModel');
 
 const saveLocation = async (req, res) => {
-  const location = new Location(req.body);
   try {
+    const user_id = req.user._id
+
+    const location = new Location({
+      location: req.body.location, 
+      user_id: user_id
+    });
+    
     const saved = await location.save();
     res.status(200).json({ msg : `saved location ${saved.location}`});
   }
@@ -13,7 +19,9 @@ const saveLocation = async (req, res) => {
 
 const getLocations = async (req, res) => {
   try {
-    locations = await Location.find().sort({ createdAt: -1 });
+    const user_id = req.user._id
+
+    locations = await Location.find({ user_id }).sort({ createdAt: -1 });
     res.send(locations);
   } 
   catch(err) {
