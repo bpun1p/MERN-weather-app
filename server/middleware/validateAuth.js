@@ -3,6 +3,7 @@ const User = require('../models/userModel');
 
 const validateAuth = async (req, res, next) => {
   const { authorization } = req.headers;
+
   if (!authorization) {
     return res.status(401).json({error: 'require authorization token'});
   };
@@ -16,7 +17,7 @@ const validateAuth = async (req, res, next) => {
   }
   catch(err) {
     console.log(error);
-    res.status(401).json({error: 'requiest is not authorized'})
+    res.status(401).json({error: 'request is not authorized'})
   }
 }
 
