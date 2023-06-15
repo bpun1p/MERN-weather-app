@@ -2,9 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react';
 import './MyLibrary.css';
 import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrent, getForecast } from '../../service/weatherService';
+import { useAuthContext } from '../utils/access/useAuthContext';
 
 export default function MyLibrary() {
   const [weatherData, setWeatherData] = useState(null);
+  const { user } = useAuthContext();
 
   const accumulateWeatherData = useCallback(async (locData) => {
     const dataArr = [];
@@ -24,8 +26,16 @@ export default function MyLibrary() {
           console.error(err);
       };
     };
-    getData();
-  }, [accumulateWeatherData]);
+
+    if (user) {
+      getData();
+    };
+
+    return () => {
+      setWeatherData(null);
+      console.log("Unmounted");
+    };
+  }, [accumulateWeatherData, user]);
 
   const fetchWeatherData = async (locData) => {
     const location = locData.location;
@@ -40,12 +50,16 @@ export default function MyLibrary() {
   };
 
   const fetchSavedLocations = async () => {
-    const locations = await getLocations();
+    const locations = await getLocations(user);
     return locations;
   };
 
   const handleDelete = async (id) => {
-    await deleteLocation(id);
+    if (!user) {
+      console.log('Login Required');
+      return;
+    }
+    await deleteLocation(id, user);
     setWeatherData(() => weatherData.filter(e => e.id !== id));
   };
 
@@ -80,16 +94,18 @@ export default function MyLibrary() {
       <div className='library-header'>
         <h1>Library</h1>
       </div>
-      <table className='library-table'>
-        <tbody>
-          <tr className='table-header'>
-            <th className='city-header'>City</th>
-            <th className='weather-header'>Weather</th>
-            <th className='forecast-header'>Forecast</th>
-          </tr>
-          {weatherData ? showData() : null}
-        </tbody>
-      </table>
+      {user ? 
+        <table className='library-table'>
+          <tbody>
+            <tr className='table-header'>
+              <th className='city-header'>City</th>
+              <th className='weather-header'>Weather</th>
+              <th className='forecast-header'>Forecast</th>
+            </tr>
+            {weatherData ? showData() : null}
+          </tbody>
+        </table> 
+      : null}
     </div>
   );
 };

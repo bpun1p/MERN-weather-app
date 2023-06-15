@@ -1,11 +1,13 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import './Weather.css';
 import Forecast from '../forecast/Forecast';
-import { weatherConditions } from '../utils/WeatherConditions/WeatherConditions';
+import { weatherConditions } from '../utils/weatherConditions/WeatherConditions';
 import { saveLocation } from '../../service/libraryService';
 import { getCurrent, getForecast, geocodingService } from '../../service/weatherService';
+import { useAuthContext } from '../utils/access/useAuthContext';
 
 export default function Weather() {
+  const { user } = useAuthContext();
   const [forecastData, setForecastData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState('');
@@ -24,6 +26,8 @@ export default function Weather() {
     } else {
       fetchWeatherData(location);
     };
+
+    return () => console.log('Unmounted');
   }, [location, getLocation]);
 
   const fetchWeatherData = async (location) => {
@@ -55,7 +59,11 @@ export default function Weather() {
   };
 
   const handleSave = () => {
-    saveLocation(location);
+    if (!user) {
+      console.log('require login');
+      return;
+    }
+    saveLocation(location, user);
   };
 
   return (

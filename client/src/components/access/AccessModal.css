@@ -1,0 +1,14 @@
+.access-modal {
+  padding: 5px 20px;
+  border: solid white 2px;
+  background-color: rgba(205, 193, 193, 0.6);
+  width: fit-content;
+  border-style: groove;
+  border-width: 5px;
+  border-color: rgb(217, 212, 212);
+  position: absolute;
+  right: 0%;
+}
+.login-btn {
+  margin-right: 5px;
+}
