@@ -26,11 +26,15 @@ export default function MyLibrary() {
           console.error(err);
       };
     };
-    
+
     if (user) {
       getData();
     };
 
+    return () => {
+      setWeatherData(null);
+      console.log("Unmounted");
+    };
   }, [accumulateWeatherData, user]);
 
   const fetchWeatherData = async (locData) => {
@@ -89,7 +93,7 @@ export default function MyLibrary() {
     <div className='library'>
       <div className='library-header'>
         <h1>Library</h1>
-    </div>
+      </div>
       {user ? 
         <table className='library-table'>
           <tbody>

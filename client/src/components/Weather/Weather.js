@@ -26,6 +26,8 @@ export default function Weather() {
     } else {
       fetchWeatherData(location);
     };
+
+    return () => console.log('Unmounted');
   }, [location, getLocation]);
 
   const fetchWeatherData = async (location) => {
