@@ -3,10 +3,12 @@ const Location = require('../models/locationModel');
 const saveLocation = async (req, res) => {
   try {
     const user_id = req.user._id
+
     const location = new Location({
       location: req.body.location, 
       user_id: user_id
     });
+    
     const saved = await location.save();
     res.status(200).json({ msg : `saved location ${saved.location}`});
   }
