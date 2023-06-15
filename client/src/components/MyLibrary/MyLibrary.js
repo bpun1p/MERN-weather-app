@@ -3,6 +3,7 @@ import './MyLibrary.css';
 import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrent, getForecast } from '../../service/weatherService';
 import { useAuthContext } from '../utils/access/useAuthContext';
+import LoadingSpinner from '../utils/loader/Loader';
 
 export default function MyLibrary() {
   const [weatherData, setWeatherData] = useState(null);
@@ -85,7 +86,7 @@ export default function MyLibrary() {
             <button className='delete-data data' onClick={() => handleDelete(weather.id)}>Delete</button>
           </tr>
         )};
-    }; 
+    };
     return(results);
   };
 
@@ -94,7 +95,6 @@ export default function MyLibrary() {
       <div className='library-header'>
         <h1>Library</h1>
       </div>
-      {user ? 
         <table className='library-table'>
           <tbody>
             <tr className='table-header'>
@@ -102,10 +102,13 @@ export default function MyLibrary() {
               <th className='weather-header'>Weather</th>
               <th className='forecast-header'>Forecast</th>
             </tr>
-            {weatherData ? showData() : null}
+            {user ? 
+              <>
+              {weatherData ? showData() : <LoadingSpinner/>}
+              </> 
+              : null}
           </tbody>
         </table> 
-      : null}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { weatherConditions } from '../utils/weatherConditions/WeatherConditions'
 import { saveLocation } from '../../service/libraryService';
 import { getCurrent, getForecast, geocodingService } from '../../service/weatherService';
 import { useAuthContext } from '../utils/access/useAuthContext';
+import LoadingSpinner from '../utils/loader/Loader';
 
 export default function Weather() {
   const { user } = useAuthContext();
@@ -113,7 +114,7 @@ export default function Weather() {
           </div>
           {forecastData && <Forecast forecastData={forecastData}/>}
         </div> 
-      </div> : null}
+      </div> : <LoadingSpinner/>}
     </>
   );
 };
