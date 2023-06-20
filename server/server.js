@@ -3,6 +3,7 @@ const PORT = 3000;
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/locationRoutes');
 const userRoutes = require('./routes/userRoutes');
+const userInfoRoutes = require('./routes/userInfoRoutes');
 require('dotenv').config();
 
 //express app
@@ -22,5 +23,6 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology
   .catch((err) => console.log(err));
 
 //Api routes 
-app.use('/user', userRoutes); 
+app.use('/user', userRoutes);
+app.use('/userInfo', userInfoRoutes);
 app.use('/', locationRoutes);
