@@ -6,7 +6,7 @@ const saveUserInfo = async (req, res) => {
 
     const userInfo = new UserInfo({
       name: req.body.name,
-      image: req.body.image,
+      imageFile: req.body.imageFile,
       user_id: user_id
     });
     

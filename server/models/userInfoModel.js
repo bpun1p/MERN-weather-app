@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const userInfoSchema = new Schema({
   name: String,
-  image: String,
+  imageFile: String,
   user_id: {
     type: String,
     required: true
