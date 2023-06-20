@@ -27,11 +27,11 @@ export const userLogin = async (email, password) => {
   };
 };
 
-export const saveUserInfo = async (name, image, user) => {
+export const saveUserInfo = async (name, imageFile, user) => {
   try {
     const res = await axios.post(`${currentUrl}/userInfo/save`, { 
       name: name,
-      image, image,
+      imageFile: imageFile,
     }, {
       headers: {
         Authorization: `Bearer ${user.token}`

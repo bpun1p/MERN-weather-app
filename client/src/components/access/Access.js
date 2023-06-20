@@ -9,7 +9,6 @@ export default function Access() {
   const { user } = useAuthContext();
   const { logout } = Logout();
 
-
   const toggleAccessModal = () => {
     setToggleModal(!toggleModal);
   };
@@ -21,7 +20,8 @@ export default function Access() {
 
   return (
     <div className='access'>
-      {user ?   
+      {user ? <p className='access_email'>{user.email}</p> : null}
+      {user ?
         <button onClick={handleLogout}>Log out</button>
         :
         <>

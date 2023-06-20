@@ -54,8 +54,8 @@ export default function UpdateCreds() {
             <button id='updateCreds' onClick={handleSubmitNewCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
             <div/>
           </> 
-          : null}
-        </form>
-      </div>
+        : null}
+      </form>
+    </div>
   )
 }

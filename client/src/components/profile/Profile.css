@@ -7,3 +7,22 @@
   text-align: center;
   top: 400px;
 }
+
+.custom-file-upload {
+  margin: auto;
+  border: 1px solid #ccc;
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.file-upload {
+  display: none;
+}
+
+.custom-file-upload > img{
+  max-height: 100%;
+}
