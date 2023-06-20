@@ -1,39 +1,45 @@
-import React, { useState } from 'react';
-import './Profile.css';
+import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../utils/access/useAuthContext';
+import './Profile.css';
+import UpdateCreds from './UpdateCreds';
+import { saveUserInfo, getUserInfo } from '../../service/userService';
 
 export default function Profile() {
   const { user } = useAuthContext();
-  const [toggleCredOpts, setToggleCredOpts] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    fullName: null,
-    username: null,
+    name: null,
     image: null,
-    birthdate: null
   });
-  const maxDate = new Date().toISOString().split("T")[0];
-  const [newCreds, setNewCreds] = useState({
-    email: null,
-    password: null,
-    confirmPass: null
-  })
+  const [fetchedName, setFetchedName] = useState(null);
+  const [fetchedImage, setFetchedImage] = useState(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const res = await getUserInfo(user);
+      if (res) {
+        if (res.response && res.response.status !== 200) {
+          console.log(res.response.data.error);
+          return;
+        }
+        if (res.userInfo) { 
+          if (res.userInfo[0].name) {
+            setFetchedName(res.userInfo[0].name)
+          }
+          if (res.userInfo[0].image) {
+            setFetchedImage(res.userInfo[0].image)
+          }
+        }
+      }
+    };
+
+    fetchUserInfo();
+  }, [user])
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
+    saveUserInfo(userInfo.name, userInfo.image, user);
   };
-  
-  const credentialUpdate = (e) => {
-    e.preventDefault();
-  }
 
-  const toggleCredOptions = (e) => {
-    e.preventDefault()
-    setToggleCredOpts(!toggleCredOpts);
-  }
-  
-  const handleSubmitNewCreds = (e) => {
-    e.preventDefault()
-  }
 
   return (
     <>
@@ -42,75 +48,35 @@ export default function Profile() {
       <h1 className='profile-heading'>{user.email}</h1> 
       <form className='user-info'>
         <div>
-          <input type="file" 
-          accept="image/*" 
-          onChange={(e) => setUserInfo({...userInfo, image: URL.createObjectURL(e.target.files[0])})} />
-          {userInfo.image ? <img alt='user profile' src={userInfo.image}/> : null}
+          <input 
+            type="file" 
+            accept="image/*" 
+            onChange={(e) => setUserInfo({...userInfo, image: URL.createObjectURL(e.target.files[0])})} 
+          />
+          {fetchedImage ? <img alt='user profile' src={fetchedImage}/> : null}
         </div>
         <div>
-          <p>Full Name:</p>
-          <input 
-            type="text" 
-            id="fullname"
-            onChange={(e) => setUserInfo({...userInfo, fullName: e.target.value})}
-          />
-        </div>
-        <div>
-          <p>Username:</p>
-          <input 
-          type='text'
-          id='username'
-          onChange={(e) => setUserInfo({...userInfo, username: e.target.value})}
-          />
-        </div>
-        <div>
-          <p>Birthdate:</p>
-          <input 
-          type="date" 
-          id="start" 
-          name="birthdate"
-          max={`${maxDate}`}
-          onChange={(e) => setUserInfo({...userInfo, birthdate: e.target.value})}
-          />
+          <p>Name:</p>
+          {fetchedName ? 
+            <>
+              <p>{fetchedName}</p>
+              <button >Change Name</button>
+            </>
+             :
+            <>
+              <input 
+                type="text" 
+                id="name"
+                onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}
+              />
+            </>
+          }
         </div>
         <br/>
         <button id='updateUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
       </form>
       <br/>
-      <form>
-      <button onClick={toggleCredOptions}>Update Email/Password</button>
-       {toggleCredOpts ?
-        <> 
-          <div>
-              <p>Email:</p>
-              <input 
-              type='text'
-              id='email'
-              placeholder={user.email}
-              onChange={(e) => setNewCreds({...newCreds, username: e.target.value})}
-              />
-            </div>
-            <div>
-              <p>Password:</p>
-              <input 
-              type='password'
-              id='password'
-              onChange={(e) => setNewCreds({...newCreds, password: e.target.value})}
-              />
-            </div>
-            <div>
-              <p>Confirm Password:</p>
-              <input 
-              type='password'
-              id='confirm-password'
-              onChange={(e) => setNewCreds({...newCreds, confirmPass: e.target.value})}
-              />
-            </div>
-            <button id='updateCreds' onClick={handleSubmitNewCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
-          <div/>
-        </> 
-        : null}
-      </form>
+      <UpdateCreds/>
     </div>
     : null}
   </>

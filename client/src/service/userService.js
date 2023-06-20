@@ -26,3 +26,34 @@ export const userLogin = async (email, password) => {
     return err;
   };
 };
+
+export const saveUserInfo = async (name, image, user) => {
+  try {
+    const res = await axios.post(`${currentUrl}/userInfo/save`, { 
+      name: name,
+      image, image,
+    }, {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      },
+    })
+    return res;
+  }
+  catch(err) {
+    return err;
+  }
+}
+
+export const getUserInfo = async (user) => {
+  try {
+    const res = await axios.get(`${currentUrl}/userInfo/get`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    });
+    return res.data;
+  } 
+  catch (err) {
+    return err
+  };
+};
