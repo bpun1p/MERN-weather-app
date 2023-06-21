@@ -12,8 +12,6 @@ export default function Profile() {
     name: null,
     imageFile: null,
   });
-  const [fetchedName, setFetchedName] = useState(null);
-  const [fetchedImage, setFetchedImage] = useState(null);
   const [nameChangeOptToggler, setNameChangeOptToggler] = useState(false);
 
   useEffect(() => {
@@ -54,7 +52,7 @@ export default function Profile() {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setUserInfo({...userInfo, imageFile: base64});
-  }
+  };
 
   return (
     <>
