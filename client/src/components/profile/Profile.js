@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import './Profile.css';
 import UpdateCreds from './UpdateCreds';
-import { saveUserInfo, getUserInfo } from '../../service/userService';
+import { saveUserInfo, getUserInfo, updateUserInfo } from '../../service/userInfoServices';
 import { convertToBase64 } from '../utils/convertToBase64/convertToBase64';
 import avatar from '../assets/images/avatar.png';
 
@@ -13,6 +13,7 @@ export default function Profile() {
     imageFile: null,
   });
   const [nameChangeOptToggler, setNameChangeOptToggler] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -29,11 +30,12 @@ export default function Profile() {
           if (res.userInfo[0].imageFile) {
             setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}))
           };
+          setIsFetched(true);
         };
       };
     };
 
-    if (!userInfo.name || !userInfo.imageFile) {
+    if (!isFetched) {
       fetchUserInfo();
     };
   }, [user]);
@@ -52,6 +54,12 @@ export default function Profile() {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setUserInfo({...userInfo, imageFile: base64});
+  };
+
+  const handleUpdateUserInfo = async (e) => {
+    e.preventDefault();
+    const update = await updateUserInfo(userInfo.name, userInfo.imageFile, user);
+    console.log(update)
   };
 
   return (
@@ -79,7 +87,11 @@ export default function Profile() {
               }
             </div>
             <br/>
-            <button id='updateUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+            {isFetched ? 
+            <button id='updateUserInfo' onClick={handleUpdateUserInfo} type='submit' className='submit-userinfo-btn'>Update</button>
+            :
+            <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+            }
           </form>
           <br/>
           <UpdateCreds/>

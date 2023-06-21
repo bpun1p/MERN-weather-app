@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
-import { userLogin } from '../../../service/userService';
+import { userLogin } from '../../../service/authService';
 
 export const Login  = () => {
   const [loginError, setLoginError] = useState(null);

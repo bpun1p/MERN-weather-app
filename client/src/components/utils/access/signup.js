@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
-import { userSignup } from '../../../service/userService';
+import { userSignup } from '../../../service/authService';
 
 export const Signup = () => {
   const [signupError, setSignupError] = useState(null);
