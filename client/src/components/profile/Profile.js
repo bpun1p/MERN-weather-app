@@ -58,7 +58,6 @@ export default function Profile() {
     <>
       {user ?
         <div className='profile-container'>
-          <h1 className='profile-heading'>{user.email}</h1> 
           <form className='user-info'>
             <div>
               <label htmlFor="file-upload" className='custom-file-upload'>
