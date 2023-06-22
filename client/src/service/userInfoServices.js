@@ -39,7 +39,8 @@ export const updateUserInfo = async(name, imageFile, user) => {
       imageFile: imageFile,
     }, {
       headers: {
-        Authorization: `Bearer ${user.token}`
+        Authorization: `Bearer ${user.token}`,
+        withCredentials: true,
       },
     })
     return res.data.reponse.msg;

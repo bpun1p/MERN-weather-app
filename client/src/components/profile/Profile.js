@@ -5,6 +5,7 @@ import UpdateCreds from './UpdateCreds';
 import { saveUserInfo, getUserInfo, updateUserInfo } from '../../service/userInfoServices';
 import { convertToBase64 } from '../utils/convertToBase64/convertToBase64';
 import avatar from '../assets/images/avatar.png';
+import LoadingSpinner from '../utils/loader/Loader';
 
 export default function Profile() {
   const { user } = useAuthContext();
@@ -69,7 +70,7 @@ export default function Profile() {
           <form className='user-info'>
             <div>
               <label htmlFor="file-upload" className='custom-file-upload'>
-                <img src={userInfo.imageFile || avatar} alt="" />
+                {userInfo.imageFile ? <img src={userInfo.imageFile || avatar} alt="" /> : <LoadingSpinner/>}
               </label>
               <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
             </div>
