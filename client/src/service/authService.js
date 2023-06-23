@@ -27,3 +27,19 @@ export const userLogin = async (email, password) => {
   };
 };
 
+export const updateUser = async (email, password, user) => {
+  try {
+    const res = await axios.patch(`${currentUrl}/user/update`, {
+      email : email,
+      password: password
+    }, {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        },
+    })
+    return res;
+  }
+  catch(err) {
+    return err;
+  }
+}

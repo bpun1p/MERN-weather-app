@@ -1,10 +1,15 @@
 const express = require('express');
-const userController = require('../controllers/userController');
+const {loginUser, registerUser, updateUser} = require('../controllers/userController');
+const validateAuth = require('../middleware/validateAuth');
 
 const router = express.Router();
 
-router.post('/login', userController.loginUser);
-router.post('/register', userController.registerUser);
+router.post('/login', loginUser);
+router.post('/register', registerUser);
+
+router.use(validateAuth)  //validate token before allowing access to routes below
+
+router.patch('/update', updateUser);
 
 
 module.exports = router;

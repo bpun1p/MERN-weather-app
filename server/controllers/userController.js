@@ -33,14 +33,16 @@ const registerUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const user_id = req.user._id;
-  const updates = req.body;
+  const {email, password} = req.body;
 
-  const infoToUpdate = await User.find({ user_id });
   try {
-
+    const user = await User.update(email, password, user_id)
+    await User.updateOne({_id: user_id}, {$set: user});
+    const token = createToken(user_id)
+    res.status(200).json({email, token});
   } 
   catch(err) {
-
+    res.status(400).json({error: err.message})
   }
 }
 
