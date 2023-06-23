@@ -21,7 +21,6 @@ export default function Profile() {
       const res = await getUserInfo(user);
       if (res) {
         if (res.response && res.response.status !== 200) {
-          console.log(res.response.data.error);
           return;
         };
         if (res.userInfo) { 

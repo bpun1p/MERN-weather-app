@@ -48,4 +48,4 @@ export const updateUserInfo = async(name, imageFile, user) => {
   catch(err) {
     return (err.response.data.error)
   }
-}
+}  

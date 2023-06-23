@@ -21,18 +21,15 @@ export default function UpdateCreds() {
 
   const handleSubmitUpdatedCreds = async (e) => {
     e.preventDefault()
-    try {
-
-      if (credentials.password !== credentials.confirmPass) {
-        throw Error('Passwords do not match')
-      }
-
-      await update(credentials.email, credentials.password);
+    if (!credentials.password || !credentials.confirmPass) {
+      return setError(error => error = 'Please fill all fieilds before submitting');
     }
-    catch(err) {
-      setError(err);
+    if (credentials.password !== credentials.confirmPass) {
+      return setError(error => error = 'Passwords do not match');
     }
-  };
+    console.log(credentials.email)
+    await update(credentials.email, credentials.password, user);
+  }
 
   return (
     <div>
@@ -46,7 +43,7 @@ export default function UpdateCreds() {
               type='text'
               id='email'
               placeholder={user.email}
-              onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+              onChange={(e) => setCredentials({...credentials, email: e.target.value})}
               />
             </div>
             <div>
@@ -64,11 +61,11 @@ export default function UpdateCreds() {
               id='confirm-password'
               onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
               />
-              {error && <div className='error'>{error}</div>}
-              {updateError && <div className='error'>{updateError}</div>}
+              {/* {updateError && <div className='error'>{updateError}</div>} */}
             </div>
+            {error && <><br/><div className='error'>{error}</div></>}
             <br/>
-            <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
+            <button id='updateCreds' onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
             <div/>
           </> 
         : null}
