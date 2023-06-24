@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { updateUser } from '../../../service/authService';
+import { useAuthContext } from './useAuthContext';
 
 export const UpdateCredentials = () => {
   const [updateError, setUpdateError] = useState(null);
   const [isUpdating, setIsUpdating] = useState(null);
+  const { dispatch } = useAuthContext();
 
   const update = async (email, password, user) => {
     setIsUpdating(true);
@@ -18,6 +20,7 @@ export const UpdateCredentials = () => {
     
     const data = response.data
     localStorage.setItem('user', JSON.stringify(data));
+    dispatch({ type: 'LOGIN', payload: data });
     setIsUpdating(false);
   };
 

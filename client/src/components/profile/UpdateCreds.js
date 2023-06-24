@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import './UpdateCreds.css';
 import { UpdateCredentials } from '../utils/access/updateCredentials';
+import { useNavigate } from 'react-router-dom';
 
 export default function UpdateCreds() {
+  const navigate = useNavigate();
   const { user } = useAuthContext();
   const [credentials, setCredentials] = useState({
     email: null,
