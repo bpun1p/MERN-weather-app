@@ -5,7 +5,6 @@ import UpdateCreds from './UpdateCreds';
 import { saveUserInfo, getUserInfo, updateUserInfo } from '../../service/userInfoServices';
 import { convertToBase64 } from '../utils/convertToBase64/convertToBase64';
 import avatar from '../assets/images/avatar.png';
-import LoadingSpinner from '../utils/loader/Loader';
 
 export default function Profile() {
   const { user } = useAuthContext();
@@ -15,6 +14,7 @@ export default function Profile() {
   });
   const [nameChangeOptToggler, setNameChangeOptToggler] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -42,7 +42,10 @@ export default function Profile() {
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
-    saveUserInfo(userInfo.name, userInfo.imageFile, user);
+    const saved =  await saveUserInfo(userInfo.name, userInfo.imageFile, user);
+    if (saved) {
+      setIsSaved('Saved');
+    }
   };
   
   const toggleNameChangeOpt = (e) => {
@@ -58,8 +61,12 @@ export default function Profile() {
 
   const handleUpdateUserInfo = async (e) => {
     e.preventDefault();
+    console.log(userInfo)
     const update = await updateUserInfo(userInfo.name, userInfo.imageFile, user);
-    console.log(update)
+    if (update) {
+      setIsSaved('Updated!');
+      setNameChangeOptToggler(false);    
+    }
   };
 
   return (
@@ -69,7 +76,7 @@ export default function Profile() {
           <form className='user-info'>
             <div>
               <label htmlFor="file-upload" className='custom-file-upload'>
-                {userInfo.imageFile ? <img src={userInfo.imageFile || avatar} alt="" /> : <LoadingSpinner/>}
+                <img src={userInfo.imageFile || avatar} alt="" />
               </label>
               <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
             </div>
@@ -80,7 +87,7 @@ export default function Profile() {
                 : 
                 <p>{userInfo.name || null}</p>
               }
-              {userInfo ? 
+              {userInfo.name ?
                 <button onClick={toggleNameChangeOpt}>Change Name</button>
                 :
                 <input type="text" id="name" onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/>
@@ -92,6 +99,7 @@ export default function Profile() {
             :
             <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
             }
+            {isSaved ? <p>{isSaved}</p> : null}
           </form>
           <br/>
           <UpdateCreds/>

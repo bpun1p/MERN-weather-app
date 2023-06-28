@@ -13,9 +13,9 @@ export const Signup = () => {
     const response = await userSignup(email, password);
 
     if (response.status !== 200) {
-        console.log(response.response.data.error);
-        setLoadingSignup(false);
-        setSignupError(response.response.data.error);    
+      console.log(response.response.data.error);
+      setLoadingSignup(false);
+      setSignupError(response.response.data.error);
     };
 
     const data = response.data;

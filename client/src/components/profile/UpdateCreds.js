@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import './UpdateCreds.css';
 import { UpdateCredentials } from '../utils/access/updateCredentials';
-import { useNavigate } from 'react-router-dom';
 
 export default function UpdateCreds() {
-  const navigate = useNavigate();
   const { user } = useAuthContext();
   const [credentials, setCredentials] = useState({
     email: null,
@@ -29,7 +27,6 @@ export default function UpdateCreds() {
     if (credentials.password !== credentials.confirmPass) {
       return setError(error => error = 'Passwords do not match');
     }
-    console.log(credentials.email)
     await update(credentials.email, credentials.password, user);
   }
 
@@ -63,11 +60,11 @@ export default function UpdateCreds() {
               id='confirm-password'
               onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
               />
-              {/* {updateError && <div className='error'>{updateError}</div>} */}
             </div>
+            {updateError && <div className='error'>{updateError}</div>}
             {error && <><br/><div className='error'>{error}</div></>}
             <br/>
-            <button id='updateCreds' onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
+            <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
             <div/>
           </> 
         : null}

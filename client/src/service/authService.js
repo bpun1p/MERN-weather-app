@@ -40,6 +40,6 @@ export const updateUser = async (email, password, user) => {
     return res;
   }
   catch(err) {
-    return err.response.data.error;
+    return err;
   }
 }

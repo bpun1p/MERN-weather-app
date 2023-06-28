@@ -19,6 +19,7 @@ export const Login = () => {
     };
 
     const data = response.data;
+    console.log(data)
     localStorage.setItem('user', JSON.stringify(data));
     dispatch({ type: 'LOGIN', payload: data });
     setLoadingLogin(false);
