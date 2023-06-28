@@ -1,32 +1,6 @@
 import axios from 'axios';
 const currentUrl = 'http://localhost:3000';
 
-export const userSignup = async (email, password) => {
-  try {
-    const res = await axios.post(`${currentUrl}/user/register`, {
-      email: email,
-      password: password
-    });
-    return res;
-  }
-  catch(err) {
-    return err;
-  };
-};
-
-export const userLogin = async (email, password) => {
-  try {
-    const res = await axios.post(`${currentUrl}/user/login`, {
-      email: email,
-      password: password
-    });
-    return res;
-  }
-  catch(err) {
-    return err;
-  };
-};
-
 export const saveUserInfo = async (name, imageFile, user) => {
   try {
     const res = await axios.post(`${currentUrl}/userInfo/save`, { 
@@ -57,3 +31,21 @@ export const getUserInfo = async (user) => {
     return err
   };
 };
+
+export const updateUserInfo = async(name, imageFile, user) => {
+  try {
+    const res = await axios.patch(`${currentUrl}/userInfo/update`, { 
+      name: name,
+      imageFile: imageFile,
+    }, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        withCredentials: true,
+      },
+    })
+    return res.data.reponse.msg;
+  }
+  catch(err) {
+    return (err.response.data.error)
+  }
+}  

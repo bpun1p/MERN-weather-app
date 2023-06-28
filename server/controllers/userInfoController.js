@@ -20,7 +20,7 @@ const saveUserInfo = async (req, res) => {
 
 const getUserInfo = async (req, res) => {
   try {
-    const user_id = req.user._id
+    const user_id = req.user._id;
 
     const userInfo = await UserInfo.find({ user_id });
 
@@ -35,7 +35,26 @@ const getUserInfo = async (req, res) => {
   };
 };
 
+const updateUserInfo = async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const updates = req.body;
+    const infoToUpdate = await UserInfo.find({ user_id });
+
+    if(updates.name === infoToUpdate[0].name && updates.imageFile === infoToUpdate[0].imageFile) {
+      throw Error ('No updates required');
+    };
+ 
+    const updated = await UserInfo.updateOne({user_id: user_id}, {$set: req.body});
+    res.status(200).json({ reponse : { msg: `Updated`, updates: updated}});
+  }
+  catch(err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
 module.exports = {
   saveUserInfo,
-  getUserInfo
+  getUserInfo,
+  updateUserInfo
 }

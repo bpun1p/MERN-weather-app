@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import './Profile.css';
 import UpdateCreds from './UpdateCreds';
-import { saveUserInfo, getUserInfo } from '../../service/userService';
+import { saveUserInfo, getUserInfo, updateUserInfo } from '../../service/userInfoServices';
 import { convertToBase64 } from '../utils/convertToBase64/convertToBase64';
 import avatar from '../assets/images/avatar.png';
 
@@ -13,13 +13,14 @@ export default function Profile() {
     imageFile: null,
   });
   const [nameChangeOptToggler, setNameChangeOptToggler] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       const res = await getUserInfo(user);
       if (res) {
         if (res.response && res.response.status !== 200) {
-          console.log(res.response.data.error);
           return;
         };
         if (res.userInfo) { 
@@ -29,18 +30,22 @@ export default function Profile() {
           if (res.userInfo[0].imageFile) {
             setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}))
           };
+          setIsFetched(true);
         };
       };
     };
 
-    if (!userInfo.name || !userInfo.imageFile) {
+    if (!isFetched) {
       fetchUserInfo();
     };
   }, [user]);
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
-    saveUserInfo(userInfo.name, userInfo.imageFile, user);
+    const saved =  await saveUserInfo(userInfo.name, userInfo.imageFile, user);
+    if (saved) {
+      setIsSaved('Saved');
+    }
   };
   
   const toggleNameChangeOpt = (e) => {
@@ -54,11 +59,20 @@ export default function Profile() {
     setUserInfo({...userInfo, imageFile: base64});
   };
 
+  const handleUpdateUserInfo = async (e) => {
+    e.preventDefault();
+    console.log(userInfo)
+    const update = await updateUserInfo(userInfo.name, userInfo.imageFile, user);
+    if (update) {
+      setIsSaved('Updated!');
+      setNameChangeOptToggler(false);    
+    }
+  };
+
   return (
     <>
       {user ?
         <div className='profile-container'>
-          <h1 className='profile-heading'>{user.email}</h1> 
           <form className='user-info'>
             <div>
               <label htmlFor="file-upload" className='custom-file-upload'>
@@ -73,14 +87,19 @@ export default function Profile() {
                 : 
                 <p>{userInfo.name || null}</p>
               }
-              {userInfo ? 
+              {userInfo.name ?
                 <button onClick={toggleNameChangeOpt}>Change Name</button>
                 :
                 <input type="text" id="name" onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/>
               }
             </div>
             <br/>
-            <button id='updateUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+            {isFetched ? 
+            <button id='updateUserInfo' onClick={handleUpdateUserInfo} type='submit' className='submit-userinfo-btn'>Update</button>
+            :
+            <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+            }
+            {isSaved ? <p>{isSaved}</p> : null}
           </form>
           <br/>
           <UpdateCreds/>

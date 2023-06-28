@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserInfo, saveUserInfo } = require('../controllers/userInfoController');
+const { getUserInfo, saveUserInfo, updateUserInfo } = require('../controllers/userInfoController');
 const validateAuth = require('../middleware/validateAuth');
 
 const router = express.Router(); 
@@ -11,5 +11,9 @@ router.post('/save', saveUserInfo);
 
 //fetch user inforation
 router.get('/get', getUserInfo);
+
+//patch/update user information
+router.patch('/update', updateUserInfo);
+
 
 module.exports = router;

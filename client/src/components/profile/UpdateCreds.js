@@ -1,24 +1,34 @@
 import React, { useState } from 'react';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import './UpdateCreds.css';
+import { UpdateCredentials } from '../utils/access/updateCredentials';
 
 export default function UpdateCreds() {
   const { user } = useAuthContext();
-  const [newCreds, setNewCreds] = useState({
+  const [credentials, setCredentials] = useState({
     email: null,
     password: null,
     confirmPass: null
   });
   const [toggleCredOpts, setToggleCredOpts] = useState(false);
+  const [error, setError] = useState(null);
+  const { update, isUpdating, updateError } = UpdateCredentials();
 
   const toggleCredOptions = (e) => {
     e.preventDefault()
     setToggleCredOpts(toggleCredOpts => !toggleCredOpts);
   };
 
-  const handleSubmitNewCreds = (e) => {
+  const handleSubmitUpdatedCreds = async (e) => {
     e.preventDefault()
-  };
+    if (!credentials.password || !credentials.confirmPass) {
+      return setError(error => error = 'Please fill all fieilds before submitting');
+    }
+    if (credentials.password !== credentials.confirmPass) {
+      return setError(error => error = 'Passwords do not match');
+    }
+    await update(credentials.email, credentials.password, user);
+  }
 
   return (
     <div>
@@ -32,7 +42,7 @@ export default function UpdateCreds() {
               type='text'
               id='email'
               placeholder={user.email}
-              onChange={(e) => setNewCreds({...newCreds, username: e.target.value})}
+              onChange={(e) => setCredentials({...credentials, email: e.target.value})}
               />
             </div>
             <div>
@@ -40,7 +50,7 @@ export default function UpdateCreds() {
               <input 
               type='password'
               id='password'
-              onChange={(e) => setNewCreds({...newCreds, password: e.target.value})}
+              onChange={(e) => setCredentials({...credentials, password: e.target.value})}
               />
             </div>
             <div>
@@ -48,10 +58,13 @@ export default function UpdateCreds() {
               <input 
               type='password'
               id='confirm-password'
-              onChange={(e) => setNewCreds({...newCreds, confirmPass: e.target.value})}
+              onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
               />
             </div>
-            <button id='updateCreds' onClick={handleSubmitNewCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
+            {updateError && <div className='error'>{updateError}</div>}
+            {error && <><br/><div className='error'>{error}</div></>}
+            <br/>
+            <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
             <div/>
           </> 
         : null}
