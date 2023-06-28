@@ -62,6 +62,13 @@ userSchema.statics.login = async function(email, password) {
 }
 
 userSchema.statics.update = async function(email, password, user_id) {
+  const exist = await this.findOne({ email });
+  console.log(exist)
+
+  if (exist) {
+    throw Error('Email already exists');
+  };
+
   if (!email || ! password) {
     throw Error('All fields must be filled');
   }
@@ -74,13 +81,13 @@ userSchema.statics.update = async function(email, password, user_id) {
     throw Error('Password is not strong enough');
   }
 
-  const exist = await this.find({ _id: user_id });
-  let existingEmail = exist[0].email;
-  let existingPassword = exist[0].password;
+  const found = await this.find({ _id: user_id });
+  let foundEmail = found[0].email;
+  let foundPassword = found[0].password;
   
-  const match = await bcrypt.compare(password, existingPassword);
+  const match = await bcrypt.compare(password, foundPassword);
 
-  if (existingEmail === email && match) {
+  if (foundEmail === email && match) {
     throw Error ('No Updates Required; No changes found');
   }
 
