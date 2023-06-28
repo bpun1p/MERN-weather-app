@@ -3,6 +3,7 @@ const PORT = 3000;
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/locationRoutes');
 const userRoutes = require('./routes/userRoutes');
+const userInfoRoutes = require('./routes/userInfoRoutes');
 require('dotenv').config();
 
 //express app
@@ -10,7 +11,10 @@ const app = express();
 
 //middleweare to read body, parse it and place results in req.bdoy
 app.use(express.urlencoded({extended: true}));       // for application/x-www-form-urlencoded
-app.use(express.json());             // for application/json
+
+//set requesst size to 50mb
+const bodyParser = require('body-parser'); 
+app.use(bodyParser.json({ limit: "50mb" }))
 
 //middleware to enable requests between multiple browsers 
 const cors = require('cors')
@@ -22,5 +26,6 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology
   .catch((err) => console.log(err));
 
 //Api routes 
-app.use('/user', userRoutes); 
+app.use('/user', userRoutes);
+app.use('/userInfo', userInfoRoutes);
 app.use('/', locationRoutes);

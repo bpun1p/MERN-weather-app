@@ -42,7 +42,7 @@ userSchema.statics.register = async function(email, password) {
 
 //static login method
 userSchema.statics.login = async function(email, password) {
-  if (!email || ! password) {
+  if (!email || !password) {
     throw Error('All fields must be filled');
   }
   
@@ -59,7 +59,48 @@ userSchema.statics.login = async function(email, password) {
   }
 
   return user;
-
 }
 
+userSchema.statics.update = async function(email, password, user_id) {
+  const exist = await this.findOne({ email });
+  console.log(exist)
+
+  if (exist) {
+    throw Error('Email already exists');
+  };
+
+  if (!email || ! password) {
+    throw Error('All fields must be filled');
+  }
+
+  if (!validator.isEmail(email)) {
+    throw Error('Email is not valid');
+  }
+
+  if (!validator.isStrongPassword(password)) {
+    throw Error('Password is not strong enough');
+  }
+
+  const found = await this.find({ _id: user_id });
+  let foundEmail = found[0].email;
+  let foundPassword = found[0].password;
+  
+  const match = await bcrypt.compare(password, foundPassword);
+
+  if (foundEmail === email && match) {
+    throw Error ('No Updates Required; No changes found');
+  }
+
+  if (match) {
+    throw Error ('Password cannot be the same as last password');
+  };
+
+  const salt = await bcrypt.genSalt(10);          
+  const hash = await bcrypt.hash(password, salt);
+
+  const user = { email, password: hash };
+
+  return user; 
+} 
+ 
 module.exports = mongoose.model('User', userSchema);;

@@ -7,6 +7,7 @@ const createToken = (_id) => {
 
 const loginUser = async (req, res) => {
   const {email, password} = req.body;
+
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);
@@ -18,7 +19,8 @@ const loginUser = async (req, res) => {
 }
 
 const registerUser = async (req, res) => {
-  const {email, password} = req.body
+  const {email, password} = req.body;
+
   try {
     const user = await User.register(email, password)
     const token = createToken(user._id)
@@ -29,7 +31,23 @@ const registerUser = async (req, res) => {
   }
 } 
 
+const updateUser = async (req, res) => {
+  const user_id = req.user._id;
+  const {email, password} = req.body;
+
+  try {
+    const user = await User.update(email, password, user_id)
+    await User.updateOne({_id: user_id}, {$set: user});
+    const token = createToken(user_id)
+    res.status(200).json({email, token});
+  } 
+  catch(err) {
+    res.status(400).json({error: err.message})
+  }
+}
+
 module.exports = {
   loginUser,
-  registerUser
+  registerUser,
+  updateUser
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
-import { userSignup } from '../../../service/userService';
+import { userSignup } from '../../../service/authService';
 
 export const Signup = () => {
   const [signupError, setSignupError] = useState(null);
@@ -13,9 +13,9 @@ export const Signup = () => {
     const response = await userSignup(email, password);
 
     if (response.status !== 200) {
-        console.log(response.response.data.error);
-        setLoadingSignup(false);
-        setSignupError(response.response.data.error);    
+      console.log(response.response.data.error);
+      setLoadingSignup(false);
+      setSignupError(response.response.data.error);
     };
 
     const data = response.data;
