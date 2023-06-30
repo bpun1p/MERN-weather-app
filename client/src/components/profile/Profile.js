@@ -38,6 +38,10 @@ export default function Profile() {
     if (!isFetched) {
       fetchUserInfo();
     };
+    return(() => {
+      setUserInfo({...userInfo, name: null, imageFile: null})
+      console.log('Unmounted')
+    })
   }, [user]);
 
   const handleSubmitUserInfo = async (e) => {
