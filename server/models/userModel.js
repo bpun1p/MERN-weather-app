@@ -61,6 +61,7 @@ userSchema.statics.login = async function(email, password) {
   return user;
 }
 
+//static update method
 userSchema.statics.update = async function(email, password, user_id) {
   if (!email || ! password) {
     throw Error('All fields must be filled');
