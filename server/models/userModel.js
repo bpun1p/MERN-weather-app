@@ -62,13 +62,6 @@ userSchema.statics.login = async function(email, password) {
 }
 
 userSchema.statics.update = async function(email, password, user_id) {
-  const exist = await this.findOne({ email });
-  console.log(exist)
-
-  if (exist) {
-    throw Error('Email already exists');
-  };
-
   if (!email || ! password) {
     throw Error('All fields must be filled');
   }
