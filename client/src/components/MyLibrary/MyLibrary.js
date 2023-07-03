@@ -4,6 +4,7 @@ import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrent, getForecast } from '../../service/weatherService';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import LoadingSpinner from '../utils/loader/Loader';
+import Trash from '../assets/images/trash-icon.png';
 
 export default function MyLibrary() {
   const [weatherData, setWeatherData] = useState(null);
@@ -83,7 +84,7 @@ export default function MyLibrary() {
             <td className='forecast-data data'>
             {accumulateForecastData(weather.forecast.data.list)}
             </td>
-            <button className='delete-data data' onClick={() => handleDelete(weather.id)}>Delete</button>
+            <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' alt='trash-icon' />
           </tr>
         )};
     };

@@ -9,12 +9,13 @@
 
 .side-nav {
   border: 1px solid black;
+  border-radius: 0 15px 15px 0;
   transition: 0.5s;
 }
 
 .btn {
   margin: 0;
-  background: none;
+  background-color: rgba(156, 153, 153, 0.3);  
   padding: 20px;
   width: 100%;
   cursor: pointer;
@@ -26,4 +27,27 @@
 
 .dismissed {
   transform: translatex(-70%);
+}
+.nav-dashboard {
+  border-radius: 0 15px 0 0;
+}
+
+.dashboard-btn {
+  border-radius: 0 15px 0 0;
+}
+
+.profile-btn {
+  border-radius: 0 0 15px 0;
+}
+
+.toggle-btn{
+  transform:rotate(-90deg);
+  position: relative;
+  top: 44%;
+  right: 35%;
+  width: 50px;
+  background-color: rgb(30, 121, 239);
+  border: none;
+  text-orientation: upright;
+  writing-mode: vertical-rl;
 }

@@ -69,18 +69,19 @@ export default function Weather() {
 
   return (
     <>
-      {weatherData ? <div className='container'>
+      {weatherData ? <div className='weather-container'>
         <div className='weather-header_elements'>
           <div className='search'>
             <form onSubmit={onSubmit}>
               <input
-                  type="text"
-                  placeholder="Enter location"
-                  onChange={(e) =>{
-                    setSearched(e.target.value);
-                  }}
+                className='search-field'
+                type="text"
+                placeholder="Enter location"
+                onChange={(e) =>{
+                  setSearched(e.target.value);
+                }}
               />
-              <button type="submit">Submit</button>
+              <button className='search-btn' type="submit">Search</button>
             </form>
           </div>
           <button className='add-loc_btn' onClick={handleSave}>+</button>
@@ -98,6 +99,20 @@ export default function Weather() {
               <p>{weatherData.weather.main}</p>
             </div>
           </div>
+          {/* <div className='center'>
+            <div className='feels'>
+              <p>{weatherData.main.feels_like.toFixed()}°C</p>
+              <p>Feels like</p>
+            </div>
+            <div className='humidity'>
+              <p>{weatherData.main.humidity}%</p>
+              <p>Humidity</p>
+            </div>
+            <div className='winds'>
+              <p>{weatherData.wind.speed} MPH</p>
+              <p>Winds</p>
+            </div>
+          </div> */}
           <div className='center'>
             <div className='feels'>
               <p>{weatherData.main.feels_like.toFixed()}°C</p>
