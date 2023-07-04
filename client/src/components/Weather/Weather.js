@@ -6,6 +6,10 @@ import { saveLocation } from '../../service/libraryService';
 import { getCurrent, getForecast, geocodingService } from '../../service/weatherService';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import LoadingSpinner from '../utils/loader/Loader';
+// import Gauge from '../utils/guage/Gauge';
+// import Thermometer from '../assets/images/thermometer.png';
+// import WindSpeed from '../assets/images/windspeed.png';
+import MiscWeather from './MiscWeather';
 
 export default function Weather() {
   const { user } = useAuthContext();
@@ -87,44 +91,25 @@ export default function Weather() {
           <button className='add-loc_btn' onClick={handleSave}>+</button>
         </div>
         <div>
-          <div className='top'>
-            <div className='location'>
-              <h1>{weatherData.name}</h1>
+          <div className='weather-body'>
+            <div className='top'>
+              <div className='location'>
+                <h1>{weatherData.name}</h1>
+              </div>
+              <div className='temp'>
+                <p>{weatherData.main.temp.toFixed()}°C</p>
+                <img src={weatherConditions[weatherData.weather[0].main]} className='weather-img' alt='weather-img' />
+              </div>
+              <div className='description'>
+                <p>{weatherData.weather.main}</p>
+              </div>
             </div>
-            <div className='temp'>
-              <p>{weatherData.main.temp.toFixed()}°C</p>
-              <img src={weatherConditions[weatherData.weather[0].main]} className='weather-img' alt='weather-img' />
-            </div>
-            <div className='description'>
-              <p>{weatherData.weather.main}</p>
-            </div>
-          </div>
-          {/* <div className='center'>
-            <div className='feels'>
-              <p>{weatherData.main.feels_like.toFixed()}°C</p>
-              <p>Feels like</p>
-            </div>
-            <div className='humidity'>
-              <p>{weatherData.main.humidity}%</p>
-              <p>Humidity</p>
-            </div>
-            <div className='winds'>
-              <p>{weatherData.wind.speed} MPH</p>
-              <p>Winds</p>
-            </div>
-          </div> */}
-          <div className='center'>
-            <div className='feels'>
-              <p>{weatherData.main.feels_like.toFixed()}°C</p>
-              <p>Feels like</p>
-            </div>
-            <div className='humidity'>
-              <p>{weatherData.main.humidity}%</p>
-              <p>Humidity</p>
-            </div>
-            <div className='winds'>
-              <p>{weatherData.wind.speed} MPH</p>
-              <p>Winds</p>
+            <div className='misc-weather-container'>
+              <MiscWeather 
+                feelsLike={weatherData.main.feels_like}   
+                humidity={weatherData.main.humidity} 
+                windspeed={weatherData.wind.speed} 
+              />
             </div>
           </div>
           {forecastData && <Forecast forecastData={forecastData}/>}

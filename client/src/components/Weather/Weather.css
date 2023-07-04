@@ -4,53 +4,22 @@
     top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1300px;
+    width: 1620px;
 }
-.top {
-    margin-left: 50px;
-}
+
 .temp {
     font-size: 100px;
     display: flex;
+    position: relative;
+    left: 20%;
 }
-.temp p {
-    margin-left: 100px;
-}
+
 .location h1 {
     font-size: 50px;
+    position: relative;
+    left: 10%;
 }
-.weather-img{
-    height: 400px;
-    width: auto;
-    margin-left: 100px;
-}
-.description p {
-    font-size: 25px;
-}
-.center {
-    float: left;
-    color: rgb(242, 242, 242);
-    display: flex;
-    margin-top: 50px;
-    border: solid white 2px;
-    border-radius: 10px;
-    background-color: rgb(128, 128, 128, 0.6);
-}
-.feels, .humidity, .winds {
-    margin: 0 60px;
-}
-.feels p, .humidity p, .winds p {
-    font-size: 20px;
-}
-.feels p:nth-child(2) {
-    font-weight: bold;
-}
-.humidity p:nth-child(2) {
-    font-weight: bold;
-}
-.winds p:nth-child(2) {
-    font-weight: bold;
-}
+
 .description p {
     text-transform: uppercase;
 }
@@ -93,4 +62,10 @@ tr th {
     width: 80px;
     border-radius: 0 15px 15px 0;
     cursor: pointer;
+}
+
+.misc-weather-container {
+    position: absolute;
+    top: 10%;
+    left: 80%;
 }
