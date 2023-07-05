@@ -6,6 +6,8 @@
   position: relative;
   text-align: center;
   top: 400px;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 .custom-file-upload {

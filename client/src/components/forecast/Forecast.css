@@ -1,29 +1,32 @@
 .forecast-container {
-  color: white;
+  color: black;
   height: 100%;
-  margin-top: 200px;
+  margin-top: 60px;
 }
 .forecast {
   display: flex;
   float: left;
-  margin-top: 20px;
-  border: solid white 2px;
-  border-radius: 10px;
-  background-color: rgb(128, 128, 128, 0.6);
 }
 .day_forecast {
   width: 90px;
-  margin: auto 25px;
+  margin: auto 16px;
+  border: solid black 1px;
+  background-color: rgb(128, 128, 128, 0.3); 
+  border-radius: 20px;
+  width: 200px;
+  height: 275px;
+  position: relative;
+  left: 9.5%;
 }
 .forecast-temp {
   display: flex;
 }
 .forecast-img {
-  height: 50px;
+  height: 150px;
   width: auto;
-  margin-left: 18%;
+  position: relative;
+  left: 12%;
 }
 .day_forecast p {
   text-align: center;
-
 }

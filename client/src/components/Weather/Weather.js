@@ -88,7 +88,7 @@ export default function Weather() {
               <button className='search-btn' type="submit">Search</button>
             </form>
           </div>
-          <button className='add-loc_btn' onClick={handleSave}>+</button>
+          <button className='add-loc_btn' onClick={handleSave}>Add to Library</button>
         </div>
         <div>
           <div className='weather-body'>

@@ -1,10 +1,11 @@
 .weather-container {
     overflow: hidden;
     position: absolute;
-    top: 48%;
+    top: 62%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 1620px;
+    height: 1420px;
 }
 
 .temp {
@@ -56,16 +57,62 @@ tr th {
 }
 
 .search-btn {
+    font-family: 'Roboto', sans-serif;
     background-color: rgb(109, 182, 213);
-    border: none;
-    height: 42px;
+    border-radius: 15px;
+    height: 43px;
     width: 80px;
     border-radius: 0 15px 15px 0;
     cursor: pointer;
+    font-size: 14px;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transiton-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.search-btn:active {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(0.99);
 }
 
 .misc-weather-container {
     position: absolute;
-    top: 10%;
+    top: 13%;
     left: 80%;
+}
+
+.add-loc_btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    background: #1e90ff;
+    width: 275px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transiton-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+    position: absolute;
+    right: 3%;
+    top: 6.5%;
+}
+
+.add-loc_btn:hover, 
+.add-loc_btn:focus, 
+.add-loc_btn:active {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+
 }
