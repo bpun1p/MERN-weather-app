@@ -11,3 +11,30 @@
   margin-top: 0;
   font-size: 17px;
 }
+
+.logout-btn, .access-btn {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  background: none;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transiton-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+}
+
+.logout-btn:hover, 
+.logout-btn:active,
+.access-btn:hover, 
+.access-btn:active {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}

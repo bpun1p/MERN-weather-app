@@ -22,10 +22,10 @@ export default function Access() {
     <div className='access'>
       {user ? <p className='access_email'>{user.email}</p> : null}
       {user ?
-        <button onClick={handleLogout}>Log out</button>
+        <button className='logout-btn' onClick={handleLogout}>Log out</button>
         :
         <>
-          <button onClick={toggleAccessModal}>Login / Sign Up</button>
+          <button className='access-btn' onClick={toggleAccessModal}>Login / Sign Up</button>
           {toggleModal ? <AccessModal/> : null}
         </>
       }

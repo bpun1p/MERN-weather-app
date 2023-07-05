@@ -9,6 +9,56 @@
   position: absolute;
   right: 0%;
 }
+
 .login-btn {
-  margin-right: 5px;
+  margin-left: 53%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  width: 70px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transiton-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+}
+
+.signup-btn {
+  margin-left: 53%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  width: 70px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transiton-property: box-shadow, transform;
+  transition-property: box-shadow, transform; 
+}
+
+#email {
+  margin-bottom: 5px;
+}
+
+.login-btn:active,
+.signup-btn:active {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(0.9);
 }
