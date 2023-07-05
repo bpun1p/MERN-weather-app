@@ -15,7 +15,6 @@ export default function Profile() {
   const [nameChangeOptToggler, setNameChangeOptToggler] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
