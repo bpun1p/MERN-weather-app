@@ -61,12 +61,8 @@ Room for improvement:
 - CSS: UI improvements
 
 To do:
-- Loading indiciator
-- Authentication
-- Redux
-- Filter library
-- Sort library
-- Display previously searched locations
+- Tooltips
+- Deployment
 
 ## Contact
 Created by [Barry Pun](bpun1p@gmail.com) - feel free to contact me!
