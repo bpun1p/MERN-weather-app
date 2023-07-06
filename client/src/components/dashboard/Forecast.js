@@ -1,6 +1,6 @@
 import React from 'react';
 import './Forecast.css';
-import { weatherConditions } from '../../utils/weatherConditions/WeatherConditions';
+import { weatherConditions } from '../utils/weatherConditions/WeatherConditions';
 
 export default function Forecast({forecastData}) {
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];

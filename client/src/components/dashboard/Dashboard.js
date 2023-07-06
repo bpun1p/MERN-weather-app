@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import './Dashboard.css';
-import Forecast from './forecast/Forecast';
+import Forecast from './Forecast';
 import { weatherConditions } from '../utils/weatherConditions/WeatherConditions';
 import { saveLocation } from '../../service/libraryService';
 import { getCurrent, getForecast, geocodingService } from '../../service/weatherService';
