@@ -31,7 +31,7 @@ export const deleteLocation = async (id, user) => {
 
 export const saveLocation = async (location, user) => {
   try {
-    const res = await axios.post(`${currentUrl}/search`,{ 
+    const res = await axios.post(`${currentUrl}/dashboard`,{ 
       location: location 
     }, {
       headers: {

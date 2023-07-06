@@ -35,11 +35,6 @@ export default function Nav() {
             <button type='button' className='dashboard-btn btn'>Dashboard</button>
           </NavLink>
         </div>
-        <div className='nav-search'>
-          <NavLink to='/search'>
-            <button type='button' className='search-btn btn'>Search</button>
-          </NavLink>
-        </div>
         <div className='nav-library'>
           <NavLink to='/library'>
             <button type='button' className='library-btn btn'>Library</button>

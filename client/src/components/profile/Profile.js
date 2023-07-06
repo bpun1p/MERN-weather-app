@@ -38,6 +38,10 @@ export default function Profile() {
     if (!isFetched) {
       fetchUserInfo();
     };
+    return(() => {
+      setUserInfo({...userInfo, name: null, imageFile: null})
+      console.log('Unmounted')
+    })
   }, [user]);
 
   const handleSubmitUserInfo = async (e) => {
@@ -61,8 +65,9 @@ export default function Profile() {
 
   const handleUpdateUserInfo = async (e) => {
     e.preventDefault();
-    console.log(userInfo)
+
     const update = await updateUserInfo(userInfo.name, userInfo.imageFile, user);
+
     if (update) {
       setIsSaved('Updated!');
       setNameChangeOptToggler(false);    
@@ -74,21 +79,21 @@ export default function Profile() {
       {user ?
         <div className='profile-container'>
           <form className='user-info'>
-            <div>
+            <div className='user-avatar'>
               <label htmlFor="file-upload" className='custom-file-upload'>
                 <img src={userInfo.imageFile || avatar} alt="" />
               </label>
               <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
             </div>
-            <div>
-              <p>Name:</p>
+            <div className='name-container'>
+              <p className='name-heading'>Name:</p>
               {nameChangeOptToggler ?               
-                <input type="text" id="name" placeholder={userInfo.name} onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/> 
+                <input className='name-input name' type="text" id="name" placeholder={userInfo.name} onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/> 
                 : 
-                <p>{userInfo.name || null}</p>
+                <p className='name-text name' >{userInfo.name || null}</p>
               }
               {userInfo.name ?
-                <button onClick={toggleNameChangeOpt}>Change Name</button>
+                <button className='name-change-btn' onClick={toggleNameChangeOpt}>Change Name</button>
                 :
                 <input type="text" id="name" onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/>
               }
@@ -99,10 +104,12 @@ export default function Profile() {
             :
             <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
             }
-            {isSaved ? <p>{isSaved}</p> : null}
+            {isSaved ? <p className='saved-results-msg'>{isSaved}</p> : null}
           </form>
           <br/>
-          <UpdateCreds/>
+          <div className='update-creds-container'>
+            <UpdateCreds/>
+          </div>
         </div>
       : null}
   </>

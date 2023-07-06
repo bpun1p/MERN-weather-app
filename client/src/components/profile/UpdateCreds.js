@@ -32,39 +32,41 @@ export default function UpdateCreds() {
 
   return (
     <div>
+      <button className='update-modal-btn' onClick={toggleCredOptions}>Change Email / Password</button>
       <form>
-        <button onClick={toggleCredOptions}>Update Email/Password</button>
         {toggleCredOpts ?
-          <> 
-            <div>
-              <p>Email:</p>
-              <input 
-              type='text'
-              id='email'
-              placeholder={user.email}
-              onChange={(e) => setCredentials({...credentials, email: e.target.value})}
-              />
-            </div>
-            <div>
-              <p>Password:</p>
-              <input 
-              type='password'
-              id='password'
-              onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-              />
-            </div>
-            <div>
-              <p>Confirm Password:</p>
-              <input 
-              type='password'
-              id='confirm-password'
-              onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
-              />
+          <>
+            <div className='form-body'>
+              <div className='email-container'>
+                <p>Email:</p>
+                <input 
+                type='text'
+                id='email'
+                placeholder={user.email}
+                onChange={(e) => setCredentials({...credentials, email: e.target.value})}
+                />
+              </div>
+              <div className='password-container'>
+                <p>Password:</p>
+                <input 
+                type='password'
+                id='password'
+                onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                />
+              </div>
+              <div className='confirm-container'>
+                <p>Confirm Password:</p>
+                <input 
+                type='password'
+                id='confirm-password'
+                onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
+                />
+              </div>
             </div>
             {updateError && <div className='error'>{updateError}</div>}
             {error && <><br/><div className='error'>{error}</div></>}
             <br/>
-            <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Submit</button>
+            <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Save</button>
             <div/>
           </> 
         : null}

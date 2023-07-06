@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(validateAuth)  //validate token before allowing access to routes below
 
 //save location
-router.post('/search', saveLocation);
+router.post('/dashboard', saveLocation);
 
 //get locations
 router.get('/library', getLocations);

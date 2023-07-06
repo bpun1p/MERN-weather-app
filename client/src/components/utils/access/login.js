@@ -13,16 +13,16 @@ export const Login = () => {
     const response = await userLogin(email, password);
 
     if (response.status !== 200) {
-      console.log(response.response.data.error);
       setLoadingLogin(false);
-      setLoginError(response.response.data.error);    
+      setLoginError(response.response.data.error);
     };
-
-    const data = response.data;
-    console.log(data)
-    localStorage.setItem('user', JSON.stringify(data));
-    dispatch({ type: 'LOGIN', payload: data });
-    setLoadingLogin(false);
+    
+    if (response.status === 200) {
+      const data = response.data;
+      localStorage.setItem('user', JSON.stringify(data));
+      dispatch({ type: 'LOGIN', payload: data });
+      setLoadingLogin(false);
+    }
   };
 
   return { login, loadingLogin, loginError };
