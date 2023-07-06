@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Dashboard from './components/weather/Weather';
+import Dashboard from './components/dashboard/Weather';
 import Nav from './components/navigation/Nav';
 import Profile from './components/profile/Profile';
 import Library from './components/myLibrary/MyLibrary';

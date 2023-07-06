@@ -1,15 +1,12 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import './Weather.css';
-import Forecast from '../forecast/Forecast';
+import './Dashboard.css';
+import Forecast from './forecast/Forecast';
 import { weatherConditions } from '../utils/weatherConditions/WeatherConditions';
 import { saveLocation } from '../../service/libraryService';
 import { getCurrent, getForecast, geocodingService } from '../../service/weatherService';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import LoadingSpinner from '../utils/loader/Loader';
-// import Gauge from '../utils/guage/Gauge';
-// import Thermometer from '../assets/images/thermometer.png';
-// import WindSpeed from '../assets/images/windspeed.png';
-import MiscWeather from './MiscWeather';
+import MiscWeather from './miscWeather/MiscWeather';
 
 export default function Weather() {
   const { user } = useAuthContext();
