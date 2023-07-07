@@ -7,7 +7,7 @@
   width: 50%;
   position: relative;
   left: 25%;
-  padding-top: 10%;
+  padding-top: 15%;
 }
 
 .custom-file-upload {
@@ -112,4 +112,10 @@
 .saved-results-msg {
   font-size: 20px;
   font-weight: 500px;
+}
+
+.unauthorized-save-userinfo {
+  position: relative;
+  top: 20px;
+  font-size: 20px;
 }

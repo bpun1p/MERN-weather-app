@@ -87,8 +87,8 @@ export default function MyLibrary() {
             <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' alt='trash-icon' />
           </tr>
         )};
+      return(results);
     };
-    return(results);
   };
 
   return (
@@ -107,7 +107,7 @@ export default function MyLibrary() {
               <>
               {weatherData ? showData() : <LoadingSpinner/>}
               </> 
-              : null}
+              : <span className='unauthorized-library-text'>Login or sign up to see your saved locations</span>}
           </tbody>
         </table> 
     </div>

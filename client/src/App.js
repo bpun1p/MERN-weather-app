@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Dashboard from './components/dashboard/Weather';
+import './components/utils/tooltip/Tooltip.css'
+import Dashboard from './components/dashboard/Dashboard';
 import Nav from './components/navigation/Nav';
 import Profile from './components/profile/Profile';
 import Library from './components/myLibrary/MyLibrary';

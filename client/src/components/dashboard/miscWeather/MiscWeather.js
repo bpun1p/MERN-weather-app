@@ -1,7 +1,7 @@
 import React from "react";
 import Gauge from '../../utils/guage/Gauge';
-import Thermometer from '../assets/images/thermometer.png';
-import WindSpeed from '../assets/images/windspeed.png';
+import Thermometer from '../../assets/images/thermometer.png';
+import WindSpeed from '../../assets/images/windspeed.png';
 import './MiscWeather.css';
 
 export default function MiscWeather(props){

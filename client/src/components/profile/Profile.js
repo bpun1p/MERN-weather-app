@@ -15,6 +15,7 @@ export default function Profile() {
   const [nameChangeOptToggler, setNameChangeOptToggler] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [unauthError, setUnauthError] = useState(null)
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -40,15 +41,21 @@ export default function Profile() {
     };
     return(() => {
       setUserInfo({...userInfo, name: null, imageFile: null})
-      console.log('Unmounted')
+      setIsFetched(false);
     })
   }, [user]);
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      return setUnauthError(unauthError => unauthError = 'Login or sign up to create your own profile')
+    }
+
     const saved =  await saveUserInfo(userInfo.name, userInfo.imageFile, user);
+    
     if (saved) {
-      setIsSaved('Saved');
+      setIsSaved(true);
     }
   };
   
@@ -76,42 +83,46 @@ export default function Profile() {
 
   return (
     <>
-      {user ?
-        <div className='profile-container'>
-          <form className='user-info'>
-            <div className='user-avatar'>
-              <label htmlFor="file-upload" className='custom-file-upload'>
-                <img src={userInfo.imageFile || avatar} alt="" />
-              </label>
-              <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
-            </div>
-            <div className='name-container'>
-              <p className='name-heading'>Name:</p>
-              {nameChangeOptToggler ?               
-                <input className='name-input name' type="text" id="name" placeholder={userInfo.name} onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/> 
-                : 
-                <p className='name-text name' >{userInfo.name || null}</p>
-              }
-              {userInfo.name ?
-                <button className='name-change-btn' onClick={toggleNameChangeOpt}>Change Name</button>
-                :
-                <input type="text" id="name" onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/>
-              }
-            </div>
-            <br/>
-            {isFetched ? 
-            <button id='updateUserInfo' onClick={handleUpdateUserInfo} type='submit' className='submit-userinfo-btn'>Update</button>
-            :
-            <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+      <div className='profile-container'>
+        <form className='user-info'>
+          <div className='user-avatar'>
+            <label htmlFor="file-upload" className='custom-file-upload'>
+              <img src={userInfo.imageFile || avatar} alt="" />
+            </label>
+            <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
+          </div>
+          <div className='name-container'>
+            <p className='name-heading'>Name:</p>
+            {nameChangeOptToggler ?               
+              <input className='name-input name' type="text" id="name" placeholder={userInfo.name} onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/> 
+              : 
+              <p className='name-text name' >{userInfo.name || null}</p>
             }
-            {isSaved ? <p className='saved-results-msg'>{isSaved}</p> : null}
-          </form>
+            {userInfo.name ?
+              <button className='name-change-btn' onClick={toggleNameChangeOpt}>Change Name</button>
+              :
+              <input type="text" id="name" onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/>
+            }
+          </div>
           <br/>
+          {user && isFetched ? 
+            <button id='updateUserInfo' onClick={handleUpdateUserInfo} type='submit' className='submit-userinfo-btn'>Update</button>
+          :
+            <div className='tooltip' style={{height : '0', padding : '0'}}>
+              <span style={{left : '50%', top : '10px'}} className='tooltipText'>Login or sign up to create your profile</span> 
+              <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+            </div>
+          }
+        </form>
+          {isSaved ? <p className='saved-results-msg'>Saved!</p> : null}
+          {!user && unauthError ? <span className='unauthorized-save-userinfo'>{unauthError}</span> : null}
+        <br/>
+        {user ?
           <div className='update-creds-container'>
             <UpdateCreds/>
-          </div>
-        </div>
-      : null}
+          </div> 
+        : null}
+      </div>
   </>
   );
 };
