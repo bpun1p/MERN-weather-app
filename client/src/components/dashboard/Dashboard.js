@@ -9,7 +9,7 @@ import LoadingSpinner from '../utils/loader/Loader';
 import MiscWeather from './miscWeather/MiscWeather';
 import Access from '../access/Access';
 
-export default function Weather() {
+export default function Weather(props) {
   const { user } = useAuthContext();
   const [forecastData, setForecastData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
@@ -63,7 +63,8 @@ export default function Weather() {
 
   const handleSave = () => {
     if (!user) {
-      //read up
+      props.buttonClicked();
+      return;
     }
     saveLocation(location, user);
   };

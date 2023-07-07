@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AccessModal from './AccessModal';
 import './Access.css';
 import { Logout } from '../utils/access/logout';
 import { useAuthContext } from '../utils/access/useAuthContext';
 
-export default function Access() {
+export default function Access(props) {
   const [toggleModal, setToggleModal] = useState(false);
   const { user } = useAuthContext();
   const { logout } = Logout();
 
+  useEffect(() => {
+    setToggleModal(toggleModal => toggleModal = props.show)
+  }, [props.show])
+
   const toggleAccessModal = () => {
-    setToggleModal(!toggleModal);
+    props.modalClicked()
+    setToggleModal(toggleModal => !toggleModal);
   };
 
   const handleLogout = () => {
     logout();
-    setToggleModal(!toggleAccessModal);
+    setToggleModal(toggleAccessModal => !toggleAccessModal);
   };
 
   return (

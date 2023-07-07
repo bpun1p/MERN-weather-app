@@ -6,7 +6,7 @@ import { saveUserInfo, getUserInfo, updateUserInfo } from '../../service/userInf
 import { convertToBase64 } from '../utils/convertToBase64/convertToBase64';
 import avatar from '../assets/images/avatar.png';
 
-export default function Profile() {
+export default function Profile(props) {
   const { user } = useAuthContext();
   const [userInfo, setUserInfo] = useState({
     name: null,
@@ -49,6 +49,7 @@ export default function Profile() {
     e.preventDefault();
 
     if (!user) {
+      props.buttonClicked();
       return setUnauthError(unauthError => unauthError = 'Login or sign up to create your own profile')
     }
 
