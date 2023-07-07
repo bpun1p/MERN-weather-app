@@ -91,7 +91,8 @@ tr th {
     font-weight: 500;
     background: #1e90ff;
     width: 275px;
-    padding: 20px;
+    height: 70px;
+    padding: 0px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
@@ -105,7 +106,7 @@ tr th {
     transition-property: box-shadow, transform;
     position: absolute;
     right: 3%;
-    top: 6.5%;
+    top: 15px;
 }
 
 .add-loc_btn:hover, 
@@ -114,5 +115,13 @@ tr th {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
 
+.tooltipText{
+    left: 88.5%;
+    z-index: 9999;
+}
+
+.tooltip:hover .tooltipText{
+    top: -25px;
 }

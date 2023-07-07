@@ -7,7 +7,7 @@
   width: 50%;
   position: relative;
   left: 25%;
-  padding-top: 10%;
+  padding-top: 15%;
 }
 
 .custom-file-upload {
@@ -67,7 +67,6 @@
   transition-property: box-shadow, transform;
 }
 
-.name-change-btn:hover, 
 .name-change-btn:active {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
@@ -112,4 +111,10 @@
 .saved-results-msg {
   font-size: 20px;
   font-weight: 500px;
+}
+
+.unauthorized-save-userinfo {
+  position: relative;
+  top: 120px;
+  font-size: 20px;
 }

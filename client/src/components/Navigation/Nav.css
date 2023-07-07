@@ -20,6 +20,7 @@
   padding: 30px;
   width: 100%;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .displayed {
@@ -27,7 +28,7 @@
 }
 
 .dismissed {
-  transform: translatex(-65%);
+  transform: translatex(-68%);
 }
 .nav-dashboard {
   border-radius: 0 15px 0 0;

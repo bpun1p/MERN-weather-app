@@ -3,7 +3,7 @@ import './AccessModal.css';
 import { Signup } from '../utils/access/signup';
 import { Login } from '../utils/access/login';
 
-export default function AccessModal() {
+export default function AccessModal(props) {
   const [credentials, setCredentials] = useState({
     email: null,
     password: null
@@ -18,8 +18,11 @@ export default function AccessModal() {
     await signup(credentials.email, credentials.password);
 
     if (signupError) {
-      setError(error => error = signupError)
+      return setError(error => error = signupError)
     }
+
+    props.loggedInClicked()
+
   };
   
   const handleLogin = async(e) => {
@@ -28,8 +31,10 @@ export default function AccessModal() {
     await login(credentials.email, credentials.password);
 
     if (loginError) {
-      setError(error => error = loginError)
+      return setError(error => error = loginError)
     }
+
+    props.loggedInClicked()
   };
 
   

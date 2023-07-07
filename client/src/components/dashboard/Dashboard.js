@@ -7,8 +7,9 @@ import { getCurrent, getForecast, geocodingService } from '../../service/weather
 import { useAuthContext } from '../utils/access/useAuthContext';
 import LoadingSpinner from '../utils/loader/Loader';
 import MiscWeather from './miscWeather/MiscWeather';
+import Access from '../access/Access';
 
-export default function Weather() {
+export default function Weather(props) {
   const { user } = useAuthContext();
   const [forecastData, setForecastData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
@@ -62,7 +63,7 @@ export default function Weather() {
 
   const handleSave = () => {
     if (!user) {
-      console.log('require login');
+      props.buttonClicked();
       return;
     }
     saveLocation(location, user);
@@ -85,7 +86,14 @@ export default function Weather() {
               <button className='search-btn' type="submit">Search</button>
             </form>
           </div>
-          <button className='add-loc_btn' onClick={handleSave}>Add to Library</button>
+          <div className="tooltip">
+            {!user ? 
+              <span className='tooltipText'>Login or sign up to save this location to your library</span> 
+              : 
+              <span className='tooltipText'>Save this location to your library</span>
+            }
+            <button className='add-loc_btn' onClick={handleSave}>Add to library </button>        
+          </div>
         </div>
         <div>
           <div className='weather-body'>
