@@ -31,7 +31,7 @@ export default function Profile(props) {
           if (res.userInfo[0].imageFile) {
             setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}))
           };
-          setIsFetched(true);
+          setIsFetched(isFetched => isFetched = true);
         };
       };
     };
@@ -40,10 +40,17 @@ export default function Profile(props) {
       fetchUserInfo();
     };
     return(() => {
-      setUserInfo({...userInfo, name: null, imageFile: null})
-      setIsFetched(false);
+
+      setIsFetched(isFetched => isFetched = false);
     })
   }, [user]);
+
+  useEffect(() =>{
+    if (props.logOut === true) {
+      setUserInfo({...userInfo, name: null, imageFile: null});
+    }
+    return () => console.log('Unmounted')
+  }, [props.logOut])
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
@@ -88,18 +95,18 @@ export default function Profile(props) {
         <form className='user-info'>
           <div className='user-avatar'>
             <label htmlFor="file-upload" className='custom-file-upload'>
-              <img src={userInfo.imageFile || avatar} alt="" />
+            <img src={userInfo.imageFile || avatar} alt="" />
             </label>
             <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
           </div>
           <div className='name-container'>
             <p className='name-heading'>Name:</p>
-            {nameChangeOptToggler ?               
+            {userInfo && nameChangeOptToggler ?               
               <input className='name-input name' type="text" id="name" placeholder={userInfo.name} onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/> 
               : 
               <p className='name-text name' >{userInfo.name || null}</p>
             }
-            {userInfo.name ?
+            {userInfo ?
               <button className='name-change-btn' onClick={toggleNameChangeOpt}>Change Name</button>
               :
               <input type="text" id="name" onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/>

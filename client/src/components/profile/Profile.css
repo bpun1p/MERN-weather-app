@@ -67,7 +67,6 @@
   transition-property: box-shadow, transform;
 }
 
-.name-change-btn:hover, 
 .name-change-btn:active {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);

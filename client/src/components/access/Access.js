@@ -19,6 +19,7 @@ export default function Access(props) {
   };
 
   const handleLogout = () => {
+    props.loggedOutClicked();
     logout();
     setToggleModal(toggleAccessModal => !toggleAccessModal);
   };
@@ -31,7 +32,7 @@ export default function Access(props) {
         :
         <>
           <button className='access-btn' onClick={toggleAccessModal}>Login / Sign Up</button>
-          {toggleModal ? <AccessModal/> : null}
+          {toggleModal ? <AccessModal loggedInClicked={props.loggedInClicked}/> : null}
         </>
       }
     </div> 
