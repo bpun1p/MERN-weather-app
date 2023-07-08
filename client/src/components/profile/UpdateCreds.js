@@ -28,11 +28,13 @@ export default function UpdateCreds() {
     if (credentials.password !== credentials.confirmPass) {
       return setError(error => error = 'Passwords do not match');
     }
-    let updated = await update(credentials.email, credentials.password, user);
+    await update(credentials.email, credentials.password, user);
 
-    if (updated) {
-      setIsUpdated(isUpdated => isUpdated = true);
+    if (!updateError) {
+      return setError(error => error = updateError);
     }
+
+    setIsUpdated(isUpdated => isUpdated = true);
   }
 
   return (
@@ -72,11 +74,12 @@ export default function UpdateCreds() {
             {error && <><br/><div className='error'>{error}</div></>}
             <br/>
             <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Save</button>
-            {isUpdated ? <span>Updated!</span>: null}
             <div/>
           </> 
         : null}
       </form>
+      {isUpdated ? <span className='update-success-text'>Updated!</span>: null}
+
     </div>
   );
 };

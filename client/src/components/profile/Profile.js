@@ -116,10 +116,16 @@ export default function Profile(props) {
           {user && isFetched ? 
             <button id='updateUserInfo' onClick={handleUpdateUserInfo} type='submit' className='submit-userinfo-btn'>Update</button>
           :
-            <div className='tooltip' style={{height : '0', padding : '0'}}>
-              <span style={{left : '50%', top : '10px'}} className='tooltipText'>Login or sign up to create your profile</span> 
+          <>
+            {!user ? 
+              <div className='tooltip' style={{height : '0', padding : '0'}}>
+                <span style={{left : '50%', top : '10px'}} className='tooltipText'>Login or sign up to create your profile</span> 
+                <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+              </div>
+            :
               <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
-            </div>
+            }
+          </>
           }
         </form>
           {isSaved ? <p className='saved-results-msg'>Saved!</p> : null}
