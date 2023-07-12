@@ -7,7 +7,6 @@ import { getCurrent, getForecast, geocodingService } from '../../service/weather
 import { useAuthContext } from '../utils/access/useAuthContext';
 import LoadingSpinner from '../utils/loader/Loader';
 import MiscWeather from './miscWeather/MiscWeather';
-import Access from '../access/Access';
 
 export default function Weather(props) {
   const { user } = useAuthContext();
