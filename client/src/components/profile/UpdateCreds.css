@@ -1,7 +1,7 @@
 
 .form-body {
   text-align: left;
-  margin-left: 43%
+  margin-left: 43.5%
 }
 
 .update-modal-btn {
@@ -55,4 +55,11 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+.update-success-text {
+  position: relative;
+  top: 30px;
+  font-size: 20px;
+  font-weight: 500;
 }
