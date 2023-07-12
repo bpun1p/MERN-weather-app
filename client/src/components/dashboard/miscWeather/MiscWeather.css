@@ -1,0 +1,62 @@
+.feels, .humidity, .winds {
+  border: 1px solid rgb(0, 0, 0);
+  width: 275px;
+  height: 275px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  background-color: rgb(128, 128, 128, 0.3);
+  border-radius: 15px;
+  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+}
+
+.misc-weather-img {
+  width: 100%;
+  max-width: 250px;
+}
+
+.feels img {
+  position: relative;
+  left: 28%;
+}
+.feels-num {
+  position: relative;
+  right: 50%;
+}
+
+.feels-desc {
+  width: 100px;
+  margin: 0;
+}
+
+.feels-desc-container {
+  position:relative;
+  bottom: 40%;
+  right: 23%; 
+}
+
+.humidity-desc {
+  position: relative;
+  bottom: 30%;
+  right: 35%; 
+}
+
+.wind-speed {
+  position: relative;
+  top: 40%;
+  left: 5%; 
+}
+
+.wind-desc {
+  position: relative;
+  bottom: 40%;
+  right: 85%; 
+}
+
+.winds img {
+  position: relative;
+  left: 15%;
+}

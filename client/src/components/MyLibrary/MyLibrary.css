@@ -1,7 +1,14 @@
 .library {
   margin-left: 15%;
-  padding-top: 10%;
+  position: relative;
+  top: 300px;
   max-width: 70%;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 500px;
+  background-color: rgb(128, 128, 128, 0.3); 
+  font-family: 'Roboto', sans-serif;
 }
 
 .library-header {
@@ -20,16 +27,43 @@
   margin-left: 0;
 }
 
+.table-data {
+  position: relative;
+  margin-top: 20px;
+}
+
 .library-table th {
-  padding: 8px 0;
+  margin-top: 50px;
+  padding: 10px 0;
 }
 
 .library-table tr {
-  padding-top: 12px;
-  padding-bottom: 12px;
   text-align: left;
 }
 
-.library-table tr:nth-child(even){background-color: #f2f2f2;}
+.trash-icon {
+  padding-top: 4px;
+  height: 30px;
+  cursor: pointer;
+  text-align: right;
+}
 
-.library-table tr:hover {background-color: #ddd;}
+.library-table tr:nth-child(even){
+  background-color: #a1d5ef;
+}
+
+.city-data{
+  padding-left: 5px;
+}
+
+.city-header {
+  padding-left: 5px
+}
+
+.unauthorized-library-text {
+  font-size: 30px;
+  position: absolute;
+  top: 45%;
+  left: 28%;
+}
+

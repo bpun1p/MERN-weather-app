@@ -1,11 +1,13 @@
 .profile-container {
-  width: fit-content;
-  margin-left: 0;
-  margin-top: 0;
-  left: 45%;
-  position: relative;
   text-align: center;
-  top: 400px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.user-info {
+  width: 50%;
+  position: relative;
+  left: 25%;
+  padding-top: 15%;
 }
 
 .custom-file-upload {
@@ -23,6 +25,96 @@
   display: none;
 }
 
-.custom-file-upload > img{
+.custom-file-upload img {
   max-height: 100%;
+}
+
+.name-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+.name-text, .name-heading, .name-input {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.name-heading {
+  margin-right: 5px;
+}
+
+.name-change-btn {
+  position: absolute;
+  top: 60px;
+  font-size: 15px;
+  font-weight: 500;
+  background: #1e90ff;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transiton-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+}
+
+.name-change-btn:active {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.name-input {
+  width: 150px;
+}
+
+.submit-userinfo-btn {
+  margin-top: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  background: #0b9657;
+  width: 250px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transiton-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+}
+
+.submit-userinfo-btn:hover, 
+.submit-userinfo-btn:active {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.update-creds-container {
+  margin-top: 50px;
+}
+
+.saved-results-msg {
+  font-size: 20px;
+  font-weight: 500px;
+}
+
+.unauthorized-save-userinfo {
+  position: relative;
+  top: 120px;
+  font-size: 20px;
 }

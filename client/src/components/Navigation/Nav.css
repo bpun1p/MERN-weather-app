@@ -4,20 +4,23 @@
   position: absolute;
   left: 20;
   transition: 0.5s;
-  top: 350px;
+  top: 450px;
+  z-index: 99999;
+  font-family: 'Roboto', sans-serif;
 }
 
 .side-nav {
-  border: 1px solid black;
+  border-radius: 0 15px 15px 0;
   transition: 0.5s;
 }
 
 .btn {
   margin: 0;
-  background: none;
-  padding: 20px;
+  background-color: rgba(156, 153, 153, 0.3);  
+  padding: 30px;
   width: 100%;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .displayed {
@@ -25,5 +28,31 @@
 }
 
 .dismissed {
-  transform: translatex(-70%);
+  transform: translatex(-68%);
+}
+.nav-dashboard {
+  border-radius: 0 15px 0 0;
+}
+
+.dashboard-btn {
+  border-radius: 0 15px 0 0;
+}
+
+.profile-btn {
+  border-radius: 0 0 15px 0;
+}
+
+.toggle-btn {
+  transform:rotate(-90deg);
+  position: relative;
+  top: 46%;
+  right: 37%;
+  width: 70px;
+  background-color: rgb(30, 121, 239);
+  border: none;
+  text-orientation: upright;
+  writing-mode: vertical-rl;
+  border: 1px solid rgb(7, 7, 225);
+  color: white;
+  cursor: pointer;
 }

@@ -1,6 +1,6 @@
 import './Loader.css';
 
-export default function LoadingSpinner(props) {
+export default function LoadingSpinner() {
   return (
     <div className="spinner-container">
       <div className="loading-spinner">

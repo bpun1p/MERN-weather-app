@@ -1,0 +1,39 @@
+.tooltip {
+  position: relative;
+  cursor: pointer;
+  top: 28%;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: sans-serif;
+}
+
+.tooltipText {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: #fff;
+  white-space: nowrap;
+  padding: 10px 15px;
+  border-radius: 7px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+
+}
+
+.tooltipText::before{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  border: 15px solid;
+  transform: translateX(-50%);
+  border-color: #000 #0000 #0000 #0000;
+}
+
+.tooltip:hover .tooltipText{
+  top: -50px;
+  visibility: visible;
+  opacity: 1;
+}
