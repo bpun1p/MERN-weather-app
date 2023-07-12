@@ -15,7 +15,8 @@ export default function Profile(props) {
   const [nameChangeOptToggler, setNameChangeOptToggler] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [unauthError, setUnauthError] = useState(null)
+  const [unauthError, setUnauthError] = useState(null);
+  const [isCredsUpdated, setIsCredsUpdated] = useState(null);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -40,17 +41,22 @@ export default function Profile(props) {
       fetchUserInfo();
     };
     return(() => {
-
       setIsFetched(isFetched => isFetched = false);
+      setIsCredsUpdated(isCredsUpdated => isCredsUpdated = false)
     })
-  }, [user]);
+  }, [user, isCredsUpdated]);
 
   useEffect(() =>{
     if (props.logOut === true) {
       setUserInfo({...userInfo, name: null, imageFile: null});
+      setIsSaved(isSaved => isSaved = false)
     }
     return () => console.log('Unmounted')
   }, [props.logOut])
+
+  const handleUserCredsChanged = () => {
+    setIsCredsUpdated(isCredsUpdated => isCredsUpdated = true);
+  }
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
@@ -133,7 +139,7 @@ export default function Profile(props) {
         <br/>
         {user ?
           <div className='update-creds-container'>
-            <UpdateCreds/>
+            <UpdateCreds updatesPerformed={handleUserCredsChanged} />
           </div> 
         : null}
       </div>
