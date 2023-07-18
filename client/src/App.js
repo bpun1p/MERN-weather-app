@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import './components/utils/tooltip/Tooltip.css'
 import Dashboard from './components/dashboard/Dashboard';
-import Nav from './components/navigation/Nav';
+import Nav from './components/nav/Nav';
 import Profile from './components/profile/Profile';
-import Library from './components/myLibrary/MyLibrary';
+import Library from './components/library/Library';
 import Access from './components/access/Access';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
