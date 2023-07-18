@@ -31,7 +31,7 @@ export default function Nav() {
       </div>
       <div className='side-nav'>
         <div className='nav-dashboard'>
-          <NavLink to='/dashboard'>
+          <NavLink to='/'>
             <button type='button' className='dashboard-btn btn'>Dashboard</button>
           </NavLink>
         </div>
