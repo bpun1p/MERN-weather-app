@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/locationRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -22,7 +22,7 @@ app.use(cors())
 
 //connect to mongodb
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(PORT, () => console.log(`Listening at: http://localhost:${PORT}`)))
+  .then(() => app.listen(PORT, () => console.log(`Server running on ${PORT}`)))
   .catch((err) => console.log(err));
 
 //Api routes 
