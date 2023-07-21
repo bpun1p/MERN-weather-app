@@ -33,7 +33,7 @@ function App() {
       <Access show={showState} modalClicked={modalClickedHandler} loggedOutClicked={loggedOutClicked} loggedInClicked={loggedInClicked}/>
       <Nav/>
       <Routes>
-        <Route path='/dashboard' element={<Dashboard buttonClicked={buttonClickedHandler}/>} />
+        <Route path='/' element={<Dashboard buttonClicked={buttonClickedHandler}/>} />
         <Route path='/library' element={<Library/>} />
         <Route path='/profile' element={<Profile buttonClicked={buttonClickedHandler} logOut={loggedOut}/>}/>
       </Routes>
