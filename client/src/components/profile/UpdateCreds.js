@@ -33,7 +33,7 @@ export default function UpdateCreds({ updatesPerformed }) {
   };
 
   const handleSubmitUpdatedCreds = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!credentials.password || !credentials.confirmPass) {
       return setError(() => 'Please fill in all fields before submitting');
     }
@@ -53,26 +53,26 @@ export default function UpdateCreds({ updatesPerformed }) {
               <div className='email-container'>
                 <p>Email:</p>
                 <input 
-                type='text'
-                id='email'
-                placeholder={user.email}
-                onChange={(e) => setCredentials({...credentials, email: e.target.value})}
+                  type='text'
+                  id='email'
+                  placeholder={user.email}
+                  onChange={(e) => setCredentials({...credentials, email: e.target.value})}
                 />
               </div>
               <div className='password-container'>
                 <p>Password:</p>
                 <input 
-                type='password'
-                id='password'
-                onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                  type='password'
+                  id='password'
+                  onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                 />
               </div>
               <div className='confirm-container'>
                 <p>Confirm Password:</p>
                 <input 
-                type='password'
-                id='confirm-password'
-                onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
+                  type='password'
+                  id='confirm-password'
+                  onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
                 />
               </div>
             </div>
@@ -81,7 +81,7 @@ export default function UpdateCreds({ updatesPerformed }) {
             <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Save</button>
             <div/>
           </> 
-        : null}
+          : null}
       </form>
       {isUpdated ? <span className='update-success-text'>Updated!</span>: null}
     </div>

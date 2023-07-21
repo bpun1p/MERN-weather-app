@@ -18,9 +18,9 @@ export default function Dashboard({ buttonClicked }) {
 
   const getLocation = useCallback(async () => {
     await navigator.geolocation.getCurrentPosition(successCallback, 
-     errorCallback, {
-       timeout: 10_000
-   });
+      errorCallback, {
+        timeout: 10_000
+      });
   }, []);
 
   useEffect(() => {

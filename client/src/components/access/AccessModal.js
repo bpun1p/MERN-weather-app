@@ -11,7 +11,7 @@ export default function AccessModal({loggedInClicked}) {
   });
   const {signup, signupError, loadingSignup} = Signup();
   const {login, loginError, loadingLogin} = Login();
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (loginError) {
@@ -66,4 +66,4 @@ export default function AccessModal({loggedInClicked}) {
 
 AccessModal.propTypes = {
   loggedInClicked: PropTypes.func
-}
+};

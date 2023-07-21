@@ -17,11 +17,11 @@ export default function Nav() {
         class : 'dismissed'
       });
     } else {
-        setNavProps({...navProps,
-          text : 'Hide',
-          class : 'displayed'
-        });
-      }
+      setNavProps({...navProps,
+        text : 'Hide',
+        class : 'displayed'
+      });
+    }
   };
 
   return (

@@ -21,7 +21,7 @@ export default function Forecast({ forecastData }) {
               <p>{forecast.main.temp_max.toFixed()}°C &nbsp;|&nbsp; {forecast.main.temp_min.toFixed()}°C</p>
             </div>
           </div>
-        )
+        );
       }
     }
     return(results);
@@ -38,4 +38,4 @@ export default function Forecast({ forecastData }) {
 
 Forecast.propTypes = {
   forecastData: PropTypes.array
-}
+};

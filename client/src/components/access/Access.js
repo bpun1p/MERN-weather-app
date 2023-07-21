@@ -11,11 +11,11 @@ export default function Access({show, loggedInClicked, loggedOutClicked, modalCl
   const { logout } = Logout();
 
   useEffect(() => {
-    setToggleModal(() => show)
-  }, [show])
+    setToggleModal(() => show);
+  }, [show]);
 
   const toggleAccessModal = () => {
-    modalClicked()
+    modalClicked();
     setToggleModal(toggleModal => !toggleModal);
   };
 

@@ -33,13 +33,13 @@ export const updateUser = async (email, password, user) => {
       email : email,
       password: password
     }, {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        },
-    })
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      },
+    });
     return res;
   }
   catch(err) {
     return err;
   }
-}
+};

@@ -44,7 +44,7 @@ export default function Profile({ logOut, buttonClicked }) {
     return(() => {
       setIsFetched(() => false);
       setIsCredsUpdated(() => false);
-    })
+    });
   }, [user, isCredsUpdated]);
 
   useEffect(() =>{
@@ -103,7 +103,7 @@ export default function Profile({ logOut, buttonClicked }) {
         <form className='user-info'>
           <div className='user-avatar'>
             <label htmlFor="file-upload" className='custom-file-upload'>
-            <img src={userInfo.imageFile || avatar} alt="" />
+              <img src={userInfo.imageFile || avatar} alt="" />
             </label>
             <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
           </div>
@@ -123,29 +123,29 @@ export default function Profile({ logOut, buttonClicked }) {
           <br/>
           {user && isFetched ? 
             <button id='updateUserInfo' onClick={handleUpdateUserInfo} type='submit' className='submit-userinfo-btn'>Update</button>
-          :
-          <>
-            {!user ? 
-              <div className='tooltip' style={{height : '0', padding : '0'}}>
-                <span style={{left : '50%', top : '10px'}} className='tooltipText'>Login or sign up to create your profile</span> 
-                <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
-              </div>
             :
-              <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
-            }
-          </>
+            <>
+              {!user ? 
+                <div className='tooltip' style={{height : '0', padding : '0'}}>
+                  <span style={{left : '50%', top : '10px'}} className='tooltipText'>Login or sign up to create your profile</span> 
+                  <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+                </div>
+                :
+                <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+              }
+            </>
           }
         </form>
-          {isSaved ? <p className='saved-results-msg'>Saved!</p> : null}
-          {!user && unauthError ? <span className='unauthorized-save-userinfo'>{unauthError}</span> : null}
+        {isSaved ? <p className='saved-results-msg'>Saved!</p> : null}
+        {!user && unauthError ? <span className='unauthorized-save-userinfo'>{unauthError}</span> : null}
         <br/>
         {user ?
           <div className='update-creds-container'>
             <UpdateCreds updatesPerformed={handleUserCredsChanged} />
           </div> 
-        : null}
+          : null}
       </div>
-  </>
+    </>
   );
 }
 

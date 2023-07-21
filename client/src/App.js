@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import './components/utils/tooltip/Tooltip.css'
+import './components/utils/tooltip/Tooltip.css';
 import Dashboard from './components/dashboard/Dashboard';
 import Nav from './components/Navigation/Nav';
 import Profile from './components/profile/Profile';
@@ -13,20 +13,20 @@ function App() {
   const [loggedOut, setLoggedOut] = useState(true);
 
   const buttonClickedHandler = () => {
-    setShowState(() => true)
-  }
+    setShowState(() => true);
+  };
 
   const modalClickedHandler = () => {
     setShowState(() => false);
-  }
+  };
 
   const loggedOutClicked = () => {
-    setLoggedOut(() => true)
-  }
+    setLoggedOut(() => true);
+  };
 
   const loggedInClicked = () => {
     setLoggedOut(() => false);
-  }
+  };
 
   return (
     <BrowserRouter>

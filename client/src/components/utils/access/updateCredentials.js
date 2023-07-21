@@ -23,7 +23,7 @@ export const UpdateCredentials = () => {
     }
     
     if (response.status === 200) {
-      const data = response.data
+      const data = response.data;
       localStorage.setItem('user', JSON.stringify(data));
       dispatch({ type: 'LOGIN', payload: data });
       setIsUpdating(false);
