@@ -6,10 +6,10 @@ import Clear from '../../assets/images/clear.png';
 import Haze from '../../assets/images/haze.png';
 
 export const weatherConditions = {
-  "Snow": Snow,
-  "Clouds": Clouds,
-  "Rain": Rain,
-  "Sun": Sun,
-  "Clear": Clear,
-  "Haze": Haze
+  'Snow': Snow,
+  'Clouds': Clouds,
+  'Rain': Rain,
+  'Sun': Sun,
+  'Clear': Clear,
+  'Haze': Haze
 };
