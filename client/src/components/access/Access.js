@@ -3,23 +3,24 @@ import AccessModal from './AccessModal';
 import './Access.css';
 import { Logout } from '../utils/access/logout';
 import { useAuthContext } from '../utils/access/useAuthContext';
+import PropTypes from 'prop-types';
 
-export default function Access(props) {
+export default function Access({show, loggedInClicked, loggedOutClicked, modalClicked}) {
   const [toggleModal, setToggleModal] = useState(false);
   const { user } = useAuthContext();
   const { logout } = Logout();
 
   useEffect(() => {
-    setToggleModal(toggleModal => toggleModal = props.show)
-  }, [props.show])
+    setToggleModal(() => show)
+  }, [show])
 
   const toggleAccessModal = () => {
-    props.modalClicked()
+    modalClicked()
     setToggleModal(toggleModal => !toggleModal);
   };
 
   const handleLogout = () => {
-    props.loggedOutClicked();
+    loggedOutClicked();
     logout();
     setToggleModal(toggleAccessModal => !toggleAccessModal);
   };
@@ -32,9 +33,16 @@ export default function Access(props) {
         :
         <>
           <button className='access-btn' onClick={toggleAccessModal}>Login / Sign Up</button>
-          {toggleModal ? <AccessModal loggedInClicked={props.loggedInClicked}/> : null}
+          {toggleModal ? <AccessModal loggedInClicked={loggedInClicked}/> : null}
         </>
       }
     </div> 
   );
+}
+
+Access.propTypes = {
+  show: PropTypes.func,
+  loggedInClicked: PropTypes.func,
+  loggedOutClicked: PropTypes.func,
+  modalClicked: PropTypes.func
 };

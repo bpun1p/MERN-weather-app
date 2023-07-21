@@ -5,7 +5,7 @@ import { useAuthContext } from './useAuthContext';
 export const UpdateCredentials = () => {
   const [updateError, setUpdateError] = useState(null);
   const [isUpdating, setIsUpdating] = useState(null);
-  const [updateSuccess, setUpdateSuccess] = useState(null)
+  const [updateSuccess, setUpdateSuccess] = useState(null);
   const { dispatch } = useAuthContext();
   const { user } = useAuthContext();
 
@@ -20,7 +20,7 @@ export const UpdateCredentials = () => {
       setUpdateError(response.response.data.error);
       localStorage.setItem('user', JSON.stringify(user));
       dispatch({ type: 'LOGIN', payload: user});   
-    };
+    }
     
     if (response.status === 200) {
       const data = response.data

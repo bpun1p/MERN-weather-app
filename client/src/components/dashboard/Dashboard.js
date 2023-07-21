@@ -7,8 +7,9 @@ import { getCurrent, getForecast, geocodingService } from '../../service/weather
 import { useAuthContext } from '../utils/access/useAuthContext';
 import LoadingSpinner from '../utils/loader/Loader';
 import MiscWeather from './miscWeather/MiscWeather';
+import PropTypes from 'prop-types';
 
-export default function Weather(props) {
+export default function Dashboard({ buttonClicked }) {
   const { user } = useAuthContext();
   const [forecastData, setForecastData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
@@ -27,7 +28,7 @@ export default function Weather(props) {
       getLocation();
     } else {
       fetchWeatherData(location);
-    };
+    }
 
     return () => console.log('Unmounted');
   }, [location, getLocation]);
@@ -49,20 +50,20 @@ export default function Weather(props) {
     const fallbackLoc = 'Vancouver';
     if (error.code === error.PERMISSION_DENIED) {
       setLocation(fallbackLoc);
-    };
+    }
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     if (searched) {
       setLocation(searched);
-    };
+    }
     event.target.reset();
   };
 
   const handleSave = () => {
     if (!user) {
-      props.buttonClicked();
+      buttonClicked();
       return;
     }
     saveLocation(location, user);
@@ -121,4 +122,8 @@ export default function Weather(props) {
       </div> : <LoadingSpinner/>}
     </>
   );
+}
+
+Dashboard.propTypes = {
+  buttonClicked: PropTypes.func
 };

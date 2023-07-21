@@ -1,4 +1,6 @@
+import React from 'react';
 import { createContext, useReducer, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 export const AuthContext = createContext()
 
@@ -10,7 +12,7 @@ export const authReducer = (state, action) => {
       return { user : null};
     default:
       return state;
-  };
+  }
 };
 
 export const AuthContextProvider = ({ children }) => {
@@ -23,7 +25,7 @@ export const AuthContextProvider = ({ children }) => {
 
     if (user) {
       dispatch({ type: 'LOGIN', payload: user });
-    };
+    }
   },[]);
 
   console.log('AuthContext state: ', state);
@@ -33,4 +35,8 @@ export const AuthContextProvider = ({ children }) => {
       { children }
     </AuthContext.Provider>
   );
-};
+}
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.object
+}

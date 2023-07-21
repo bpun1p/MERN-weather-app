@@ -15,7 +15,7 @@ export const getCurrent = async (location) => {
     return res;
   } catch (err) { 
       console.error(err);
-    };
+    }
 };
 
 export const getForecast = async (location) => {
@@ -30,7 +30,7 @@ export const getForecast = async (location) => {
     return res;
   } catch (err) {
       console.error(err);
-  };
+  }
 };
 
 export const geocodingService = async (position) => {
@@ -40,9 +40,9 @@ export const geocodingService = async (position) => {
     appid : appid
   });
   try {
-    const res = await axios.get(geocodingUrl)
+    const res = await axios.get(geocodingUrl);
     return res;
     } catch (err) { 
         console.error(err); 
-    };
+    }
 };

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './AccessModal.css';
 import { Signup } from '../utils/access/signup';
 import { Login } from '../utils/access/login';
+import PropTypes from 'prop-types';
 
-export default function AccessModal(props) {
+export default function AccessModal({loggedInClicked}) {
   const [credentials, setCredentials] = useState({
     email: null,
     password: null
@@ -14,22 +15,23 @@ export default function AccessModal(props) {
 
   useEffect(() => {
     if (loginError) {
-      setError(error => error = loginError)
-      return
+      setError(() => loginError);
+      return;
     }
 
     if (signupError) {
-      setError(error => error = signupError)
-      return
+      setError(() => signupError);
+      return;
     }
-  }, [signupError, loginError])
+
+  }, [signupError, loginError]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
     await signup(credentials.email, credentials.password);
 
-    props.loggedInClicked()
+    loggedInClicked();
 
   };
   
@@ -38,7 +40,7 @@ export default function AccessModal(props) {
 
     await login(credentials.email, credentials.password);
 
-    props.loggedInClicked()
+    loggedInClicked();
   };
   
   return(
@@ -60,4 +62,8 @@ export default function AccessModal(props) {
       <button  disabled={loadingSignup || loadingLogin} id='register' onClick={handleSignup} type='submit' className='signup-btn'>Sign Up</button>
     </form>
   );
-};
+}
+
+AccessModal.propTypes = {
+  loggedInClicked: PropTypes.func
+}

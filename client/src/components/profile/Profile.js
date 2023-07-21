@@ -5,8 +5,9 @@ import UpdateCreds from './UpdateCreds';
 import { saveUserInfo, getUserInfo, updateUserInfo } from '../../service/userInfoServices';
 import { convertToBase64 } from '../utils/convertToBase64/convertToBase64';
 import avatar from '../assets/images/avatar.png';
+import PropTypes from 'prop-types';
 
-export default function Profile(props) {
+export default function Profile({ logOut, buttonClicked }) {
   const { user } = useAuthContext();
   const [userInfo, setUserInfo] = useState({
     name: null,
@@ -24,46 +25,47 @@ export default function Profile(props) {
       if (res) {
         if (res.response && res.response.status !== 200) {
           return;
-        };
+        }
         if (res.userInfo) { 
           if (res.userInfo[0].name) {
-            setUserInfo(userInfo => ({...userInfo, name: res.userInfo[0].name}))
-          };
+            setUserInfo(userInfo => ({...userInfo, name: res.userInfo[0].name}));
+          }
           if (res.userInfo[0].imageFile) {
-            setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}))
-          };
-          setIsFetched(isFetched => isFetched = true);
-        };
-      };
+            setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}));
+          }
+          setIsFetched(() => true);
+        }
+      }
     };
 
     if (!isFetched) {
       fetchUserInfo();
-    };
+    }
     return(() => {
-      setIsFetched(isFetched => isFetched = false);
-      setIsCredsUpdated(isCredsUpdated => isCredsUpdated = false)
+      setIsFetched(() => false);
+      setIsCredsUpdated(() => false);
     })
   }, [user, isCredsUpdated]);
 
   useEffect(() =>{
-    if (props.logOut === true) {
+    if (logOut === true) {
       setUserInfo({...userInfo, name: null, imageFile: null});
-      setIsSaved(isSaved => isSaved = false)
+      setIsSaved(() => false);
     }
-    return () => console.log('Unmounted')
-  }, [props.logOut])
+    return () => console.log('Unmounted');
+  }, [logOut]);
 
   const handleUserCredsChanged = () => {
-    setIsCredsUpdated(isCredsUpdated => isCredsUpdated = true);
-  }
+    setIsCredsUpdated(() => true);
+  };
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
 
     if (!user) {
-      props.buttonClicked();
-      return setUnauthError(unauthError => unauthError = 'Login or sign up to create your own profile')
+      buttonClicked();
+      setUnauthError(() => 'Login or sign up to create your own profile');
+      return;
     }
 
     const saved =  await saveUserInfo(userInfo.name, userInfo.imageFile, user);
@@ -145,4 +147,9 @@ export default function Profile(props) {
       </div>
   </>
   );
+}
+
+Profile.propTypes = {
+  buttonClicked: PropTypes.func,
+  logOut: PropTypes.func
 };

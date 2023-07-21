@@ -1,8 +1,9 @@
 import React from 'react';
 import './Forecast.css';
 import { weatherConditions } from '../utils/weatherConditions/WeatherConditions';
+import PropTypes from 'prop-types';
 
-export default function Forecast({forecastData}) {
+export default function Forecast({ forecastData }) {
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const date = new Date();
   
@@ -21,8 +22,8 @@ export default function Forecast({forecastData}) {
             </div>
           </div>
         )
-      };
-    };
+      }
+    }
     return(results);
   };
 
@@ -33,4 +34,8 @@ export default function Forecast({forecastData}) {
       </div>
     </div>
   );
-};
+}
+
+Forecast.propTypes = {
+  forecastData: PropTypes.array
+}

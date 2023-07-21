@@ -1,12 +1,14 @@
+import React from 'react';
 import './Gauge.css';
 import { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-export default function Gauge(props) {
+export default function Gauge({ value }) {
   const gaugeElement = useRef();
 
   useEffect(() => {
     const gauge = gaugeElement.current;
-    setGaugeValue(gauge, props.value/100)
+    setGaugeValue(gauge, value/100);
   }, [])
   
   function setGaugeValue(element, value) {
@@ -14,12 +16,8 @@ export default function Gauge(props) {
       return;
     }
 
-    element.querySelector(".gauge-fill").style.transform = `rotate(${
-      value / 2
-    }turn)`;
-    element.querySelector(".gauge-cover").textContent = `${Math.round(
-      value * 100
-    )}%`;
+    element.querySelector(".gauge-fill").style.transform = `rotate(${value / 2}turn)`;
+    element.querySelector(".gauge-cover").textContent = `${Math.round(value * 100)}%`;
   }
 
   return (
@@ -31,5 +29,9 @@ export default function Gauge(props) {
     </div>
   );
 }
+
+Gauge.propTypes = {
+  value: PropTypes.number
+};
   
 

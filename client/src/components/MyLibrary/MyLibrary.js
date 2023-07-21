@@ -14,7 +14,7 @@ export default function MyLibrary() {
     const dataArr = [];
     for (let i = 0; i < locData.length; i++) {
       dataArr.push( await fetchWeatherData(locData[i]));
-    };
+    }
     return dataArr;
   }, []);
   
@@ -26,12 +26,12 @@ export default function MyLibrary() {
         setWeatherData(data);
       } catch (err) {
           console.error(err);
-      };
+      }
     };
 
     if (user) {
       getData();
-    };
+    }
 
     return () => {
       setWeatherData(null);
@@ -69,7 +69,7 @@ export default function MyLibrary() {
     const forecastResults = [];
     for (let forecast of forecastData) {
       forecastResults.push((forecast.main.temp.toFixed() + " °C | "))
-    };
+    }
     return forecastResults;
   };
 
@@ -86,9 +86,9 @@ export default function MyLibrary() {
             </td>
             <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' alt='trash-icon' />
           </tr>
-        )};
+        )}
       return(results);
-    };
+    }
   };
 
   return (
@@ -112,4 +112,4 @@ export default function MyLibrary() {
         </table> 
     </div>
   );
-};
+}
