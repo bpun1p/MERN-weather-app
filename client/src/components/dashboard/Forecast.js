@@ -1,6 +1,6 @@
 import React from 'react';
 import './Forecast.css';
-import { weatherConditions } from '../utils/WeatherConditions/WeatherConditions';
+import { weatherConditions } from '../utils/weatherConditions/WeatherConditions';
 import PropTypes from 'prop-types';
 
 export default function Forecast({ forecastData }) {
