@@ -1,11 +1,12 @@
 .weather-container {
     overflow: hidden;
     position: absolute;
-    top: 62%;
-    left: 50%;
+    top: 55%;
+    left: 55%;
     transform: translate(-50%, -50%);
-    width: 1620px;
-    height: 1420px;
+    width: 1920px;
+    height: auto;
+    padding-bottom: 20px;
 }
 
 .temp {
@@ -82,7 +83,7 @@ tr th {
 .misc-weather-container {
     position: absolute;
     top: 13%;
-    left: 80%;
+    left: 75%;
 }
 
 .add-loc_btn {
@@ -105,8 +106,8 @@ tr th {
     -webkit-transiton-property: box-shadow, transform;
     transition-property: box-shadow, transform;
     position: absolute;
-    right: 3%;
-    top: 15px;
+    right: 10.7%;
+    top: -30px;
 }
 
 .add-loc_btn:hover, 
@@ -118,10 +119,10 @@ tr th {
 }
 
 .tooltipText{
-    left: 88.5%;
+    left: 82%;
     z-index: 9999;
 }
 
 .tooltip:hover .tooltipText{
-    top: -25px;
+    top: -65px;
 }

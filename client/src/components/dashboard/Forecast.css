@@ -1,7 +1,6 @@
 .forecast-container {
   color: black;
   height: 100%;
-  margin-top: 60px;
 }
 .forecast {
   display: flex;
@@ -16,7 +15,7 @@
   width: 200px;
   height: 275px;
   position: relative;
-  left: 9.5%;
+  left: 20%;
 }
 .forecast-temp {
   display: flex;
