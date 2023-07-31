@@ -15,7 +15,7 @@ export const Signup = () => {
     if (response.status !== 200) {
       setLoadingSignup(false);
       setSignupError(response.response.data.error);
-    };
+    }
 
     if (response.status === 200) {
       const data = response.data;

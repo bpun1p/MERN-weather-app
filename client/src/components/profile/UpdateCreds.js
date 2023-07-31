@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import './UpdateCreds.css';
 import { UpdateCredentials } from '../utils/access/updateCredentials';
+import PropTypes from 'prop-types';
 
-export default function UpdateCreds(props) {
+export default function UpdateCreds({ updatesPerformed }) {
   const { user } = useAuthContext();
   const [credentials, setCredentials] = useState({
     email: null,
@@ -17,30 +18,30 @@ export default function UpdateCreds(props) {
 
   useEffect(() => {
     if (updateError) {
-      setError(error => error = updateError);
+      setError(() => updateError);
     }
 
     if (updateSuccess) {
-      setIsUpdated(isUpdated => isUpdated = true);
-      props.updatesPerformed()
+      setIsUpdated(() => true);
+      updatesPerformed();
     }
-  }, [updateError, updateSuccess])
+  }, [updateError, updateSuccess]);
 
   const toggleCredOptions = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setToggleCredOpts(toggleCredOpts => !toggleCredOpts);
   };
 
   const handleSubmitUpdatedCreds = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!credentials.password || !credentials.confirmPass) {
-      return setError(error => error = 'Please fill in all fields before submitting');
+      return setError(() => 'Please fill in all fields before submitting');
     }
     if (credentials.password !== credentials.confirmPass) {
-      return setError(error => error = 'Passwords do not match');
+      return setError(() => 'Passwords do not match');
     }
     await update(credentials.email, credentials.password, user);
-  }
+  };
 
   return (
     <div>
@@ -52,38 +53,41 @@ export default function UpdateCreds(props) {
               <div className='email-container'>
                 <p>Email:</p>
                 <input 
-                type='text'
-                id='email'
-                placeholder={user.email}
-                onChange={(e) => setCredentials({...credentials, email: e.target.value})}
+                  type='text'
+                  id='email'
+                  placeholder={user.email}
+                  onChange={(e) => setCredentials({...credentials, email: e.target.value})}
                 />
               </div>
               <div className='password-container'>
                 <p>Password:</p>
                 <input 
-                type='password'
-                id='password'
-                onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                  type='password'
+                  id='password'
+                  onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                 />
               </div>
               <div className='confirm-container'>
                 <p>Confirm Password:</p>
                 <input 
-                type='password'
-                id='confirm-password'
-                onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
+                  type='password'
+                  id='confirm-password'
+                  onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}
                 />
               </div>
             </div>
-            {/* {updateError && <div className='error'>{updateError}</div>} */}
             {error && <><br/><div className='error'>{error}</div></>}
             <br/>
             <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Save</button>
             <div/>
           </> 
-        : null}
+          : null}
       </form>
       {isUpdated ? <span className='update-success-text'>Updated!</span>: null}
     </div>
   );
+}
+
+UpdateCreds.propTypes = {
+  updatesPerformed: PropTypes.func
 };

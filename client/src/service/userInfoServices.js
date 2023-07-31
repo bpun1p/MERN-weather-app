@@ -10,13 +10,13 @@ export const saveUserInfo = async (name, imageFile, user) => {
       headers: {
         Authorization: `Bearer ${user.token}`
       },
-    })
+    });
     return res;
   }
   catch(err) {
     return err;
   }
-}
+};
 
 export const getUserInfo = async (user) => {
   try {
@@ -28,8 +28,8 @@ export const getUserInfo = async (user) => {
     return res.data;
   } 
   catch (err) {
-    return err
-  };
+    return err;
+  }
 };
 
 export const updateUserInfo = async(name, imageFile, user) => {
@@ -42,10 +42,10 @@ export const updateUserInfo = async(name, imageFile, user) => {
         Authorization: `Bearer ${user.token}`,
         withCredentials: true,
       },
-    })
+    });
     return res.data.reponse.msg;
   }
   catch(err) {
-    return (err.response.data.error)
+    return (err.response.data.error);
   }
-}  
+};

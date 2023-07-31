@@ -12,16 +12,16 @@ export default function Nav() {
   const toggleNav = () => {
     setDisplayNav(toggle => !toggle);
     if (!displayNav) {
-      setNavProps({...navProps,
+      return setNavProps({...navProps,
         text : 'Show',
         class : 'dismissed'
       });
     } else {
-        setNavProps({...navProps,
-          text : 'Hide',
-          class : 'displayed'
-        });
-      };
+      return setNavProps({...navProps,
+        text : 'Hide',
+        class : 'displayed'
+      });
+    }
   };
 
   return (
@@ -31,7 +31,7 @@ export default function Nav() {
       </div>
       <div className='side-nav'>
         <div className='nav-dashboard'>
-          <NavLink to='/dashboard'>
+          <NavLink to='/'>
             <button type='button' className='dashboard-btn btn'>Dashboard</button>
           </NavLink>
         </div>

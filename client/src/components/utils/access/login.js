@@ -15,7 +15,7 @@ export const Login = () => {
     if (response.status !== 200) {
       setLoadingLogin(false);
       setLoginError(response.response.data.error);
-    };
+    }
     
     if (response.status === 200) {
       const data = response.data;

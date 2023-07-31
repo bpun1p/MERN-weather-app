@@ -3,16 +3,16 @@ const currentUrl = 'http://localhost:3000';
 
 
 export const getLocations = async (user) => {
-    try {
-      const res = await axios.get(`${currentUrl}/library`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        }
-      });
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    };
+  try {
+    const res = await axios.get(`${currentUrl}/library`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const deleteLocation = async (id, user) => {
@@ -25,8 +25,8 @@ export const deleteLocation = async (id, user) => {
     });
     return res.status + ' Location Deleted';
   } catch (err) {
-      console.error(err);
-  };
+    console.error(err);
+  }
 }; 
 
 export const saveLocation = async (location, user) => {
@@ -40,6 +40,6 @@ export const saveLocation = async (location, user) => {
     });
     console.log(res.status + ' Location Saved');
   } catch (err) {
-      console.error(err);
-  };
+    console.error(err);
+  }
 };

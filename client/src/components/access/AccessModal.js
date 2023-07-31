@@ -2,43 +2,48 @@ import React, { useState, useEffect } from 'react';
 import './AccessModal.css';
 import { Signup } from '../utils/access/signup';
 import { Login } from '../utils/access/login';
+import PropTypes from 'prop-types';
 
-export default function AccessModal(props) {
+export default function AccessModal({loggedInClicked}) {
   const [credentials, setCredentials] = useState({
     email: null,
     password: null
   });
   const {signup, signupError, loadingSignup} = Signup();
   const {login, loginError, loadingLogin} = Login();
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (loginError) {
-      setError(error => error = loginError)
-      return
+      setError(() => loginError);
+      return;
     }
 
     if (signupError) {
-      setError(error => error = signupError)
-      return
+      setError(() => signupError);
+      return;
     }
-  }, [signupError, loginError])
+
+  }, [signupError, loginError]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+    if (!credentials.email || !credentials.password) {
+      return setError(() => 'Fill in all fields required');
+    }
     await signup(credentials.email, credentials.password);
 
-    props.loggedInClicked()
-
+    loggedInClicked();
   };
   
   const handleLogin = async(e) => {
     e.preventDefault();
-
+    if (!credentials.email || !credentials.password) {
+      return setError(() => 'Fill in all fields required');
+    }
     await login(credentials.email, credentials.password);
 
-    props.loggedInClicked()
+    loggedInClicked();
   };
   
   return(
@@ -60,4 +65,8 @@ export default function AccessModal(props) {
       <button  disabled={loadingSignup || loadingLogin} id='register' onClick={handleSignup} type='submit' className='signup-btn'>Sign Up</button>
     </form>
   );
+}
+
+AccessModal.propTypes = {
+  loggedInClicked: PropTypes.func
 };

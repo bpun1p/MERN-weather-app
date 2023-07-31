@@ -5,8 +5,9 @@ import UpdateCreds from './UpdateCreds';
 import { saveUserInfo, getUserInfo, updateUserInfo } from '../../service/userInfoServices';
 import { convertToBase64 } from '../utils/convertToBase64/convertToBase64';
 import avatar from '../assets/images/avatar.png';
+import PropTypes from 'prop-types';
 
-export default function Profile(props) {
+export default function Profile({ logOut, buttonClicked }) {
   const { user } = useAuthContext();
   const [userInfo, setUserInfo] = useState({
     name: null,
@@ -18,58 +19,57 @@ export default function Profile(props) {
   const [unauthError, setUnauthError] = useState(null);
   const [isCredsUpdated, setIsCredsUpdated] = useState(null);
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      const res = await getUserInfo(user);
-      if (res) {
-        if (res.response && res.response.status !== 200) {
-          return;
-        };
-        if (res.userInfo) { 
-          if (res.userInfo[0].name) {
-            setUserInfo(userInfo => ({...userInfo, name: res.userInfo[0].name}))
-          };
-          if (res.userInfo[0].imageFile) {
-            setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}))
-          };
-          setIsFetched(isFetched => isFetched = true);
-        };
-      };
-    };
+  const fetchUserInfo = async () => {
+    const res = await getUserInfo(user);
+    if (res) {
+      if (res.response && res.response.status !== 200) {
+        return;
+      }
+      if (res.userInfo && res.userInfo.length > 0) { 
+        if (res.userInfo[0].name) {
+          setUserInfo(userInfo => ({...userInfo, name: res.userInfo[0].name}));
+        }
+        if (res.userInfo[0].imageFile) {
+          setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}));
+        }
+        return setIsFetched(() => true);
+      }
+    }
+  };
 
-    if (!isFetched) {
-      fetchUserInfo();
-    };
+  useEffect(() => {
+    fetchUserInfo();
     return(() => {
-      setIsFetched(isFetched => isFetched = false);
-      setIsCredsUpdated(isCredsUpdated => isCredsUpdated = false)
-    })
+      setIsFetched(() => false);
+      setIsCredsUpdated(() => false);
+    });
   }, [user, isCredsUpdated]);
 
   useEffect(() =>{
-    if (props.logOut === true) {
+    if (logOut === true) {
       setUserInfo({...userInfo, name: null, imageFile: null});
-      setIsSaved(isSaved => isSaved = false)
+      setIsSaved(() => false);
     }
-    return () => console.log('Unmounted')
-  }, [props.logOut])
+    return () => console.log('Unmounted');
+  }, [logOut]);
 
   const handleUserCredsChanged = () => {
-    setIsCredsUpdated(isCredsUpdated => isCredsUpdated = true);
-  }
+    setIsCredsUpdated(() => true);
+  };
 
   const handleSubmitUserInfo = async (e) => {
     e.preventDefault();
 
     if (!user) {
-      props.buttonClicked();
-      return setUnauthError(unauthError => unauthError = 'Login or sign up to create your own profile')
+      buttonClicked();
+      setUnauthError(() => 'Login or sign up to create your own profile');
+      return;
     }
 
     const saved =  await saveUserInfo(userInfo.name, userInfo.imageFile, user);
     
     if (saved) {
-      setIsSaved(true);
+      return setIsSaved(true);
     }
   };
   
@@ -79,9 +79,11 @@ export default function Profile(props) {
   };
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setUserInfo({...userInfo, imageFile: base64});
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const base64 = await convertToBase64(file);
+      setUserInfo({...userInfo, imageFile: base64});
+    }
   };
 
   const handleUpdateUserInfo = async (e) => {
@@ -101,7 +103,7 @@ export default function Profile(props) {
         <form className='user-info'>
           <div className='user-avatar'>
             <label htmlFor="file-upload" className='custom-file-upload'>
-            <img src={userInfo.imageFile || avatar} alt="" />
+              <img src={userInfo.imageFile || avatar} alt="" />
             </label>
             <input type="file" id='file-upload' accept="image/*" className='file-upload' onChange={(e) => handleFileUpload(e)}/>
           </div>
@@ -121,28 +123,33 @@ export default function Profile(props) {
           <br/>
           {user && isFetched ? 
             <button id='updateUserInfo' onClick={handleUpdateUserInfo} type='submit' className='submit-userinfo-btn'>Update</button>
-          :
-          <>
-            {!user ? 
-              <div className='tooltip' style={{height : '0', padding : '0'}}>
-                <span style={{left : '50%', top : '10px'}} className='tooltipText'>Login or sign up to create your profile</span> 
-                <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
-              </div>
             :
-              <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
-            }
-          </>
+            <>
+              {!user ? 
+                <div className='tooltip' style={{height : '0', padding : '0'}}>
+                  <span style={{left : '50%', top : '10px'}} className='tooltipText'>Login or sign up to create your profile</span> 
+                  <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+                </div>
+                :
+                <button id='saveUserInfo' onClick={handleSubmitUserInfo} type='submit' className='submit-userinfo-btn'>Save</button>
+              }
+            </>
           }
         </form>
-          {isSaved ? <p className='saved-results-msg'>Saved!</p> : null}
-          {!user && unauthError ? <span className='unauthorized-save-userinfo'>{unauthError}</span> : null}
+        {isSaved ? <p className='saved-results-msg'>Saved!</p> : null}
+        {!user && unauthError ? <span className='unauthorized-save-userinfo'>{unauthError}</span> : null}
         <br/>
         {user ?
           <div className='update-creds-container'>
             <UpdateCreds updatesPerformed={handleUserCredsChanged} />
           </div> 
-        : null}
+          : null}
       </div>
-  </>
+    </>
   );
+}
+
+Profile.propTypes = {
+  buttonClicked: PropTypes.func,
+  logOut: PropTypes.func
 };

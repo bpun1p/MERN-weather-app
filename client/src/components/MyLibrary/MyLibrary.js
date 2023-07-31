@@ -14,7 +14,7 @@ export default function MyLibrary() {
     const dataArr = [];
     for (let i = 0; i < locData.length; i++) {
       dataArr.push( await fetchWeatherData(locData[i]));
-    };
+    }
     return dataArr;
   }, []);
   
@@ -25,17 +25,17 @@ export default function MyLibrary() {
         const data = await accumulateWeatherData(savedLocData);
         setWeatherData(data);
       } catch (err) {
-          console.error(err);
-      };
+        console.error(err);
+      }
     };
 
     if (user) {
       getData();
-    };
+    }
 
-    return () => {
+    return() => {
       setWeatherData(null);
-      console.log("Unmounted");
+      console.log('Unmounted');
     };
   }, [accumulateWeatherData, user]);
 
@@ -68,8 +68,8 @@ export default function MyLibrary() {
   const accumulateForecastData = (forecastData) => {
     const forecastResults = [];
     for (let forecast of forecastData) {
-      forecastResults.push((forecast.main.temp.toFixed() + " °C | "))
-    };
+      forecastResults.push((forecast.main.temp.toFixed() + ' °C | '));
+    }
     return forecastResults;
   };
 
@@ -82,13 +82,14 @@ export default function MyLibrary() {
             <td className='city-data data'>{weather.current.data.name}</td>
             <td className='weather-data data'>{weather.current.data.main.temp.toFixed()}°C</td>
             <td className='forecast-data data'>
-            {accumulateForecastData(weather.forecast.data.list)}
+              {accumulateForecastData(weather.forecast.data.list)}
             </td>
             <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' alt='trash-icon' />
           </tr>
-        )};
+        );
+      }
       return(results);
-    };
+    }
   };
 
   return (
@@ -96,20 +97,20 @@ export default function MyLibrary() {
       <div className='library-header'>
         <h1>Library</h1>
       </div>
-        <table className='library-table'>
-          <tbody>
-            <tr className='table-header'>
-              <th className='city-header'>City</th>
-              <th className='weather-header'>Weather</th>
-              <th className='forecast-header'>Forecast</th>
-            </tr>
-            {user ? 
-              <>
+      <table className='library-table'>
+        <tbody>
+          <tr className='table-header'>
+            <th className='city-header'>City</th>
+            <th className='weather-header'>Weather</th>
+            <th className='forecast-header'>Forecast</th>
+          </tr>
+          {user ? 
+            <>
               {weatherData ? showData() : <LoadingSpinner/>}
-              </> 
-              : <span className='unauthorized-library-text'>Login or sign up to see your saved locations</span>}
-          </tbody>
-        </table> 
+            </> 
+            : <span className='unauthorized-library-text'>Login or sign up to see your saved locations</span>}
+        </tbody>
+      </table> 
     </div>
   );
-};
+}

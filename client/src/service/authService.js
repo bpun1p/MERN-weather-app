@@ -11,7 +11,7 @@ export const userSignup = async (email, password) => {
   }
   catch(err) {
     return err;
-  };
+  }
 };
 
 export const userLogin = async (email, password) => {
@@ -24,7 +24,7 @@ export const userLogin = async (email, password) => {
   }
   catch(err) {
     return err;
-  };
+  }
 };
 
 export const updateUser = async (email, password, user) => {
@@ -33,13 +33,13 @@ export const updateUser = async (email, password, user) => {
       email : email,
       password: password
     }, {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        },
-    })
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      },
+    });
     return res;
   }
   catch(err) {
     return err;
   }
-}
+};

@@ -1,8 +1,8 @@
 import axios from 'axios';
 const appid = process.env.REACT_APP_API_KEY;
-const geocodingUrl = new URL(`https://api.openweathermap.org/geo/1.0/reverse?`);
-const currentUrl = new URL(`https://api.openweathermap.org/data/2.5/weather?`);
-const forecastUrl = new URL(`https://api.openweathermap.org/data/2.5/forecast?`);
+const geocodingUrl = new URL('https://api.openweathermap.org/geo/1.0/reverse?');
+const currentUrl = new URL('https://api.openweathermap.org/data/2.5/weather?');
+const forecastUrl = new URL('https://api.openweathermap.org/data/2.5/forecast?');
 
 export const getCurrent = async (location) => {
   currentUrl.search = new URLSearchParams({
@@ -14,8 +14,8 @@ export const getCurrent = async (location) => {
     const res = await axios.get(currentUrl);
     return res;
   } catch (err) { 
-      console.error(err);
-    };
+    console.error(err);
+  }
 };
 
 export const getForecast = async (location) => {
@@ -29,8 +29,8 @@ export const getForecast = async (location) => {
     const res = await axios.get(forecastUrl);
     return res;
   } catch (err) {
-      console.error(err);
-  };
+    console.error(err);
+  }
 };
 
 export const geocodingService = async (position) => {
@@ -40,9 +40,9 @@ export const geocodingService = async (position) => {
     appid : appid
   });
   try {
-    const res = await axios.get(geocodingUrl)
+    const res = await axios.get(geocodingUrl);
     return res;
-    } catch (err) { 
-        console.error(err); 
-    };
+  } catch (err) { 
+    console.error(err); 
+  }
 };
