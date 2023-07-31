@@ -30,7 +30,7 @@ export default function Dashboard({ buttonClicked }) {
       fetchWeatherData(location);
     }
 
-    return () => console.log('Unmounted');
+    return() => console.log('Unmounted');
   }, [location, getLocation]);
 
   const fetchWeatherData = async (location) => {
@@ -49,14 +49,14 @@ export default function Dashboard({ buttonClicked }) {
   const errorCallback = (error) => {
     const fallbackLoc = 'Vancouver';
     if (error.code === error.PERMISSION_DENIED) {
-      setLocation(fallbackLoc);
+      return setLocation(fallbackLoc);
     }
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     if (searched) {
-      setLocation(searched);
+      return setLocation(searched);
     }
     event.target.reset();
   };

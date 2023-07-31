@@ -28,16 +28,19 @@ export default function AccessModal({loggedInClicked}) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+    if (!credentials.email || !credentials.password) {
+      return setError(() => 'Fill in all fields required');
+    }
     await signup(credentials.email, credentials.password);
 
     loggedInClicked();
-
   };
   
   const handleLogin = async(e) => {
     e.preventDefault();
-
+    if (!credentials.email || !credentials.password) {
+      return setError(() => 'Fill in all fields required');
+    }
     await login(credentials.email, credentials.password);
 
     loggedInClicked();

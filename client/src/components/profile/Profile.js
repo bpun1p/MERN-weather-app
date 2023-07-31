@@ -19,28 +19,26 @@ export default function Profile({ logOut, buttonClicked }) {
   const [unauthError, setUnauthError] = useState(null);
   const [isCredsUpdated, setIsCredsUpdated] = useState(null);
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      const res = await getUserInfo(user);
-      if (res) {
-        if (res.response && res.response.status !== 200) {
-          return;
-        }
-        if (res.userInfo) { 
-          if (res.userInfo[0].name) {
-            setUserInfo(userInfo => ({...userInfo, name: res.userInfo[0].name}));
-          }
-          if (res.userInfo[0].imageFile) {
-            setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}));
-          }
-          setIsFetched(() => true);
-        }
+  const fetchUserInfo = async () => {
+    const res = await getUserInfo(user);
+    if (res) {
+      if (res.response && res.response.status !== 200) {
+        return;
       }
-    };
-
-    if (!isFetched) {
-      fetchUserInfo();
+      if (res.userInfo && res.userInfo.length > 0) { 
+        if (res.userInfo[0].name) {
+          setUserInfo(userInfo => ({...userInfo, name: res.userInfo[0].name}));
+        }
+        if (res.userInfo[0].imageFile) {
+          setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}));
+        }
+        return setIsFetched(() => true);
+      }
     }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
     return(() => {
       setIsFetched(() => false);
       setIsCredsUpdated(() => false);
@@ -71,7 +69,7 @@ export default function Profile({ logOut, buttonClicked }) {
     const saved =  await saveUserInfo(userInfo.name, userInfo.imageFile, user);
     
     if (saved) {
-      setIsSaved(true);
+      return setIsSaved(true);
     }
   };
   
@@ -81,9 +79,11 @@ export default function Profile({ logOut, buttonClicked }) {
   };
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setUserInfo({...userInfo, imageFile: base64});
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const base64 = await convertToBase64(file);
+      setUserInfo({...userInfo, imageFile: base64});
+    }
   };
 
   const handleUpdateUserInfo = async (e) => {

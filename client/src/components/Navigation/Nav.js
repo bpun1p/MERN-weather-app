@@ -12,12 +12,12 @@ export default function Nav() {
   const toggleNav = () => {
     setDisplayNav(toggle => !toggle);
     if (!displayNav) {
-      setNavProps({...navProps,
+      return setNavProps({...navProps,
         text : 'Show',
         class : 'dismissed'
       });
     } else {
-      setNavProps({...navProps,
+      return setNavProps({...navProps,
         text : 'Hide',
         class : 'displayed'
       });

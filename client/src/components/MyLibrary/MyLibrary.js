@@ -33,7 +33,7 @@ export default function MyLibrary() {
       getData();
     }
 
-    return () => {
+    return() => {
       setWeatherData(null);
       console.log('Unmounted');
     };
