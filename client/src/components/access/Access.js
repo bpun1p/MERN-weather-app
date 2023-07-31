@@ -9,6 +9,7 @@ export default function Access({show, loggedInClicked, loggedOutClicked, modalCl
   const [toggleModal, setToggleModal] = useState(false);
   const { user } = useAuthContext();
   const { logout } = Logout();
+  const guestEmail = process.env.REACT_APP_GUEST_EMAIL;
 
   useEffect(() => {
     setToggleModal(() => show);
@@ -25,9 +26,16 @@ export default function Access({show, loggedInClicked, loggedOutClicked, modalCl
     setToggleModal(toggleAccessModal => !toggleAccessModal);
   };
 
+  const handleDisplayUser = () => {
+    if (user.email === guestEmail){
+      return 'Guest';
+    }
+    return user.email;
+  };
+
   return (
     <div className='access'>
-      {user ? <p className='access_email'>{user.email}</p> : null}
+      {user ? <p className='access_email'>{handleDisplayUser()}</p> : null}
       {user ?
         <button className='logout-btn' onClick={handleLogout}>Log out</button>
         :
