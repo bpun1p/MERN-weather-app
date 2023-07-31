@@ -72,7 +72,7 @@ export default function AccessModal({loggedInClicked}) {
       {error ? <div className='error'>{error}</div> : null}
       <button disabled={loadingLogin || loadingSignup} id='login' onClick={handleLogin} type='submit' className='login-btn'>Login</button>
       <button  disabled={loadingSignup || loadingLogin} id='register' onClick={handleSignup} type='submit' className='signup-btn'>Sign Up</button>
-      <button  disabled={loadingSignup || loadingLogin} id='register' onClick={handleGuestLogin} type='submit' className='login-btn'>Guest Login</button>
+      <button  disabled={loadingSignup || loadingLogin} id='register' onClick={handleGuestLogin} type='submit' className='login-btn'>Guest Access</button>
     </form>
   );
 }

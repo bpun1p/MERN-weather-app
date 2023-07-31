@@ -40,7 +40,7 @@ export default function Access({show, loggedInClicked, loggedOutClicked, modalCl
         <button className='logout-btn' onClick={handleLogout}>Log out</button>
         :
         <>
-          <button className='access-btn' onClick={toggleAccessModal}>Login / Sign Up</button>
+          <button className='access-btn' onClick={toggleAccessModal}>Access</button>
           {toggleModal ? <AccessModal loggedInClicked={loggedInClicked}/> : null}
         </>
       }
