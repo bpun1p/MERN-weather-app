@@ -15,6 +15,7 @@ export default function UpdateCreds({ updatesPerformed }) {
   const [error, setError] = useState(null);
   const [isUpdated, setIsUpdated] = useState(null);
   const { update, isUpdating, updateError, updateSuccess } = UpdateCredentials();
+  const guestEmail = process.env.REACT_APP_GUEST_EMAIL;
 
   useEffect(() => {
     if (updateError) {
@@ -34,6 +35,9 @@ export default function UpdateCreds({ updatesPerformed }) {
 
   const handleSubmitUpdatedCreds = async (e) => {
     e.preventDefault();
+    if (user.email === guestEmail) {
+      return setError(() => 'Unauthorized to make changes to guest account');
+    }
     if (!credentials.password || !credentials.confirmPass) {
       return setError(() => 'Please fill in all fields before submitting');
     }
