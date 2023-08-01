@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import './MyLibrary.css';
+import './Library.css';
 import { getLocations, deleteLocation } from '../../service/libraryService';
 import { getCurrent, getForecast } from '../../service/weatherService';
 import { useAuthContext } from '../utils/access/useAuthContext';

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const currentUrl = 'http://localhost:3000';
+const currentUrl = 'https://bpun1p-weather-app-api.onrender.com';
 
 export const userSignup = async (email, password) => {
   try {
