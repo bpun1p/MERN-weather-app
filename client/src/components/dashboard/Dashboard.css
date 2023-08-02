@@ -84,6 +84,8 @@ tr th {
     position: absolute;
     top: 23%;
     left: 68%;
+    height: auto;
+    width: 21%;
 }
 
 .add-loc_btn {
@@ -91,7 +93,7 @@ tr th {
     font-size: 1.125rem;
     font-weight: 500;
     background: #1e90ff;
-    width: 19rem;
+    width: 17.7rem;
     height: 5rem;
     text-align: center;
     text-decoration: none;

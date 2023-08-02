@@ -1,15 +1,14 @@
 .feels, .humidity, .winds {
   border: 1px solid rgb(0, 0, 0);
-  height: 21vh;
+  height: 190px;
   width: auto;
-  max-width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgb(128, 128, 128, 0.3);
   border-radius: 15px;
   font-family: "Roboto", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .misc-weather-img {
@@ -34,19 +33,23 @@
 
 .feels-desc {
   position: relative;
-  left: 90%;
+  top: 35%;
+  left: 80%;
   padding-top: 1rem;
 }
 
 .feels-desc-container {
   position:relative;
   bottom: 40%;
-  right: 23%; 
+  right: 25%; 
+  height: 100%;
+  width: 100%;
 }
 
 .humidity-desc {
   position: relative;
-  right: 35%; 
+  right: 41%;
+  font-size: 1rem; 
 }
 
 .wind-speed {

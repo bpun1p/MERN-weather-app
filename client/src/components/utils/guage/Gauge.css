@@ -6,7 +6,7 @@
   color: #004033;
   text-align: center;
   position: relative;
-  left: 15%;
+  left: 10%;
 }
 
 .gauge-body {
@@ -19,6 +19,7 @@
   border-top-right-radius: 100% 200%;
   overflow: hidden;
 }
+
 .gauge-description {
   font-size: 20px;
 }
