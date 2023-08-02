@@ -9,7 +9,7 @@
   width: 50%;
   position: relative;
   left: 25%;
-  top: 11rem;
+  top: 15rem;
 }
 
 .custom-file-upload {
@@ -119,6 +119,6 @@
 
 .unauthorized-save-userinfo {
   position: relative;
-  top: 120px;
+  top: 360px;
   font-size: 20px;
 }
