@@ -1,13 +1,15 @@
 .profile-container {
   text-align: center;
   font-family: 'Roboto', sans-serif;
+  height: 100%;
+  width: auto;
 }
 
 .user-info {
   width: 50%;
   position: relative;
   left: 25%;
-  padding-top: 15%;
+  top: 11rem;
 }
 
 .custom-file-upload {

@@ -1,12 +1,13 @@
 .library {
-  margin-left: 15%;
   position: relative;
-  top: 300px;
+  top: 9.375rem;
+  left: 15%;
   max-width: 70%;
   border: 3px solid black;
-  border-radius: 10px;
+  border-radius: 0.75rem;
   padding: 0 20px;
-  height: 500px;
+  height: 31.25rem;
+  width: auto;
   background-color: rgb(128, 128, 128, 0.3); 
   font-family: 'Roboto', sans-serif;
 }
