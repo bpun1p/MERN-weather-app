@@ -107,12 +107,13 @@
 }
 
 .update-creds-container {
-  margin-top: 50px;
+  position: relative;
+  top: 13.5rem;
 }
 
 .saved-results-msg {
-  position: absolute;
-  left: 48.2%;
+  position: relative;
+  top: 14.5rem;
   font-size: 20px;
   font-weight: 500px;
 }
