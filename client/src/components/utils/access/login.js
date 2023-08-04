@@ -8,22 +8,19 @@ export const Login = () => {
   const { dispatch } = useAuthContext();
 
   const login = async (email, password) => {
-    setLoadingLogin(true);
-    setLoginError(null);
+    setLoadingLogin(() => true);
     const response = await userLogin(email, password);
-
+    setLoadingLogin(loadingLogin => !loadingLogin);
     if (response.status !== 200) {
-      setLoadingLogin(false);
-      setLoginError(response.response.data.error);
+      setLoginError(() => response.response.data.error);
+      return;
     }
-    
-    if (response.status === 200) {
+    else if (response.status === 200) {
       const data = response.data;
       localStorage.setItem('user', JSON.stringify(data));
       dispatch({ type: 'LOGIN', payload: data });
-      setLoadingLogin(false);
+      return;
     }
   };
-
   return { login, loadingLogin, loginError };
 };

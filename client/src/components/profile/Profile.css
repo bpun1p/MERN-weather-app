@@ -108,14 +108,15 @@
 
 .update-creds-container {
   position: relative;
-  top: 13.5rem;
+  top: 14.5rem;
 }
 
 .saved-results-msg {
   position: relative;
   top: 14.5rem;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500px;
+  margin-bottom: 0;
 }
 
 .unauthorized-save-userinfo {

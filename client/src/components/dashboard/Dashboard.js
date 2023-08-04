@@ -26,24 +26,22 @@ export default function Dashboard({ buttonClicked }) {
   useEffect(() => {
     if (!location) {
       getLocation();
-    } else {
-      fetchWeatherData(location);
-    }
-
-    return() => console.log('Unmounted');
+      return;
+    } 
+    fetchWeatherData(location);
   }, [location, getLocation]);
 
   const fetchWeatherData = async (location) => {
     const [current, forecast] = await Promise.all([getCurrent(location), getForecast(location)]);
 
-    setForecastData(forecast.data.list);
-    setWeatherData(current.data);
+    setForecastData(() => forecast.data.list);
+    setWeatherData(() => current.data);
   };
 
   const successCallback = async (position) => {
     const foundLocData = await geocodingService(position);
     const foundLoc = foundLocData.data[0].name;
-    setLocation(foundLoc);
+    setLocation(() => foundLoc);
   };
 
   const errorCallback = (error) => {
@@ -55,10 +53,12 @@ export default function Dashboard({ buttonClicked }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (searched) {
-      return setLocation(searched);
+
+    if (searched !== '') {
+      setLocation(() => searched);
+      event.target.reset();
+      return;
     }
-    event.target.reset();
   };
 
   const handleSave = () => {

@@ -66,11 +66,8 @@ export default function Profile({ logOut, buttonClicked }) {
       return;
     }
 
-    const saved = await saveUserInfo(userInfo.name, userInfo.imageFile, user);
-    
-    if (saved) {
-      return setIsSaved(() => true);
-    }
+    await saveUserInfo(userInfo.name, userInfo.imageFile, user);
+    setIsSaved(() => true);
   };
   
   const toggleNameChangeOpt = (e) => {
@@ -89,12 +86,9 @@ export default function Profile({ logOut, buttonClicked }) {
   const handleUpdateUserInfo = async (e) => {
     e.preventDefault();
 
-    const updated = await updateUserInfo(userInfo.name, userInfo.imageFile, user);
-
-    if (updated) {
-      setIsSaved(() => true);
-      setNameChangeOptToggler(() => false);
-    }
+    await updateUserInfo(userInfo.name, userInfo.imageFile, user);
+    setIsSaved(() => true);
+    setNameChangeOptToggler(() => false);
   };
 
   return (
@@ -151,5 +145,5 @@ export default function Profile({ logOut, buttonClicked }) {
 
 Profile.propTypes = {
   buttonClicked: PropTypes.func,
-  logOut: PropTypes.func
+  logOut: PropTypes.bool
 };

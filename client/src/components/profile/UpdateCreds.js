@@ -14,17 +14,19 @@ export default function UpdateCreds({ updatesPerformed }) {
   const [toggleCredOpts, setToggleCredOpts] = useState(false);
   const [error, setError] = useState(null);
   const [isUpdated, setIsUpdated] = useState(null);
-  const { update, isUpdating, updateError, updateSuccess } = UpdateCredentials();
+  const { update, loadingUpdate, updateError, updateSuccess } = UpdateCredentials();
   const guestEmail = process.env.REACT_APP_GUEST_EMAIL;
 
   useEffect(() => {
     if (updateError) {
       setError(() => updateError);
+      return;
     }
 
-    if (updateSuccess) {
+    else if (updateSuccess) {
       setIsUpdated(() => true);
       updatesPerformed();
+      return;
     }
   }, [updateError, updateSuccess]);
 
@@ -36,15 +38,19 @@ export default function UpdateCreds({ updatesPerformed }) {
   const handleSubmitUpdatedCreds = async (e) => {
     e.preventDefault();
     if (user.email === guestEmail) {
-      return setError(() => 'Unauthorized to make changes to guest account');
+      setError(() => 'Unauthorized to make changes to guest account');
+      return;
     }
-    if (!credentials.password || !credentials.confirmPass) {
-      return setError(() => 'Please fill in all fields before submitting');
+    else if (!credentials.password || !credentials.confirmPass) {
+      setError(() => 'Please fill in all fields before submitting');
+      return;
     }
-    if (credentials.password !== credentials.confirmPass) {
-      return setError(() => 'Passwords do not match');
+    else if (credentials.password !== credentials.confirmPass) {
+      setError(() => 'Passwords do not match');
+      return;
     }
     await update(credentials.email, credentials.password, user);
+    return;
   };
 
   return (
@@ -82,7 +88,7 @@ export default function UpdateCreds({ updatesPerformed }) {
             </div>
             {error && <><br/><div className='error'>{error}</div></>}
             <br/>
-            <button id='updateCreds' disabled={isUpdating} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Save</button>
+            <button id='updateCreds' disabled={loadingUpdate} onClick={handleSubmitUpdatedCreds} type='submit' className='submit-updatecreds-btn'>Save</button>
             <div/>
           </> 
           : null}

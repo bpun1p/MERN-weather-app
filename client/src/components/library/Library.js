@@ -13,29 +13,27 @@ export default function MyLibrary() {
   const accumulateWeatherData = useCallback(async (locData) => {
     const dataArr = [];
     for (let i = 0; i < locData.length; i++) {
-      dataArr.push( await fetchWeatherData(locData[i]));
+      dataArr.push(await fetchWeatherData(locData[i]));
     }
     return dataArr;
   }, []);
+
+  const getData = async () => {
+    try {
+      const locations = await getLocations(user);
+      const data = await accumulateWeatherData(locations);
+      setWeatherData(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const savedLocData = await fetchSavedLocations();
-        const data = await accumulateWeatherData(savedLocData);
-        setWeatherData(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    if (user) {
+    if (user !== null) {
       getData();
     }
-
     return() => {
       setWeatherData(null);
-      console.log('Unmounted');
     };
   }, [accumulateWeatherData, user]);
 
@@ -51,11 +49,6 @@ export default function MyLibrary() {
     return weatherData;
   };
 
-  const fetchSavedLocations = async () => {
-    const locations = await getLocations(user);
-    return locations;
-  };
-
   const handleDelete = async (id) => {
     if (!user) {
       console.log('Login Required');
@@ -67,28 +60,41 @@ export default function MyLibrary() {
 
   const accumulateForecastData = (forecastData) => {
     const forecastResults = [];
-    for (let forecast of forecastData) {
-      forecastResults.push((forecast.main.temp.toFixed() + ' °C | '));
+    if (forecastData && forecastData.data && forecastData.data.list.length > 0) {
+      let forecastDataArr = forecastData.data.list;
+      let i = 0;
+      for (let forecast of forecastDataArr) {
+        if (forecast.main && forecast.main.temp) {
+          i++;
+          if (i === forecastDataArr.length) {
+            forecastResults.push((forecast.main.temp.toFixed() + ' °C '));
+            return forecastResults;
+          }
+          forecastResults.push((forecast.main.temp.toFixed() + ' °C | '));
+        }
+      }
     }
     return forecastResults;
   };
 
-  const showData = () => {  
+  const showData = () => {
     const results = [];
     if (weatherData) {
       for (let weather of weatherData) {
-        results.push(
-          <tr className='table-data' key={weather.id}>
-            <td className='city-data data'>{weather.current.data.name}</td>
-            <td className='weather-data data'>{weather.current.data.main.temp.toFixed()}°C</td>
-            <td className='forecast-data data'>
-              {accumulateForecastData(weather.forecast.data.list)}
-            </td>
-            <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' alt='trash-icon' />
-          </tr>
-        );
+        if (weather.id && weather.forecast && weather.current && weather.current.data && weather.current.data.main) {
+          results.push(
+            <tr className='table-data' key={weather.id}>
+              <td className='city-data data'>{weather.current.data.name ? weather.current.data.name : null}</td>
+              <td className='weather-data data'>{weather.current.data.main.temp ? weather.current.data.main.temp.toFixed() : null}°C</td>
+              <td className='forecast-data data'>
+                {accumulateForecastData(weather.forecast)}
+              </td>
+              <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' alt='trash-icon' />
+            </tr>
+          );
+        }
       }
-      return(results);
+      return results;
     }
   };
 
