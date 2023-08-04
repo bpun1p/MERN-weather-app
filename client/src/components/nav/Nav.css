@@ -50,8 +50,6 @@
   width: 70px;
   background-color: rgb(30, 121, 239);
   border: none;
-  text-orientation: upright;
-  writing-mode: vertical-rl;
   border: 1px solid rgb(7, 7, 225);
   color: white;
   cursor: pointer;
