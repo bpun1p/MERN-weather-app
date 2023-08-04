@@ -8,22 +8,19 @@ export const Signup = () => {
   const { dispatch } = useAuthContext();
 
   const signup = async (email, password) => {
-    setLoadingSignup(true);
-    setSignupError(null);
+    setLoadingSignup(() => true);
     const response = await userSignup(email, password);
-
+    setLoadingSignup(loadingSignup => !loadingSignup);
     if (response.status !== 200) {
-      setLoadingSignup(false);
-      setSignupError(response.response.data.error);
+      setSignupError(() => response.response.data.error);
+      return;
     }
-
-    if (response.status === 200) {
+    else if (response.status === 200) {
       const data = response.data;
       localStorage.setItem('user', JSON.stringify(data));
       dispatch({ type: 'LOGIN', payload: data });
-      setLoadingSignup(false);
+      return;
     }
   };
-
   return { signup, loadingSignup, signupError };
 };

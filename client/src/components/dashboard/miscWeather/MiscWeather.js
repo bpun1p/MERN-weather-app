@@ -29,7 +29,7 @@ export default function MiscWeather({feelsLike, humidity, windspeed}){
 }
 
 MiscWeather.propTypes = {
-  feelsLike: PropTypes.string,
-  humidity: PropTypes.string,
-  windspeed: PropTypes.string
+  feelsLike: PropTypes.number,
+  humidity: PropTypes.number,
+  windspeed: PropTypes.number
 };

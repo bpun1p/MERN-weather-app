@@ -17,7 +17,7 @@ export default function Profile({ logOut, buttonClicked }) {
   const [isFetched, setIsFetched] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [unauthError, setUnauthError] = useState(null);
-  const [isCredsUpdated, setIsCredsUpdated] = useState(null);
+  const [isCredsChanged, setIsCredsChanged] = useState(null);
 
   const fetchUserInfo = async () => {
     const res = await getUserInfo(user);
@@ -32,8 +32,9 @@ export default function Profile({ logOut, buttonClicked }) {
         if (res.userInfo[0].imageFile) {
           setUserInfo(userInfo =>({...userInfo, imageFile: res.userInfo[0].imageFile}));
         }
-        return setIsFetched(() => true);
+        setIsFetched(() => true);
       }
+      return;
     }
   };
 
@@ -41,20 +42,19 @@ export default function Profile({ logOut, buttonClicked }) {
     fetchUserInfo();
     return(() => {
       setIsFetched(() => false);
-      setIsCredsUpdated(() => false);
+      setIsCredsChanged(() => false);
     });
-  }, [user, isCredsUpdated]);
+  }, [user, isCredsChanged]);
 
   useEffect(() =>{
     if (logOut === true) {
-      setUserInfo({...userInfo, name: null, imageFile: null});
+      setUserInfo(userInfo => ({...userInfo, name: null, imageFile: null}));
       setIsSaved(() => false);
     }
-    return () => console.log('Unmounted');
   }, [logOut]);
 
   const handleUserCredsChanged = () => {
-    setIsCredsUpdated(() => true);
+    setIsCredsChanged(() => true);
   };
 
   const handleSubmitUserInfo = async (e) => {
@@ -66,11 +66,8 @@ export default function Profile({ logOut, buttonClicked }) {
       return;
     }
 
-    const saved =  await saveUserInfo(userInfo.name, userInfo.imageFile, user);
-    
-    if (saved) {
-      return setIsSaved(true);
-    }
+    await saveUserInfo(userInfo.name, userInfo.imageFile, user);
+    setIsSaved(() => true);
   };
   
   const toggleNameChangeOpt = (e) => {
@@ -81,20 +78,17 @@ export default function Profile({ logOut, buttonClicked }) {
   const handleFileUpload = async (e) => {
     if (e.target.files.length > 0) {
       const file = e.target.files[0];
-      const base64 = await convertToBase64(file);
-      setUserInfo({...userInfo, imageFile: base64});
+      const base64File = await convertToBase64(file);
+      setUserInfo(userInfo => ({...userInfo, imageFile: base64File}));
     }
   };
 
   const handleUpdateUserInfo = async (e) => {
     e.preventDefault();
 
-    const update = await updateUserInfo(userInfo.name, userInfo.imageFile, user);
-
-    if (update) {
-      setIsSaved('Updated!');
-      setNameChangeOptToggler(false);    
-    }
+    await updateUserInfo(userInfo.name, userInfo.imageFile, user);
+    setIsSaved(() => true);
+    setNameChangeOptToggler(() => false);
   };
 
   return (
@@ -109,8 +103,8 @@ export default function Profile({ logOut, buttonClicked }) {
           </div>
           <div className='name-container'>
             <p className='name-heading'>Name:</p>
-            {userInfo && nameChangeOptToggler ?               
-              <input className='name-input name' type="text" id="name" placeholder={userInfo.name} onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/> 
+            {userInfo && nameChangeOptToggler ?
+              <input className='name-input name' type="text" id="name" placeholder={userInfo.name} onChange={(e) => setUserInfo(userInfo => ({...userInfo, name: e.target.value}))}/> 
               : 
               <p className='name-text name' >{userInfo.name || null}</p>
             }
@@ -151,5 +145,5 @@ export default function Profile({ logOut, buttonClicked }) {
 
 Profile.propTypes = {
   buttonClicked: PropTypes.func,
-  logOut: PropTypes.func
+  logOut: PropTypes.bool
 };

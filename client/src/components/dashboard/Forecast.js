@@ -11,17 +11,19 @@ export default function Forecast({ forecastData }) {
     const results = [];
     let i = 0;
     const nextDay = date.getDay() + 1;
-    if (forecastData) {
+    if (forecastData.length > 0) {
       for (let forecast of forecastData) {
-        results.push(
-          <div className='day_forecast' key={forecast.dt.toString()}>
-            <p>{days[(nextDay + i++) % days.length]}</p>
-            <img src={weatherConditions[forecast.weather[0].main]} className='forecast-img' alt='forecast-img'/>
-            <div className='temp_forecast'>
-              <p>{forecast.main.temp_max.toFixed()}°C &nbsp;|&nbsp; {forecast.main.temp_min.toFixed()}°C</p>
+        if (forecast.dt && forecast.weather.length > 0) {
+          results.push(
+            <div className='day_forecast' key={forecast.dt.toString()}>
+              <p>{days[(nextDay + i++) % days.length]}</p>
+              <img src={weatherConditions[forecast.weather[0].main ? forecast.weather[0].main : null]} className='forecast-img' alt='forecast-img'/>
+              <div className='temp_forecast'>
+                <p>{forecast.main.temp_max.toFixed()}°C &nbsp;|&nbsp; {forecast.main.temp_min ? forecast.main.temp_min.toFixed() : null}°C</p>
+              </div>
             </div>
-          </div>
-        );
+          );
+        }
       }
     }
     return(results);

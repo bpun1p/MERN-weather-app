@@ -20,39 +20,39 @@ export default function AccessModal({loggedInClicked}) {
       setError(() => loginError);
       return;
     }
-
-    if (signupError) {
+    else if (signupError) {
       setError(() => signupError);
       return;
     }
-
   }, [signupError, loginError]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    if (!credentials.email || !credentials.password) {
-      return setError(() => 'All fields must be filled');
-    }
-    await signup(credentials.email, credentials.password);
 
     loggedInClicked();
+    if (!credentials.email || !credentials.password) {
+      setError(() => 'All fields must be filled');
+      return;
+    }
+    await signup(credentials.email, credentials.password);
   };
   
   const handleLogin = async(e) => {
     e.preventDefault();
-    if (!credentials.email || !credentials.password) {
-      return setError(() => 'All fields must be filled');
-    }
-    await login(credentials.email, credentials.password);
 
     loggedInClicked();
+    if (!credentials.email || !credentials.password) {
+      setError(() => 'All fields must be filled');
+      return;
+    }
+    await login(credentials.email, credentials.password);
   };
 
   const handleGuestLogin = async(e) => {
     e.preventDefault();
-    await login(guestEmail, guestPassword);
 
     loggedInClicked();
+    await login(guestEmail, guestPassword);
   };
   
   return(

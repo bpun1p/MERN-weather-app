@@ -35,9 +35,11 @@ export default function Access({show, loggedInClicked, loggedOutClicked, modalCl
 
   return (
     <div className='access'>
-      {user ? <p className='access_email'>{handleDisplayUser()}</p> : null}
       {user ?
-        <button className='logout-btn' onClick={handleLogout}>Log out</button>
+        <>
+          <p className='access_email'>{handleDisplayUser()}</p>
+          <button className='logout-btn' onClick={handleLogout}>Log out</button>
+        </>
         :
         <>
           <button className='access-btn' onClick={toggleAccessModal}>Access</button>
@@ -49,7 +51,7 @@ export default function Access({show, loggedInClicked, loggedOutClicked, modalCl
 }
 
 Access.propTypes = {
-  show: PropTypes.func,
+  show: PropTypes.bool,
   loggedInClicked: PropTypes.func,
   loggedOutClicked: PropTypes.func,
   modalClicked: PropTypes.func

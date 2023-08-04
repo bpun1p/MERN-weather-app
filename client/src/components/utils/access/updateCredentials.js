@@ -4,32 +4,29 @@ import { useAuthContext } from './useAuthContext';
 
 export const UpdateCredentials = () => {
   const [updateError, setUpdateError] = useState(null);
-  const [isUpdating, setIsUpdating] = useState(null);
+  const [loadingUpdate, setLoadingUpdate] = useState(null);
   const [updateSuccess, setUpdateSuccess] = useState(null);
   const { dispatch } = useAuthContext();
   const { user } = useAuthContext();
-
   const update = async (email, password, updatedUser) => {
-    setIsUpdating(true);
-    setUpdateError(null);
-    setUpdateSuccess(null);
+    setLoadingUpdate(() => true);
     const response = await updateUser(email, password, updatedUser);
+    setLoadingUpdate(loadingUpdate => loadingUpdate);
 
     if (response.status !== 200) {
-      setIsUpdating(false);
-      setUpdateError(response.response.data.error);
+      setUpdateError(() => response.response.data.error);
       localStorage.setItem('user', JSON.stringify(user));
-      dispatch({ type: 'LOGIN', payload: user});   
+      dispatch({ type: 'LOGIN', payload: user});
+      setUpdateSuccess(() => false);
+      return;   
     }
-    
-    if (response.status === 200) {
+    else if (response.status === 200) {
       const data = response.data;
       localStorage.setItem('user', JSON.stringify(data));
       dispatch({ type: 'LOGIN', payload: data });
-      setIsUpdating(false);
-      setUpdateSuccess(true);
+      setUpdateSuccess(() => true);
+      return;
     }
   };
-
-  return { update, updateSuccess, isUpdating, updateError };
+  return { update, updateSuccess, loadingUpdate, updateError };
 };
