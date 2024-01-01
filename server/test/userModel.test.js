@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const validator = require('validator');
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
