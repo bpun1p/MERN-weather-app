@@ -20,6 +20,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^7.0.4",
     "nyc": "^15.1.0",
+    "supertest": "^6.3.3",
     "validator": "^13.9.0"
   },
   "devDependencies": {

@@ -29,3 +29,5 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology
 app.use('/user', userRoutes);
 app.use('/userInfo', userInfoRoutes);
 app.use('/', locationRoutes);
+
+module.exports = app;

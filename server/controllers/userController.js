@@ -33,6 +33,7 @@ const registerUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const user_id = req.user._id;
+
   const {email, password} = req.body;
 
   try {
