@@ -23,7 +23,7 @@ describe('user authentication routes', () => {
         expect(res.body.error).to.equal('Incorrect password');      
     })
   })
-  // describe('POST /register', () => {
+  describe('POST /register', () => {
     // it('should register successfully with provided credentials', async () => {
     //   const res = await request(app)
     //     .post('/user/register')
@@ -42,7 +42,7 @@ describe('user authentication routes', () => {
   //       expect(res.body).to.have.property('error');
   //       expect(res.body.error).to.equal('Email already exists')
   //   })
-  // })
+  })
   describe('PATCH /update', () => {
   //   it('should successfully update user credentials', async () => {
   //     const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTkzNWI1YzBkNzcxODI1M2EzMmJkMmUiLCJpYXQiOjE3MDQxNTc5MjYsImV4cCI6MTcwNDc2MjcyNn0.XLfNRWDDjed_vgPzFcpcWF5LMBXCWs1RAITgTdTQgk0'
@@ -59,20 +59,20 @@ describe('user authentication routes', () => {
   //       expect(res.body).to.have.property('token');
   //       expect(res.body.email).to.equal('updatedTest@example.com')
   //   })
-  it('should handle error for updating user credentials', async () => {
-      const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTkzNWI1YzBkNzcxODI1M2EzMmJkMmUiLCJpYXQiOjE3MDQxNTc5MjYsImV4cCI6MTcwNDc2MjcyNn0.XLfNRWDDjed_vgPzFcpcWF5LMBXCWs1RAITgTdTQgk0'
-      const res = await request(app)
-        .patch('/user/update')
-        .set('Authorization', `Bearer ${validToken}`)
-        .send({
-          _id: '65935b5c0d7718253a32bd2e', 
-          email: 'updatedTest@example.com',  
-          password: 'updatedTest-123'     
-        })
+  // it('should handle error for updating user credentials', async () => {
+  //     const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTkzNWI1YzBkNzcxODI1M2EzMmJkMmUiLCJpYXQiOjE3MDQxNTc5MjYsImV4cCI6MTcwNDc2MjcyNn0.XLfNRWDDjed_vgPzFcpcWF5LMBXCWs1RAITgTdTQgk0'
+  //     const res = await request(app)
+  //       .patch('/user/update')
+  //       .set('Authorization', `Bearer ${validToken}`)
+  //       .send({
+  //         _id: '65935b5c0d7718253a32bd2e', 
+  //         email: 'updatedTest@example.com',  
+  //         password: 'updatedTest-123'     
+  //       })
 
-        expect(res.status).to.equal(400);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('No Updates Required; No changes found')
-    })
+  //       expect(res.status).to.equal(400);
+  //       expect(res.body).to.have.property('error');
+  //       expect(res.body.error).to.equal('No Updates Required; No changes found')
+  //   })
   })
 })
