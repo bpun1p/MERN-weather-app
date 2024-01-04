@@ -1,8 +1,8 @@
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
-const UserInfo = require('../models/userInfoModel');
-const { saveUserInfo, getUserInfo, updateUserInfo } = require('../controllers/userInfoController');
+const UserInfo = require('../../models/userInfoModel');
+const { saveUserInfo, getUserInfo, updateUserInfo } = require('../../controllers/userInfoController');
 
 describe('User information', () => {
   describe('saveUserInfo', () => {

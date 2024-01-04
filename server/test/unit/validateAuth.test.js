@@ -1,8 +1,8 @@
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
-const validateAuth = require('../middleware/validateAuth');
-const User = require('../models/userModel');
+const validateAuth = require('../../middleware/validateAuth');
+const User = require('../../models/userModel');
 const jwt = require('jsonwebtoken');
 
 describe('validate authentication', () => {

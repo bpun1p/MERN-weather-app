@@ -1,8 +1,8 @@
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
-const Location = require('../models/locationModel');
-const {saveLocation, getLocations, deleteLocation} = require('../controllers/locationController');
+const Location = require('../../models/locationModel');
+const {saveLocation, getLocations, deleteLocation} = require('../../controllers/locationController');
 
 describe('Location controllers', () => {
   describe('save location', () => {

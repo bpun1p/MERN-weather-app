@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
-const User = require('../models/userModel');
+const User = require('../../models/userModel');
 
 describe('UserModel', () => {
   describe('register', () => {

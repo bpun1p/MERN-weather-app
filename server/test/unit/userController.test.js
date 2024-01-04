@@ -1,9 +1,9 @@
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
-const User = require('../models/userModel');
+const User = require('../../models/userModel');
 const jwt = require('jsonwebtoken');
-const { loginUser, registerUser, updateUser } = require('../controllers/userController');
+const { loginUser, registerUser, updateUser } = require('../../controllers/userController');
 
 describe('User Controller', () => {
   describe('loginUser', () => {   //Login User

@@ -1,7 +1,7 @@
 const request = require('supertest');
 const chai = require('chai');
 const expect = chai.expect;
-const app = require('../server');
+const app = require('../../server');
 
 describe('routes for locations',() => {
   describe('POST /dashboard', () => {
@@ -32,18 +32,18 @@ describe('routes for locations',() => {
       expect(res.body).to.have.length.gt(1);
     })
     describe('DELETE /library', () => {
-      // const dataToDelete = '6595e43f3f169038474751bf'
-      // const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTkzNWI1YzBkNzcxODI1M2EzMmJkMmUiLCJpYXQiOjE3MDQxNTc5MjYsImV4cCI6MTcwNDc2MjcyNn0.XLfNRWDDjed_vgPzFcpcWF5LMBXCWs1RAITgTdTQgk0'
-      // it('should delete data from the library', async () => {
-      //   const res = await request(app)
-      //     .delete('/library')
-      //     .set('Authorization', `Bearer ${validToken}`)
-      //     .send({data: dataToDelete})
+      const dataToDelete = '6595e43f3f169038474751bf'
+      const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTkzNWI1YzBkNzcxODI1M2EzMmJkMmUiLCJpYXQiOjE3MDQxNTc5MjYsImV4cCI6MTcwNDc2MjcyNn0.XLfNRWDDjed_vgPzFcpcWF5LMBXCWs1RAITgTdTQgk0'
+      it('should delete data from the library', async () => {
+        const res = await request(app)
+          .delete('/library')
+          .set('Authorization', `Bearer ${validToken}`)
+          .send({data: dataToDelete})
       
-      //   expect(res.status).to.equal(200);
-      //   expect(res.body).to.be.an('object');
-      //   expect(res.body).to.have.property(_id).to.equal(dataToDelete)
-      // })
+        expect(res.status).to.equal(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property(_id).to.equal(dataToDelete)
+      })
     })
   })
 })
