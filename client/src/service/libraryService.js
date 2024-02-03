@@ -1,5 +1,6 @@
 import axios from 'axios';
-const currentUrl = 'https://bpun1p-weather-app-api.onrender.com';
+// const currentUrl = 'https://bpun1p-weather-app-api.onrender.com';
+const currentUrl = 'http://localhost:3001';
 
 
 export const getLocations = async (user) => {

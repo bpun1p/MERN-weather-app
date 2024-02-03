@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const locationRoutes = require('./routes/locationRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -29,3 +29,5 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology
 app.use('/user', userRoutes);
 app.use('/userInfo', userInfoRoutes);
 app.use('/', locationRoutes);
+
+module.exports = app;

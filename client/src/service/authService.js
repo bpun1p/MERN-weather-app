@@ -1,6 +1,6 @@
 import axios from 'axios';
-const currentUrl = 'https://bpun1p-weather-app-api.onrender.com';
-
+// const currentUrl = 'https://bpun1p-weather-app-api.onrender.com';
+const currentUrl =  process.env.port ||'http://localhost:3001';
 export const userSignup = async (email, password) => {
   try {
     const res = await axios.post(`${currentUrl}/user/register`, {

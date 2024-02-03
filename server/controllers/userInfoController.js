@@ -9,7 +9,6 @@ const saveUserInfo = async (req, res) => {
       imageFile: req.body.imageFile,
       user_id: user_id
     });
-    
     const saved = await userInfo.save();
     res.status(200).json({ msg : `saved user information: ${saved}` });
   }
@@ -46,7 +45,7 @@ const updateUserInfo = async (req, res) => {
     };
  
     const updated = await UserInfo.updateOne({user_id: user_id}, {$set: req.body});
-    res.status(200).json({ reponse : { msg: `Updated`, updates: updated}});
+    res.status(200).json({ response : { msg: `Updated`, updates: updated}});
   }
   catch(err) {
     res.status(400).json({ error: err.message });
