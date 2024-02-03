@@ -63,6 +63,7 @@ export default function UpdateCreds({ updatesPerformed }) {
               <div className='email-container'>
                 <p>Email:</p>
                 <input 
+                  data-testid='email'
                   type='text'
                   id='email'
                   placeholder={user.email}
@@ -72,6 +73,7 @@ export default function UpdateCreds({ updatesPerformed }) {
               <div className='password-container'>
                 <p>Password:</p>
                 <input 
+                  data-testid='password'
                   type='password'
                   id='password'
                   onChange={(e) => setCredentials({...credentials, password: e.target.value})}
@@ -80,6 +82,7 @@ export default function UpdateCreds({ updatesPerformed }) {
               <div className='confirm-container'>
                 <p>Confirm Password:</p>
                 <input 
+                  data-testid='confirm_password'
                   type='password'
                   id='confirm-password'
                   onChange={(e) => setCredentials({...credentials, confirmPass: e.target.value})}

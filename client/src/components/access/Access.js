@@ -5,7 +5,7 @@ import { Logout } from '../utils/access/logout';
 import { useAuthContext } from '../utils/access/useAuthContext';
 import PropTypes from 'prop-types';
 
-export default function Access({show, loggedInClicked, loggedOutClicked, modalClicked}) {
+export default function Access({show, loggedInClicked, loggedOutClicked, modalClicked }) {
   const [toggleModal, setToggleModal] = useState(false);
   const { user } = useAuthContext();
   const { logout } = Logout();

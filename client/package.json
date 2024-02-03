@@ -27,6 +27,14 @@
       "react-app/jest"
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js",
+      "^axios$": "axios/dist/node/axios.cjs",
+      "testEnvironment": "jsdom"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -52,6 +60,8 @@
     "eslint-plugin-jest": "^27.6.3",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-react": "^7.33.0",
-    "jest": "^27.5.1"
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
+    "jsdom": "^24.0.0"
   }
 }

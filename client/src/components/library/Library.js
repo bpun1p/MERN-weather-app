@@ -89,7 +89,7 @@ export default function MyLibrary() {
               <td className='forecast-data data'>
                 {accumulateForecastData(weather.forecast)}
               </td>
-              <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' alt='trash-icon' />
+              <img src={Trash} onClick={() => handleDelete(weather.id)} className='trash-icon' data-testid="trash-icon" alt='trash-icon' />
             </tr>
           );
         }
