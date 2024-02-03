@@ -27,8 +27,8 @@ describe('full flow test - update user credentials', () => {
     fireEvent.click(screen.getByRole('button', {name: 'Sign Up'}));
 
     await waitFor(() => {
-      expect(screen.getByRole('button', {name: 'Log out'}).toBeInTheDocument();
-      exepct(screen.getByText(email)).toBeInTheDocument();
+      expect(screen.getByRole('button', {name: 'Log out'}).toBeInTheDocument());
+      expect(screen.getByText(email)).toBeInTheDocument();
     });
     //change users email and password
     fireEvent.click(profileNavBtnEl);
