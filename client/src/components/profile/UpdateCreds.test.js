@@ -10,6 +10,7 @@ describe('full flow test - update user credentials', () => {
   });
   afterAll(() => {
     localStorage.clear();
+    cleanup();
   });
   it('creates a new user, changes users email and password, log in with updated email/password', async () => {
     let email = 'test@example.com';
@@ -50,12 +51,12 @@ describe('full flow test - update user credentials', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Updated').toBeInTheDocument());
-      exoect(screen.getByClassName('access_email').toHaveTextContent(updatedEmail));
+      expect(screen.getByClassName('access_email').toHaveTextContent(updatedEmail));
     });
     //login with updated email and password
     fireEvent.click(screen.getByRole('button', {name: 'Log out'}));
     
-    let accessBtnEl = screen.getByRole('button', {name: 'Access'})
+    let accessBtnEl = screen.getByRole('button', {name: 'Access'});
     await waitFor(() => expect(accessBtnEl).toBeInTheDocument());
 
     fireEvent.click(accessBtnEl);
